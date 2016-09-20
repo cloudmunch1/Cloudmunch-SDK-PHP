@@ -420,11 +420,11 @@ class EnvironmentHelper {
         $tiers = $envdetails->tiers;
         $assetNames = array ();
         foreach ( $tiers as $tier ) {
-            foreach ( $tier as  $value ) {
-                $assets = $value->assets;
+           
+                $assets =(array) $tier->assets;
                 
                 array_merge ( $assetNames, $assets );
-            }
+           
         }
         $assetthelper = new AssetHelper ( $this->appContext, $this->logHelper );
         $assetsDetail = array ();

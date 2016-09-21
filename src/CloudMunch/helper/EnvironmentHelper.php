@@ -51,11 +51,11 @@ class EnvironmentHelper {
         if ($filterdata !== null) {
             $querystring = "filter=" . json_encode ( $filterdata );
         }
-        $serverurl = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . "/environments";
+        $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/environments";
         
         $environmentArray = $this->cmDataManager->getDataForContext ( $serverurl, $this->appContext->getAPIKey (), $querystring );
         if ($environmentArray == false) {
-            $this->logHelper->log ( DEBUG, DATAERROR );
+            $this->logHelper->log ( DEBUG, static::DATAERROR );
             return false;
         }
         
@@ -78,11 +78,11 @@ class EnvironmentHelper {
             $querystring = "filter=" . json_encode ( $filterdata );
         }
         
-        $serverurl = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . ENVIRONMENTS . $environmentID;
+        $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
         $environmentArray = $this->cmDataManager->getDataForContext ( $serverurl, $this->appContext->getAPIKey (), $querystring );
         
         if ($environmentArray == false) {
-            $this->logHelper->log ( DEBUG, DATAERROR );
+            $this->logHelper->log ( DEBUG, static::DATAERROR );
             return false;
         }
         
@@ -109,7 +109,7 @@ class EnvironmentHelper {
             $this->logHelper->log ( DEBUG, "Environment name and status need to be provided" );
             return false;
         }
-
+        $this->logHelper->log ( INFO,$environmentStatus);
         $stage = $this->setStage($environmentData);
         
         $environmentData[stage] = [];
@@ -135,7 +135,7 @@ class EnvironmentHelper {
         
         $comment = "Adding environment with name $environmentName";
         
-        $serverurl = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . "/environments";
+        $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/environments";
         $retArray = $this->cmDataManager->putDataForContext ( $serverurl, $this->appContext->getAPIKey (), $environmentData, $comment );
         
         if ($retArray === false) {
@@ -153,15 +153,15 @@ class EnvironmentHelper {
      */
 
     function setStage($data){
-        if (is_array($data) && isset($data[STAGE]) && !empty($data[STAGE]) && !is_null($data[STAGE])) {
+        if (is_array($data) && isset($data[static::STAGE]) && !empty($data[static::STAGE]) && !is_null($data[static::STAGE])) {
             // return the same if stage is already set with required format
-            if (is_array($data[STAGE]) || is_object($data[STAGE])){
-                return $data[STAGE];
+            if (is_array($data[static::STAGE]) || is_object($data[static::STAGE])){
+                return $data[static::STAGE];
             } else {
-                $stage = $this->getStage("id", $data[STAGE]);
+                $stage = $this->getStage("id", $data[static::STAGE]);
                 // if name is set as value
                 if (is_null($stage)) {
-                    $stage = $this->getStage("name", $data[STAGE]);
+                    $stage = $this->getStage("name", $data[static::STAGE]);
                 }
                 // set to default stage
                 if (is_null($stage)) {
@@ -184,7 +184,7 @@ class EnvironmentHelper {
      */
 
     function getStage($key, $invalue){
-        $url    = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . "/stages" ;
+        $url    = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/stages" ;
         $data   = $this->cmDataManager->getDataForContext($url, $this->appContext->getAPIKey(), null);
         $stages = $data->data;
         $stageDetails = [];
@@ -209,7 +209,7 @@ class EnvironmentHelper {
      *          JsonObject Environment Data
      */
     function updateEnvironment($environmentID, $environmentData, $comment = null) {
-        $serverurl = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . ENVIRONMENTS . $environmentID;
+        $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
         $this->appContext->setEnvironment ( $environmentID );
         $this->cmDataManager->updateDataForContext ( $serverurl, $this->appContext->getAPIKey (), $environmentData, $comment );
     }
@@ -393,11 +393,11 @@ class EnvironmentHelper {
      * @return boolean
      */
     function checkIfEnvironmentExists($environmentID) {
-        $serverurl = $this->appContext->getMasterURL () . APPLICATIONS . $this->appContext->getProject () . ENVIRONMENTS . $environmentID;
+        $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
         
         $environmentArray = $this->cmDataManager->getDataForContext ( $serverurl, $this->appContext->getAPIKey (), "" );
         if ($environmentArray === false) {
-            $this->logHelper->log ( DEBUG, DATAERROR );
+            $this->logHelper->log ( DEBUG, static::DATAERROR );
             return false;
         }
         

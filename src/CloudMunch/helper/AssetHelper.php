@@ -49,7 +49,7 @@ function getAsset($assetID,$filerdata){
     if($filerdata !== null){
         $querystring="filter=".json_encode($filerdata);
     }
-    $serverurl=$this->appContext->getMasterURL().APPLICATIONS.$this->appContext->getProject().ASSETS.$assetID;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject().static::ASSETS.$assetID;
     
     $assetArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(),$querystring);
     if(is_bool ($assetArray) && !$assetArray){
@@ -90,7 +90,7 @@ function  addAsset($assetname,$assettype,$assetStatus,$assetExternalRef,$assetDa
     $assetData[type]=$assettype;
     $assetData[status]=$assetStatus;
     $assetData[external_reference]=$assetExternalRef;
-    $serverurl=$this->appContext->getMasterURL().APPLICATIONS.$this->appContext->getProject().ASSETS;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject().static::ASSETS;
     $retArray=$this->cmDataManager->putDataForContext($serverurl,$this->appContext->getAPIKey(),$assetData);
     
     if($retArray===false){
@@ -108,7 +108,7 @@ function  addAsset($assetname,$assettype,$assetStatus,$assetExternalRef,$assetDa
  * @param JsonObject Asset Data
  */
 function  updateAsset($assetID,$assetData){
-    $serverurl=$this->appContext->getMasterURL().APPLICATIONS.$this->appContext->getProject().ASSETS.$assetID;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject().static::ASSETS.$assetID;
     
     $this->cmDataManager->updateDataForContext($serverurl,$this->appContext->getAPIKey(),$assetData);
 
@@ -119,7 +119,7 @@ function  updateAsset($assetID,$assetData){
  * @param String Asset ID
  */
 function deleteAsset($assetID){
-    $serverurl=$this->appContext->getMasterURL().APPLICATIONS.$this->appContext->getProject().ASSETS.$assetID;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject().static::ASSETS.$assetID;
     
     $this->cmDataManager->deleteDataForContext($serverurl,$this->appContext->getAPIKey());
 }
@@ -146,7 +146,7 @@ function updateStatus($assetID,$status){
  * @return boolean
  */
 function checkIfAssetExists($assetID){
-    $serverurl=$this->appContext->getMasterURL().APPLICATIONS.$this->appContext->getProject().ASSETS.$assetID;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject().static::ASSETS.$assetID;
     
     $assetArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(),"");
     if($assetArray === false){

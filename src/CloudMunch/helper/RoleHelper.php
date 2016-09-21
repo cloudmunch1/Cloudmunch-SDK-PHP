@@ -61,7 +61,7 @@ class RoleHelper{
             $querystring = "filter=".json_encode($filterdata);
         }
 
-        $serverurl = $this->appContext->getMasterURL() . APPLICATIONS . $this->appContext->getProject() . "/tiers";
+        $serverurl = $this->appContext->getMasterURL() . static::APPLICATIONS . $this->appContext->getProject() . "/tiers";
         $roleArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(), $querystring);
 
         if ($roleArray == false) {
@@ -88,7 +88,7 @@ class RoleHelper{
             $querystring = "filter=" . json_encode($filterdata);
         }
     
-        $serverurl = $this->appContext->getMasterURL() . APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;
+        $serverurl = $this->appContext->getMasterURL() . static::APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;
         $roleArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(), $querystring);
         
         if ($roleArray === false) {
@@ -118,7 +118,7 @@ class RoleHelper{
         }
         
         $roleData[name] = $roleName;
-        $serverurl      = $this->appContext->getMasterURL() . APPLICATIONS . $this->appContext->getProject() . "/tiers";
+        $serverurl      = $this->appContext->getMasterURL() . static::APPLICATIONS . $this->appContext->getProject() . "/tiers";
         $retArray       = $this->cmDataManager->putDataForContext($serverurl, $this->appContext->getAPIKey(), $roleData);
         if ($retArray === false) {
             return false;
@@ -134,7 +134,7 @@ class RoleHelper{
      */
     function  updateRole($roleID, $roleData = null)
     {
-        $serverurl = $this->appContext->getMasterURL() . APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;
+        $serverurl = $this->appContext->getMasterURL() . static::APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;
         
         $this->cmDataManager->putDataForContext($serverurl, $this->appContext->getAPIKey(), $roleData);
 
@@ -147,7 +147,7 @@ class RoleHelper{
      */
     function checkIfRoleExists($roleID)
     {
-        $serverurl = $this->appContext->getMasterURL() . APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;      
+        $serverurl = $this->appContext->getMasterURL() . static::APPLICATIONS . $this->appContext->getProject() . "/tiers/" . $roleID;      
         $roleArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(), "");
 
         if ($roleArray === false) {

@@ -31,11 +31,13 @@ class EnvironmentHelper {
     private $roleHelper = null;
     private $defaultRole = "default";
     private $defaultStage = "dev";
+    private $assetHelper=null;
     public function __construct($appContext, $logHandler) {
         $this->appContext = $appContext;
         $this->logHelper = $logHandler;
         $this->cmDataManager = new CMDataManager ( $this->logHelper, $appContext );
         $this->roleHelper = new RoleHelper ( $appContext, $this->logHelper );
+        $this->assetHelper=new AssetHelper ( $this->appContext, $this->logHelper );
     }
     
     /**
@@ -426,11 +428,11 @@ class EnvironmentHelper {
                 array_merge ( $assetNames, $assets );
            
         }
-        $assetthelper = new AssetHelper ( $this->appContext, $this->logHelper );
+       
         $assetsDetail = array ();
         foreach ( $assetNames as $assetName ) {
             
-            $data = $assetthelper->getAsset ( $assetName, null );
+            $data = $this->assetHelper->getAsset ( $assetName, null );
             array_push ( $assetsDetail, $data );
         }
         return $assetsDetail;

@@ -332,7 +332,24 @@ class AppAbstractTest extends PHPUnit_Framework_TestCase
 		$this->appAbstract->getProcessInput();
 	
 	}
+	/**
+	 * @covers CloudMunch\AppAbstract::getProcessInput
+	 */
+	public function test_getProcessInputwithparam(){
+		$this->appAbstract = $this->getMockBuilder("CloudMunch\AppAbstract")
+		->setMethods(array( DESTRUCT))
+		->getMockForAbstractClass();
 	
+		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+		->getMock();
+	
+		$this->appAbstract->setAppContext($appcontext);
+		$this->appAbstract->createLogHandler();
+		$paraarray=array("providername"=>"test");
+		$this->appAbstract->setParameterObject($paraarray);
+		$this->appAbstract->getProcessInput();
+	
+	}
 	
 	/**
 	 * @covers CloudMunch\AppAbstract::performAppcompletion
@@ -376,7 +393,8 @@ class AppAbstractTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @covers CloudMunch\AppAbstract::outputPipelineVariablesArray
 	 */
-	public function outputPipelineVariablesArray(){
+	public function test_outputPipelineVariablesArray(){
+		
 		$this->appAbstract = $this->getMockBuilder("CloudMunch\AppAbstract")
 		->setMethods(array( DESTRUCT))
 		->getMockForAbstractClass();
@@ -391,6 +409,7 @@ class AppAbstractTest extends PHPUnit_Framework_TestCase
 	
 		$this->appAbstract->outputPipelineVariablesArray(array("varname"=> "varvalue"));
 	}
+	
 	
 	
 }

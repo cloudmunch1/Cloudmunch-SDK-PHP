@@ -10,8 +10,10 @@
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/AppContext.php';
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/loghandling/LogHandler.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/loghandling/AppErrorLogHandler.php';
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/helper/EnvironmentHelper.php';
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/helper/RoleHelper.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/helper/AssetHelper.php';
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/datamanager/CMDataManager.php';
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '../src/CloudMunch/helper/NotificationHandler.php';
 use CloudMunch\helper\EnvironmentHelper;
@@ -254,7 +256,7 @@ class EnvironmentHelperTest extends PHPUnit_Framework_TestCase
 	 /**
 	 * @covers CloudMunch\helper\EnvironmentHelper::getAssets
 	 */
-/*	public function test_getAssets(){
+	public function test_getAssets(){
 	
 	
 		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
@@ -273,10 +275,8 @@ class EnvironmentHelperTest extends PHPUnit_Framework_TestCase
 		$environmenthelper->expects($this->any())
 		->method('getEnvironment')
 		->will($this->returnValue(json_decode($tiers)));
-		//$environmenthelper=new EnvironmentHelper($appcontext,$loghandler);
-	
 		$environmenthelper->getAssets("envid");
 		
 	
-	} */
+	} 
 }

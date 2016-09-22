@@ -25,7 +25,7 @@ use Cloudmunch\CloudmunchConstants;
   * servers.
   */
  class ServerHelper{
-
+ const APPLICATIONS="/applications/";
  private $appContext    = null;
  private $cmDataManager = null;
  private $logHelper     = null;
@@ -43,17 +43,16 @@ use Cloudmunch\CloudmunchConstants;
   * @return \CloudMunch\Server
   */
  function getServer($servername){
-    $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/assets/".$servername;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/".$servername;
 
     $deployArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(),null);
     if($deployArray === false){
         return false;
     }
-    
+   
     $detailArray=$deployArray->data;
     
     
-
     
             if(isset($detailArray->$servername->assetname) && $detailArray->$servername->assetname == "ElasticBeanStalk"){
                 $server=new ElasticBeanStalkServer();
@@ -165,7 +164,7 @@ use Cloudmunch\CloudmunchConstants;
     }
 
 
-    $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/assets/";
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/";
     $this->cmDataManager->putDataForContext($serverurl,$this->appContext->getAPIKey(),$dataArray);
  }
  
@@ -209,7 +208,7 @@ use Cloudmunch\CloudmunchConstants;
     
     
 
-    $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/assets/".$serverid;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/".$serverid;
     
     return $this->cmDataManager->updateDataForContext($serverurl,$this->appContext->getAPIKey(),$dataArray);
     
@@ -220,7 +219,7 @@ use Cloudmunch\CloudmunchConstants;
   * @param  $serverName Name of server.
   */
  function deleteServer($assetID){
-    $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/assets/".$assetID;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/".$assetID;
     
     return $this->cmDataManager->deleteDataForContext($serverurl,$this->appContext->getAPIKey());
     
@@ -232,7 +231,7 @@ use Cloudmunch\CloudmunchConstants;
   * @return boolean
   */
  function checkServerExists($servername){
-    $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/assets/".$servername;
+    $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/".$servername;
     $deployArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(),"");
     if($deployArray === false){
         return false;

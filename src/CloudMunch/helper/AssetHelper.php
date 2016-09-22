@@ -98,7 +98,7 @@ function  addAsset($assetname,$assettype,$assetStatus,$assetExternalRef,$assetDa
     }
     
     
-    return $retArray->data;;
+    return $retArray->data;
     
 }
 

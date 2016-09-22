@@ -23,6 +23,7 @@ use CloudMunch\loghandling\LogHandler;
  *         This class provides the service methods for the apps to invoke action on cloudmunch
  */
 class CloudmunchService {
+	const APPLICATIONS="/applications/";
     private $appContext = null;
     private $cmDataManager;
     private $keyArray = array ();
@@ -98,7 +99,7 @@ class CloudmunchService {
         
 
         if (is_array($contextArray) && count($contextArray) > 0) {
-            $serverurl = $this->appContext->getMasterURL()."/applications/".$this->appContext->getProject();
+            $serverurl = $this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject();
 
             foreach($contextArray as $key => $value) {
                 if(!is_null($value) && !empty($value)) {
@@ -136,7 +137,7 @@ class CloudmunchService {
         $querystring = "";
         
         if (is_array($contextArray) && count($contextArray) > 0){
-            $serverurl = $this->appContext->getMasterURL()."/applications/".$this->appContext->getProject();
+            $serverurl = $this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject();
             
             foreach ($contextArray as $key => $value) {
                 if( !is_null($value) && !empty($value))
@@ -193,7 +194,7 @@ class CloudmunchService {
         if($filterdata !== null){
             $querystring="filter=".json_encode($filterdata);
         }
-        $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/".$contextid;
+        $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/".$contextid;
         
         $dataArray = $this->cmDataManager->getDataForContext($serverurl, $this->appContext->getAPIKey(),$querystring);
         if(is_bool ($dataArray ) && !$dataArray){
@@ -219,11 +220,11 @@ class CloudmunchService {
      * @return array data
      */
     public function updateCloudmunchData($context,$contextid,$data){
-        $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/";
+        $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/";
         if(empty($contextid)){
-            $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/";
+            $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/";
         }else{
-            $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/".$contextid;
+            $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/".$contextid;
         }
         $retArray = $this->cmDataManager->updateDataForContext($serverurl,$this->appContext->getAPIKey(),$data);
         
@@ -241,7 +242,7 @@ class CloudmunchService {
      * @return array data
      */
     public function addCloudmunchData($context,$data){
-        $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/";
+        $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/";
         
             
         $retArray=$this->cmDataManager->putDataForContext($serverurl,$this->appContext->getAPIKey(),$data);
@@ -260,7 +261,7 @@ class CloudmunchService {
      * @param string $contextid ID of the context.
      */
     public function deleteCloudmunchData($context,$contextid){
-        $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/".$context."/".$contextid;
+        $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/".$context."/".$contextid;
         $result=$this->cmDataManager->deleteDataForContext($serverurl,$this->appContext->getAPIKey());
         if($result === false){
             return false;
@@ -276,7 +277,7 @@ class CloudmunchService {
      * @return string location of the downloaded file
      */
     public function downloadGCRKeys($filekey, $context, $contextid) {
-        $url = $this->appContext->getMasterURL () . "/applications/" . $this->appContext->getProject () . "/" . $context . "/" . $contextid;
+        $url = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/" . $context . "/" . $contextid;
         $querystring = "file=" . $filekey;
     
         $keyString = $this->cmDataManager->downloadGSkey ( $url, $this->appContext->getAPIKey (), $querystring );
@@ -310,7 +311,7 @@ class CloudmunchService {
      * @return string location of the downloaded file
      */
     public function downloadKeys($filekey, $context, $contextid) {
-        $url =  $this->appContext->getMasterURL () . "/applications/" . $this->appContext->getProject () . "/" . $context . "/" . $contextid;
+        $url =  $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/" . $context . "/" . $contextid;
         $querystring = "file=" . $filekey;
         
         $keyString = $this->cmDataManager->getDataForContext ( $url, $this->appContext->getAPIKey (), $querystring );

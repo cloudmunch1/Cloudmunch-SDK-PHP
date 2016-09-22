@@ -41,6 +41,7 @@ class RoleHelper{
     public function isRoleNameUnique($existingRoles, $roleName)
     {
         foreach ($existingRoles as $key => $value) {
+        	
             if($value->name === $roleName){
                 return false;
             }

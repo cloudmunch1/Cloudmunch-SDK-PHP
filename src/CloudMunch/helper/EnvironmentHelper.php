@@ -56,7 +56,7 @@ class EnvironmentHelper {
         $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . "/environments";
         
         $environmentArray = $this->cmDataManager->getDataForContext ( $serverurl, $this->appContext->getAPIKey (), $querystring );
-        if ($environmentArray == false) {
+        if (is_bool($environmentArray)&&(!$environmentArray)) {
             $this->logHelper->log ( DEBUG, static::DATAERROR );
             return false;
         }
@@ -83,7 +83,7 @@ class EnvironmentHelper {
         $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
         $environmentArray = $this->cmDataManager->getDataForContext ( $serverurl, $this->appContext->getAPIKey (), $querystring );
         
-        if ($environmentArray == false) {
+         if (is_bool($environmentArray)&&(!$environmentArray)) {
             $this->logHelper->log ( DEBUG, static::DATAERROR );
             return false;
         }
@@ -125,7 +125,7 @@ class EnvironmentHelper {
                 STATUS_RUNNING_WITH_WARNINGS,
                 STATUS_ACTION_IN_PROGRESS 
         );
-        ;
+       
         if (in_array ( $environmentStatus, $statusconArray )) {
         
             $this->logHelper->log ( DEBUG, "Invalid status provided, valid values are " . STATUS_CREATION_IN_PROGRESS . ", " . STATUS_RUNNING . ", " . STATUS_STOPPED . ", " . STATUS_ACTION_IN_PROGRESS . ", " . STATUS_RUNNING_WITH_WARNINGS . " and " . STATUS_STOPPED_WITH_ERRORS );

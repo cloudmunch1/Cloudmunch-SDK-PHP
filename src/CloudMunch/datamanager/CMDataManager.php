@@ -272,16 +272,7 @@ function downloadFile($url, $apikey, $source, $destination = null){
 
 function do_curl($url, $headers = null, $requestType = null, $data = null, $curlOpts = null)
 {
-    if (!is_scalar($url)) {
-        $parm = json_object($url);
-        if (!empty($parm)) {
-            $url = json_value($parm, "url");
-            $headers = json_value($parm, "headers");
-            $requestType = json_value($parm, "method");
-            $data = json_value($parm, "data");
-            $curlOpts = json_value($parm, "curl_options");
-        }
-    }
+   
     $userAgent = 'curl/7.24.0 (x86_64-redhat-linux-gnu)';
     $userAgent .= ' libcurl/7.24.0 NSS/3.13.5.0 zlib/1.2.5 libidn/1.18 libssh2/1.2.2';
     $ch = curl_init();
@@ -423,60 +414,6 @@ function html2txt($document){
     return $text;
 }
 
-function json_value($json, $key = null, &$path = null, &$save_key = null) {
-    if (is_scalar($json)) {
-        $json = json_object($json);
-    }
-    if (empty($json)) {
-        return null;
-    }
-    if ($key === null) {
-        $key_list = null;
-        foreach($json as $json_key => $json_data) {
-            if ($key_list === null) {
-                $key_list = array();
-            }
-            array_push($key_list, $json_key);
-        }
-        return $key_list;
-    }
 
-    $node_path = null;
-    $wildcard_key = null;
-    $key = trim($key);
-    if (trim($key) === "*") {
-        $result = $json;
-    }
-    elseif ($key === "?") {
-        $first_key = null;
-        foreach($json as $data_key => $data_value) {
-            $first_key = $data_key;
-            break;
-        }
-        return $first_key;
-    }
-    elseif ($key === "??") {
-        $first_key = null;
-        foreach($json as $data_key => $data_value) {
-            if (empty($first_key)) {
-                $first_key = $data_key;
-            }
-            else {
-                if (is_scalar($first_key)) {
-                    $first_key = array($first_key);
-                }
-                array_push($first_key,$data_key);
-            }
-        }
-        return $first_key;
-    }
-    else {
-        $lvl = 0;
-        $result = get_json_value($json, $key, null, $node_path, $wildcard_key, $lvl);
-        $path = $node_path;
-        $save_key = $wildcard_key;
-    }
-    return $result;
-}
 }
 ?>

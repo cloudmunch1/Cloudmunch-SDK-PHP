@@ -163,4 +163,86 @@ class CMDataManagerTest extends PHPUnit_Framework_TestCase
 		
 	}
 	
+	/**
+	 * @covers CloudMunch\datamanager\CMDataManager::json_object
+	 */
+	public function test_json_object(){
+		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+		->getMock();
+	
+		$loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+		->setConstructorArgs(array($appcontext))
+		->getMock();
+	
+		$cmanager=new CMDataManager($loghandler,$appcontext,null);
+		//$url=array("url"=>"testurl","headers"=>"header","method"=>"GET","data"=>array("field"=>"value"),"curl_options"=>array("CURLOPT_USERPWD"=>"test"));
+		$cmanager->json_object(array("field"=>"value"));
+		$cmanager->json_object("{field:value}");
+	
+	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\CMDataManager::json_string
+	 */
+	public function test_json_string(){
+		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+		->getMock();
+	
+		$loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+		->setConstructorArgs(array($appcontext))
+		->getMock();
+	
+		$cmanager=new CMDataManager($loghandler,$appcontext,null);
+		//$url=array("url"=>"testurl","headers"=>"header","method"=>"GET","data"=>array("field"=>"value"),"curl_options"=>array("CURLOPT_USERPWD"=>"test"));
+		$actual=$cmanager->json_string(array("field"=>"value"));
+		
+		$this->assertEquals("{\"field\":\"value\"}",$actual);
+		$actual=$cmanager->json_string("{\"field\":\"value\"}");
+		$this->assertEquals("{\"field\":\"value\"}",$actual);
+	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\CMDataManager::startsWith
+	 */
+	public function test_startsWith(){
+		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+		->getMock();
+	
+		$loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+		->setConstructorArgs(array($appcontext))
+		->getMock();
+	
+		$cmanager=new CMDataManager($loghandler,$appcontext,null);
+		
+		$actual=$cmanager->startsWith("testthis","test");
+		$this->assertTrue($actual);
+	}
+	/**
+	 * @covers CloudMunch\datamanager\CMDataManager::html2txt
+	 */
+	public function test_html2txt(){
+		$appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+		->getMock();
+	
+		$loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+		->setConstructorArgs(array($appcontext))
+		->getMock();
+	
+		$cmanager=new CMDataManager($loghandler,$appcontext,null);
+	
+		$actual=$cmanager->html2txt("<!DOCTYPE html>
+	<html>
+	<body>
+	
+	<h1>My First Heading</h1>
+	
+	<p>My first paragraph.</p>
+	
+	</body>
+	</html>","test");
+		
+		$this->assertContains('My First Heading', $actual);
+	}
+	
+	
 }

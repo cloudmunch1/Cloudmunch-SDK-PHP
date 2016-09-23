@@ -1,7 +1,7 @@
 <?php
-namespace CloudMunch;
+namespace CloudMunch\datamanager;
 
-use CloudMunch\datamanger\Server;
+use CloudMunch\datamanager\Server;
 /*
  * Created on 20-Feb-2015
  *

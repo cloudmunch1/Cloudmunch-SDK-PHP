@@ -109,7 +109,8 @@ use Cloudmunch\CloudmunchConstants;
    */
  function addServer($server,$serverstatus,$docker = false){
     
-    if(empty($assetStatus)){
+    if(empty($serverstatus)){
+    	
         $this->logHelper->log (ERROR, "Server status need to be provided");
         return false;
     }

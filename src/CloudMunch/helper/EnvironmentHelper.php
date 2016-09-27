@@ -13,10 +13,14 @@ use CloudMunch\datamanager\CMDataManager;
 use CloudMunch\AppContext;
 use CloudMunch\loghandling\LogHandler;
 use Cloudmunch\CloudmunchConstants;
-
 /**
+ * Class EnvironmentHelper
  * This is a helper class for environments. User can manage environments in cloudmunch using this helper.
+ *
+ * @package CloudMunch\helper
+ * @author Rosmi
  */
+
 class EnvironmentHelper {
 	const APPLICATIONS="/applications/";
 	
@@ -25,13 +29,54 @@ class EnvironmentHelper {
 	const ENVIRONMENTS="/environments/";
 	
 	const STAGE="stage";
+	
+	/**
+	 * 
+	 * @var CloudMunch\AppContext Reference to AppContext object.
+	 */
     private $appContext = null;
+    
+    /**
+     * 
+     * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
+     */
     private $cmDataManager = null;
+    
+    /**
+     * 
+     * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+     */
     private $logHelper = null;
+    
+    /**
+     * 
+     * @var CloudMunch\helper\RoleHelper Reference to RoleHelper object.
+     */
     private $roleHelper = null;
+    
+    /**
+     * 
+     * @var string Default role.
+     */
     private $defaultRole = "default";
+    
+    /**
+     * 
+     * @var string Default stage.
+     */
     private $defaultStage = "dev";
+    
+    /**
+     * 
+     * @var CloudMunch\helper\AssetHelper Reference to AssetHelper object.
+     */
     private $assetHelper=null;
+    
+    /**
+     * 
+     * @param AppContext $appContext
+     * @param  LogHandler $logHandler
+     */
     public function __construct($appContext, $logHandler) {
         $this->appContext = $appContext;
         $this->logHelper = $logHandler;
@@ -41,7 +86,7 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * Get existing environment based on the filter.
      * @param
      *          Json Object $filterdata In the format {"filterfield":"=value"}
      * @return json object environmentdetails
@@ -66,11 +111,11 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * Get the given environment details.
      * @param String $environmentID         
      * @param
      *          Json Object $filterdata In the format {"filterfield":"=value"}
-     * @return json object environmentdetails
+     * @return json object environment details
      *        
      */
     function getEnvironment($environmentID, $filterdata) {
@@ -98,13 +143,14 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * Add the given environment to cloudmunch.
      * @param string $environmentName
      *          Name of the environment
      * @param string $environmentStatus
      *          Environment status ,valid values are success,failed,in-progress
      * @param array $environmentData
      *          Array of environment properties
+     * @return   array Details of environment which got added.      
      */
     function addEnvironment($environmentName, $environmentStatus, $environmentData) {
         if (empty ( $environmentName ) || (empty ( $environmentStatus ))) {
@@ -150,8 +196,9 @@ class EnvironmentHelper {
     }
     
     /**
-     *
-     * @param   array  data
+     * This method to check and retreive stage details in the given array.
+     * @param   array  $data
+     * @return  array stage details
      */
 
     function setStage($data){
@@ -178,11 +225,12 @@ class EnvironmentHelper {
     }
 
     /**
-     *
+     * This method to check and retreive stage details in the given array.
      * @param
      *          String  key
      * @param
      *          String  value
+     *  @return  array stage details        
      */
 
     function getStage($key, $invalue){
@@ -204,11 +252,12 @@ class EnvironmentHelper {
     }
 
     /**
-     *
+     * This method updates the given environment with given data. 
      * @param
-     *          String Environment ID
+     *          string $environmentID Environment ID
      * @param
-     *          JsonObject Environment Data
+     *          JsonObject $environmentData Environment Data
+     * @param string  $comment comment for updation       
      */
     function updateEnvironment($environmentID, $environmentData, $comment = null) {
         $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
@@ -217,11 +266,11 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * This method updates the environment url of the given environment.
      * @param
-     *          String Environment ID
+     *          string $environmentID Environment ID
      * @param
-     *          URL Environment Data
+     *          string $environmentURL URL Environment Data
      */
     function updateEnvironmentURL($environmentID, $environmentURL) {
         if (is_null ( $environmentURL ) || ! isset ( $environmentURL ) || empty ( $environmentURL )) {
@@ -237,11 +286,11 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * This method updates the build version of the given environment.
      * @param
-     *          String Environment ID
+     *          string  $environmentID Environment ID
      * @param
-     *          URL Environment Data
+     *          string $buildNumber build number
      */
     function updateEnvironmentBuildVersion($environmentID, $buildNumber) {
         if (is_null ( $buildNumber ) || ! isset ( $buildNumber ) || empty ( $buildNumber )) {
@@ -260,13 +309,13 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * This method adds given array of assets to an environment. 
      * @param
-     *          String Environment ID
+     *          string $environmentID Environment ID
      * @param
-     *          Array AssetArray
+     *          array $assetArray AssetArray
      * @param
-     *          String Role Id
+     *          string $roleID Role Id
      */
     function updateAsset($environmentID, $assetArray, $roleID = null) {
         if (is_null ( $assetArray ) || ! isset ( $assetArray ) || empty ( $assetArray )) {
@@ -340,11 +389,11 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * This method updates some variables to an environment.
      * @param
-     *          String environmentID
+     *          string $environmentID environmentID
      * @param
-     *          array key value pairs to be updated to environment details
+     *          array $variables key value pairs to be updated to environment details
      */
     function updateVariables($environmentID, $variables) {
         if (is_null ( $environmentID )) {
@@ -359,11 +408,11 @@ class EnvironmentHelper {
     }
     
     /**
-     *
+     * This method updates status of an environment.
      * @param
-     *          String Environment ID
+     *          string $environmentID Environment ID
      * @param
-     *          String Environment status
+     *          string $status Environment status
      */
     function updateStatus($environmentID, $status) {
         $statusconArray = array (
@@ -391,8 +440,8 @@ class EnvironmentHelper {
     /**
      * Checks if Environment exists in cloudmunch.
      * 
-     * @param string $environmentID         
-     * @return boolean
+     * @param string $environmentID  Environment ID       
+     * @return boolean True if environment exists.
      */
     function checkIfEnvironmentExists($environmentID) {
         $serverurl = $this->appContext->getMasterURL () . static::APPLICATIONS . $this->appContext->getProject () . static::ENVIRONMENTS . $environmentID;
@@ -413,9 +462,9 @@ class EnvironmentHelper {
         return true;
     }
     /**
-     *
-     * @param string $environmentID         
-     * @return array Assetdetails
+     * This method returns the details of assets belonging to the given environment.
+     * @param string $environmentID  Environment ID       
+     * @return array Asset details
      */
     function getAssets($environmentID) {
         $envdetails = $this->getEnvironment ( $environmentID, null );
@@ -438,10 +487,10 @@ class EnvironmentHelper {
         return $assetsDetail;
     }
     /**
-     *
-     * @param string $environmentID         
-     * @param string $assetID
-     *          Deletes the given asset from environment
+     * This method deletes the given asset from an environment.
+     * @param string $environmentID   Environment ID      
+     * @param string $assetID AssetID
+     *         
      */
     function deleteAsset($environmentID, $assetID) {
         

@@ -50,7 +50,7 @@ class RoleHelper{
     }
 
     /**
-     * 
+     * Get details of all roles based on the filter criteria.
      * @param  Json Object $filterdata In the format {"filterfield":"=value"}
      * @return json object roledetails
      * 
@@ -75,7 +75,7 @@ class RoleHelper{
     }
 
     /**
-     * 
+     * Retrieve role details of the given ID.
      * @param  String  $roleID
      * @param  Json Object $filterdata In the format {"filterfield":"=value"}
      * @return json object roledetails
@@ -106,7 +106,7 @@ class RoleHelper{
     }
 
     /**
-     * 
+     * Add a new role to application.
      * @param string $roleName Name of the role
      * @param string $role_status Role status ,valid values are success,failed,in-progress
      * @param array  $roleData Array of role properties
@@ -129,7 +129,7 @@ class RoleHelper{
     }
 
     /**
-     * 
+     * Updates role with given data.
      * @param String Role ID
      * @param JsonObject Role Data
      */

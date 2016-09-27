@@ -38,9 +38,9 @@ class AssetHelper{
     
     }
     /**
-     * 
+     * This method retrieves Asset details.
      * @param String  $assetID
-     * $param Json Object $filerdata In the format {"filterfield":"=value"}
+     * @param Json Object $filerdata In the format {"filterfield":"=value"}
      * @return  json object assetdetails
      * 
      */
@@ -70,8 +70,10 @@ function getAsset($assetID,$filerdata){
  * 
  * @param string $assetname Name of the asset
  * @param string $assettype Type of asset
- * * @param string $assetStatus Asset status ,valid values are STATUS_RUNNING,STATUS_STOPPED,STATUS_NIL
+ * @param string $assetStatus Asset status ,valid values are STATUS_RUNNING,STATUS_STOPPED,STATUS_NIL
+ * @param string $assetExternalRef ID of any referenced asset.
  * @param array $assetData Array of asset properties
+ * @return json object data {"id":"contextid","name":"contextname"}
  */
 function  addAsset($assetname,$assettype,$assetStatus,$assetExternalRef,$assetData){
     if(empty($assetname)||(empty($assettype))||(empty($assetStatus))){
@@ -103,7 +105,7 @@ function  addAsset($assetname,$assettype,$assetStatus,$assetExternalRef,$assetDa
 }
 
 /**
- * 
+ * Updates the given asset.
  * @param String Asset ID
  * @param JsonObject Asset Data
  */
@@ -115,7 +117,7 @@ function  updateAsset($assetID,$assetData){
 }
 
 /**
- * 
+ * Deletes the given asset.
  * @param String Asset ID
  */
 function deleteAsset($assetID){
@@ -125,9 +127,9 @@ function deleteAsset($assetID){
 }
 
 /**
- * 
+ * Update status of given asset.
  * @param String Asset ID
- * @param String Asset status
+ * @param String Asset status 
  */
 function updateStatus($assetID,$status){
     $statusconArray=array(STATUS_RUNNING,STATUS_STOPPED,STATUS_NIL);

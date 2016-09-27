@@ -559,4 +559,44 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$actual=$server->getInstancesize();
 		$this->assertEquals("micro",$actual);
 	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\Server::getEmailID
+	 */
+	public function test_getEmailID(){
+		$server=new Server();
+		$server->setEmailID("emailid");
+		$actual=$server->getEmailID();
+		$this->assertEquals("emailid",$actual);
+	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\Server::setEmailID
+	 */
+	public function test_setEmailID(){
+		$server=new Server();
+		$server->setEmailID("emailid");
+		$actual=$server->getEmailID();
+		$this->assertEquals("emailid",$actual);
+	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\Server::getPassword
+	 */
+	public function test_getPassword(){
+		$server=new Server();
+		$server->setPassword("pass");
+		$actual=$server->getPassword();
+		$this->assertEquals("pass",$actual);
+	}
+	
+	/**
+	 * @covers CloudMunch\datamanager\Server::setPassword
+	 */
+	public function test_setPassword(){
+		$server=new Server();
+		$server->setPassword("pass");
+		$actual=$server->getPassword();
+		$this->assertEquals("pass",$actual);
+	}
 }

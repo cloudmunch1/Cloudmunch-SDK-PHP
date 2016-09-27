@@ -15,16 +15,33 @@ use CloudMunch\AppContext;
 use CloudMunch\loghandling\LogHandler;
 use Cloudmunch\CloudmunchConstants;
 /**
- * Class CloudmunchService
- * 
+ * Class NotificationHandler
+ * This class provides the service methods for the apps to send notifications  on cloudmunch
  * @package CloudMunch
  * @author Rosmi
- *         This class provides the service methods for the apps to invoke action on cloudmunch
+ *         
  */
 class NotificationHandler {
+	/**
+	 *
+	 * @var CloudMunch\AppContext Reference to AppContext object.
+	 */
     private $appContext = null;
+    
+    /**
+     *
+     * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
+     */
     private $cmDataManager;
+    
+    /**
+     *
+     * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+     */
     private $logHelper=null;
+    
+    
+    
     public function __construct($logHandler, $appContext, $cmDataManager = null) {
         $this->appContext = $appContext;
         $this->logHelper  = $logHandler;

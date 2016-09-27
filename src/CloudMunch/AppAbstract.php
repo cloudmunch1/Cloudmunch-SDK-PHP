@@ -115,7 +115,7 @@ abstract class AppAbstract {
             $masterurl = $varParams->$arg10;
             $appContext->setMasterURL ( $masterurl );
             
-            $appContext->setIntegrations ( $integrations );
+           
             $arg2 = '{domain}';
             $domainName = $varParams->$arg2;
             $appContext->setDomainName ( $domainName );
@@ -211,15 +211,10 @@ abstract class AppAbstract {
     }
     
     /**
-     * This method returns the plugin context object that contains all environment variables.
+     * This method returns the plugin context object that contains all environment context data of plugin execution.
      * 
      * @return AppContext appContext
-     *         List of environment variables that can be retreived be retreived from App context are,
-     *         1.MasterURL: This is the cloudmunch service URL.
-     *         2.cloudproviders: This is a json object that has reference to the integrations.
-     *         3.domain: Domain to which your project belongs to.
-     *         4.ProjectName: Name of the current project.
-     *         5.JobName: Name of the current job.
+     *
      */
     function getAppContext() {
         return $this->appContext;
@@ -252,7 +247,7 @@ abstract class AppAbstract {
      * This method gives reference to EnvironmentHelper,this helper class has all the methods to get/set data on
      * assets registered with cloudmunch.
      * 
-     * @return EnvironmentHelper environment helper
+     * @return InsightHelper insight helper
      */
     function getCloudmunchInsightHelper() {
         return new InsightHelper ( $this->appContext,$this->logHandler );
@@ -366,7 +361,6 @@ abstract class AppAbstract {
         
         return array (
                 "appInput" => $this->getParameterObject (),
-                "cloudservice" => $cloudservice,
                 "integrationdetails" => $integrationService 
         );
         
@@ -435,9 +429,8 @@ abstract class AppAbstract {
      * This method outputs variables from the plugin
      * 
      * @param
-     *          string variablename : Name of the variable to be output.
-     * @param
-     *          string variable : Value of the variable.
+     *          array variablesArray : Array of key value pair for variables to be output
+     *
      */
     public function outputPipelineVariablesArray($variablesArray) {
         // check if variable key is surrounded by {} and add if not present
@@ -479,7 +472,9 @@ abstract class AppAbstract {
         
         
     }
-
+    /**
+     * This is a lifecycle method invoked at the completion of the plugin.
+     */
     public function __destruct(){
         $this->performAppcompletion();
     }

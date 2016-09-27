@@ -34,7 +34,7 @@ class CloudmunchService {
         $this->cmDataManager = new CMDataManager ($this->logHelper, $this->appContext);
     }
     /**
-     * This method is to send notification on a selected channel
+     * This method is to send notification on a selected channel.
      * 
      * @param string $message
      *          : Notification message.
@@ -86,10 +86,11 @@ class CloudmunchService {
     
     
     /**
-     * 
-     * @param array $contextArray associative array with key as context and value as its id
-     * @param array $data Data to be updated
-     * @return array data
+     * This method is used to update data for a particular context.
+     * @param array $contextArray associative array with key as context and value as its id.
+     * @param array $data Data to be updated.
+     * @param  method for updation, example POST,PATCH.
+     * @return 
      */
     public function updateCustomContextData($contextArray, $data = null, $method = "PATCH"){
         if (is_null($data)) {
@@ -256,7 +257,7 @@ class CloudmunchService {
     }
     
     /**
-     * 
+     * This method deletes the context data of the object with given ID.
      * @param string $context Context for which data has to be deleted.
      * @param string $contextid ID of the context.
      */
@@ -270,7 +271,7 @@ class CloudmunchService {
     }
     
     /**
-     *
+     * This method downloads Google container registry key.
      * @param string $filekey name of the key field
      * @param string $context context of the key
      * @param string $contextid id of the context
@@ -304,7 +305,7 @@ class CloudmunchService {
     }
     
     /**
-     * 
+     * This method downloads key files from cloudmunch.
      * @param string $filekey name of the key field
      * @param string $context context of the key
      * @param string $contextid id of the context
@@ -338,7 +339,7 @@ class CloudmunchService {
     }
     
     /**
-     * This method is invoked on app completion to delete teh downloaded keys
+     * This method is invoked on app completion to delete the downloaded keys
      */
     public function deleteKeys() {
         foreach ( $this->keyArray as $file ) {

@@ -12,80 +12,219 @@ namespace CloudMunch;
 
 /**
  * Class AppContext
+ * This class is the Applictaion Context object that has all the environment variables needed
+ *         for plugin runtime.
  * 
  * @package CloudMunch
  * @author Rosmi
- *         This class is the Applictaion Context object that has all the environment variables needed
- *         for plugin runtime.
  */
 class AppContext {
+	/**
+	 * URL to cloudmunch service
+	 * @var string 
+	 *
+	 */
     private $masterurl = "";
-    private $cloudproviders = "";
+   
+    
+    /**
+     * 
+     * Domain of the current runtime.
+     * @var string
+     */
     private $domainName = "";
+    
+    /**
+     * 
+     * Current application name.
+     *  @var string
+     */
     private $project = "";
+    
+    /**
+     * 
+     * current task name.
+     *  @var string
+     */
     private $job = "";
+    
+    /**
+     * 
+     * Workspace location.
+     *  @var string
+     */
     private $workspaceLocation = "";
+    
+    /**
+     * 
+     * Archive location.
+     *  @var string
+     */
     private $archiveLocation = "";
+    
+    /**
+     * 
+     * Current step id.
+     *  @var string
+     */
     private $stepid = "";
+    
+    /**
+     * 
+     * Target server if selected to execute the job.
+     *  @var string
+     */
     private $targetServer="";
-    private $integrations="";
+   
+    /**
+     * 
+     * Report location.
+     *  @var string
+     */
     private $reportsLocation="";
+    
+    /**
+     * 
+     * Current job run number.
+     *  @var string
+     */
     private $runnumber="";
+    
+    /**
+     * 
+     * API key to connect to cloudmunch service.
+     *  @var string
+     */
     private $apikey="";
+    
+    /**
+     * 
+     * Current step name.
+     *  @var string
+     */
     private $stepname="";
+    
+    /**
+     * 
+     * ID of the environment in which job is executed.
+     *  @var string
+     */
     private $environmentId="";
+    
+    /**
+     * 
+     * Number of main build.
+     *  @var string
+     */
     private $mainbuildnumber="";
+    
+    /**
+     * 
+     * role/tier id
+     *  @var string
+     */
     private $tierid="";
+    
+    /**
+     * 
+     * Log level
+     *  @var string
+     */
     private $logLevel="INFO";
     
+    
+    /**
+     * Get log level of the plugin runtime. Log level that can be either INFO,ERROR,DEBUG
+     * @return string Log level
+     */
     function getLogLevel(){
         return $this->logLevel;
     }
     
+    
+    /**
+     * Set log level of plugin runtime.
+     * @param string $logLevel Log level
+     */
     function setLogLevel($logLevel = "INFO"){
          $this->logLevel = $logLevel;
     }
     
+    
+    /**
+     * Get the main build number of the application.
+     * @return string main build number
+     */
     function getMainbuildnumber(){
         return $this->mainbuildnumber;
     }
     
+    
+    /**
+     * Set the main build number of the application.
+     * @param string $number main build number
+     */
     function setMainbuildnumber($number){
          $this->mainbuildnumber=$number;
     }
     
+    
+    /**
+     * Get the ID of the environment in which the plugin is getting executed.
+     * @return string environment Id
+     * 
+     */
     function getEnvironment(){
         return $this->environmentId;
     }
     
+    /**
+     * Set the ID of the environment in which the plugin is getting executed.
+     * @param string $env Environment ID
+     */
     function setEnvironment($env){
          $this->environmentId=$env;
     }
+    
+    
+    /**
+     * Get the role/applictaion tier.
+     * @return string tier/role id
+     * 
+     */
     function getTier(){
         return $this->tierid;
     }
     
+    
+   /**
+    * Set role/applictaion tier.
+    * @param string $tier tier/role id
+    */
     function setTier($tier){
         $this->tierid=$tier;
     }
+    
+    
     /**
-     * @return Step name
+     * Get the step name.
+     * @return string step name
      */
     function getStepName(){
         return $this->stepname;
     }
     
     /**
-     * 
-     * @param  $step Step name
+     * Set step name
+     * @param string  $step Step name
      */
     function setStepName($step){
         $this->stepname=$step;
     }
     
     /**
-     * 
-     * @return Workspace location of the job
+     * Get workspace location of the job.
+     * @return string workspace location
      */
     function getWorkSpaceLocation() {
         
@@ -93,47 +232,47 @@ class AppContext {
     }
     
     /**
-     * 
-     * @param set  Workspace loctaion
+     * Set workspace location.
+     * @param string $workspaceloc workspace location
      */
     function setWokSpaceLocation($workspaceloc) {
         $this->workspaceLocation=$workspaceloc;
     }
     
     /**
-     * 
-     * @return Archive Location if build run is selected
+     * Archive Location of the build.
+     * @return string archive location
      */
     function getArchiveLocation() {
         return $this->archiveLocation;
     }
     
     /**
-     * 
-     * @param Set archive location
+     * Set archive location of build.
+     * @param string $archiveLoc archive location
      */
     function setArchiveLocation($archiveLoc) {
         $this->archiveLocation=$archiveLoc;
     }
     
     /**
-     * 
-     * @return ID of current step
+     * Get ID of current step.
+     * @return  string step id
      */
     function getStepID() {
         return $this->stepid;
     }
     
     /**
-     * 
-     * @param Set step ID
+     * Set ID of current step.
+     * @param string $stepid step id
      */
     function setStepID($stepid) {
         $this->stepid=$stepid;
     }
      /**
-      * 
-      * @param set Target Server
+      * Set target server ,if selected for the job.
+      * @param string $targetServer  target server
       */
     function setTargetServer($targetServer){
         $this->targetServer=$targetServer;
@@ -141,81 +280,51 @@ class AppContext {
     }
     
     /**
-     * 
-     * @return Get target server
+     * Retrieve target server.
+     * @return string target server
      */
     function getTargetServer(){
         return $this->targetServer;
     
     }
     /**
-     *
-     * @return string masterurl: Cloudmunch service URL.
+     * Get Cloudmunch service URL.
+     * @return string Cloudmunch service URL
      */
     function getMasterURL() {
         return $this->masterurl;
     }
     
-    /**
-     * 
-     * @param Set integration details
-     */
-    function setIntegrations($ints){
-        $this->integrations=$ints;
-    }
     
     /**
-     * @return Integration details
-     */
-    function getIntegrations(){
-        return $this->integrations;
-    }
-    
-    /**
-     *
-     * @param
-     *          string mURL : Cloudmunch service URL.
+     * Set Cloudmunch service URL.
+     * @param string $mURL  Cloudmunch service URL
+     *          
      */
     function setMasterURL($mURL) {
         $this->masterurl = $mURL;
     }
     
+   
     /**
-     *
-     * @return array cloudproviders
-     */
-    function getCloudproviders() {
-        return $this->cloudproviders;
-    }
-    
-    /**
-     *
-     * @param
-     *          array cps provider details.
-     */
-    function setCloudproviders($cps) {
-        $this->cloudproviders = $cps;
-    }
-    
-    /**
-     *
-     * @return string domainName
+     * Get domain name of current application.
+     * @return string domain name
      */
     function getDomainName() {
         return $this->domainName;
     }
     
     /**
-     *
-     * @param
-     *          string dname : domain name
+     * Set domain name of current application. 
+     * @param string $dname  domain name
+     *          
      */
     function setDomainName($dname) {
         $this->domainName = $dname;
     }
     
     /**
-     *
+     * Get name of current application.
      * @return string project
      */
     function getProject() {
@@ -223,71 +332,71 @@ class AppContext {
     }
     
     /**
-     *
-     * @param string $proj          
+     * Set name of current application.
+     * @param string $proj project         
      */
     function setProject($proj) {
         $this->project = $proj;
     }
     
     /**
-     *
-     * @return string $job
+     * Get job name 
+     * @return string job name
      */
     function getJob() {
         return $this->job;
     }
     
     /**
-     *
-     * @param string $job           
+     * Set job name.
+     * @param string $job job name          
      */
     function setJob($job) {
         $this->job = $job;
     }
     
     /**
-     * 
-     * @return reportsLocation
+     * Get report location.
+     * @return string reports location
      */
     function getReportsLocation(){
         return $this->reportsLocation;
     }
     
     /**
-     * 
-     * @param reportsLocation
+     * Set report location.
+     * @param string $reportLoc reports location
      */
     function setReportsLocation($reportLoc){
         $this->reportsLocation=$reportLoc;
     }
     
     /**
-     * 
-     * @return run number
+     * Get rum number of job.
+     * @return string run number
      */
     function getRunNumber(){
         return $this->runnumber;
     }
     
     /**
-     * 
-     * @param  build number
+     * Set rum number of job.
+     * @param  string $runno run number
      */
     function setRunNumber($runno){
         $this->runnumber=$runno;
     }
     /**
-     *
-     * @return API key
+     * Get API key to connect to cloudmunch.
+     * @return string api key
      */
     function getAPIKey(){
         return $this->apikey;
     }
     
     /**
-     *
-     * @param  Set API key
+     * Set API key to connect to cloudmunch.
+     * @param  string $ak api key
      */
     function setAPIKey($ak){
         $this->apikey=$ak;

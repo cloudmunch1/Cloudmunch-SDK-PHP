@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  (c) CloudMunch Inc.
  *  All Rights Reserved
@@ -20,7 +19,7 @@ use Cloudmunch\CloudmunchConstants;
 
 
 /**
- * This is a helper class for environments. User can manage environments in cloudmunch using this helper.
+ *  This is a helper class for environments. User can manage environments in cloudmunch using this helper.
  *
  *  @package CloudMunch
  *  @author Amith <amith@cloudmunch.com>
@@ -49,6 +48,12 @@ class InsightHelper
     private $logHelper = null;
     private $cmService = null;
 
+    /**
+     *  Initialize appcontext and loghandler.
+     *
+     * @param object appContext : data and methods available for this context
+     * @param object logHandler : handler to print differrent types of messages
+     */
     public function __construct($appContext, $logHandler)
     {
         $this->appContext = $appContext;
@@ -58,6 +63,8 @@ class InsightHelper
     }
 
     /**
+     * Get all the resource from CMDB with given type.
+     *
      * @param string $type  type of resource
      *
      * @return array resources available with given type
@@ -81,6 +88,8 @@ class InsightHelper
     /*******************************************************************************/
     
     /**
+     * Get all extracts under provided resource and datastore.
+     * 
      * @param string $insightID
      * @param string $dataStoreID
      * @param array  $queryOptions associative array with key as query key and query value as value
@@ -105,6 +114,8 @@ class InsightHelper
     }
 
     /**
+     * Get all datastores under provided resource.
+     *
      * @param string $insightID
      * @param array  $queryOptions associative array with key as query key and query value as value
      * @param string $dataStoreID
@@ -128,6 +139,8 @@ class InsightHelper
     }
 
     /**
+     * Get all report cards under provided resource and report.
+     *
      * @param string $insightID
      * @param string $reportID
      * @param array  $queryOptions associative array with key as query key and query value as value
@@ -153,6 +166,8 @@ class InsightHelper
     }
 
     /**
+     * Get all reports under provided resource.
+     *
      * @param string $insightID
      * @param array  $queryOptions associative array with key as query key and query value as value
      * @param string $reportID
@@ -176,6 +191,8 @@ class InsightHelper
     }
 
     /**
+     * Get extractID for provided extract name.
+     *
      * @param string $insightID
      * @param string $dataStoreID
      * @param string $extractName
@@ -208,6 +225,8 @@ class InsightHelper
     }
 
     /**
+     * Get dataStoreID for provided datastore name.
+     *
      * @param string $insightID
      * @param string $dataStoreName
      *
@@ -238,6 +257,8 @@ class InsightHelper
     }
 
     /**
+     * Get reportcardID for provided card name.
+     *
      * @param string $insightID
      * @param string $reportID
      * @param string $cardName
@@ -272,6 +293,8 @@ class InsightHelper
     }
 
     /**
+     * Get reportID for provided report name.
+     *
      * @param string $insightID
      * @param string $reportName
      *
@@ -307,8 +330,12 @@ class InsightHelper
     /*******************************************************************************/
 
     /**
+     * Update an extract with provided data.
+     *
      * @param string $insightID
      * @param string $dataStoreID
+     * @param string $extractID
+     * @param string $data
      *
      * @return json object of extract details
      */
@@ -334,8 +361,11 @@ class InsightHelper
     }
 
     /**
+     * Update a report with provided data.
+     *
      * @param string $insightID
      * @param string $dataStoreID
+     * @param string $data
      *
      * @return json object of datastore details
      */
@@ -359,9 +389,12 @@ class InsightHelper
     }
 
     /**
+     * Update a report card with provided data.
+     *
      * @param string $insightID
      * @param string $reportID
      * @param string $cardID
+     * @param string $data
      *
      * @return json object of extract details
      */
@@ -387,8 +420,11 @@ class InsightHelper
     }
 
     /**
+     * Update a report with provided data.
+     *
      * @param string $insightID
      * @param string $reportID
+     * @param string $data
      *
      * @return json object of report details
      */
@@ -418,6 +454,8 @@ class InsightHelper
     /*******************************************************************************/
 
     /**
+     * Create an extract if it does not exist.
+     *
      * @param string $insightID
      * @param string $dataStoreID
      * @param string $extractName
@@ -461,6 +499,8 @@ class InsightHelper
     }
 
     /**
+     * Create a datastore if it does not exist.
+     *
      * @param string $insightID
      * @param string $dataStoreName
      *
@@ -500,6 +540,8 @@ class InsightHelper
     }
 
     /**
+     * Create a report card if it does not exist.
+     *
      * @param string $insightID
      * @param string $reportID
      * @param string $cardName
@@ -542,6 +584,8 @@ class InsightHelper
     }
 
     /**
+     * Create a report if it does not exist.
+     *
      * @param string $insightID
      * @param string $reportName
      *
@@ -582,6 +626,11 @@ class InsightHelper
     /*******************************************************************************/
     /*******************************************************************************/
     
+    /**
+     * Get range of sprints available from jira resource. 
+     *
+     * @return dateRangeForSprints range of sprint dates
+     */
     public function sprint_getDateRangeForAllSprints() {
         $sprintsDetailsArray = $this->sprint_getSprintDetailsFromJiraCMDB();
         $dateRangeForSprints = array();
@@ -600,6 +649,13 @@ class InsightHelper
         }
     }
 
+    /**
+     * Construct an array for sprints with dates. 
+     *
+     * @param array sprintDetailsArray
+     *
+     * @return dateRangeForSprints range of sprint dates
+     */
     public function sprint_getSprintsWithDates($sprintDetailsArray) {
         $sprintHash = array();
         foreach ($sprintDetailsArray as $arrElemHash) {
@@ -622,6 +678,14 @@ class InsightHelper
         return $sprintHash;
     }
 
+    /**
+     * Get filter string with list of dates for a sprint. 
+     *
+     * @param array sprintHash
+     * @param array sprintID
+     *
+     * @return String range of sprint dates
+     */
     public function sprint_giveAFilterStringForASprint($sprintHash, $sprintID) {
         $resultRange = $this->sprint_giveADateRangeOfASprint($sprintHash, $sprintID);
         $timeArray = $resultRange[$sprintID];
@@ -639,6 +703,14 @@ class InsightHelper
         }
     }
 
+    /**
+     * Get range of dates for a sprint. 
+     *
+     * @param array sprintHash
+     * @param array sprintID
+     *
+     * @return Array range of sprint dates
+     */
     public function sprint_giveADateRangeOfASprint($sprintHash, $sprintID) {
         $sprintHashData = $sprintHash;
         if (array_key_exists($sprintID, $sprintHashData)) {
@@ -662,6 +734,10 @@ class InsightHelper
         }
     }
 
+    /**
+     * Get sprint details from jira sotred in CMDB. 
+     * @return raw data from jira extracts
+     */
     public function sprint_getSprintDetailsFromJiraCMDB(){
         list($jiraResourceID, $jiraProjectName, $rapidBoardID, $mvpVersion) = $this->sprint_getJiraProjectNameFromResource("jira");
 
@@ -676,6 +752,15 @@ class InsightHelper
         }
     }
 
+    /**
+     * Get extracts from provided resource. 
+     *
+     * @param String insightOrResourceID
+     * @param String dataStoreName
+     * @param String extractName
+     *
+     * @return array extracts from jira
+     */
     public function sprint_getJiraSprintsData($insightOrResourceID, $dataStoreName, $extractName) {
         $dataStoreID = $this->getInsightDataStoreID($insightOrResourceID, $dataStoreName);
 
@@ -686,6 +771,13 @@ class InsightHelper
         return $this->getInsightDataStoreExtracts($insightOrResourceID,$dataStoreID,$paramHash,'');
     }
 
+    /**
+     * Get extracts from provided resource. 
+     *
+     * @param String jiraResourceType
+     *
+     * @return array extract details from jira
+     */
     public function sprint_getJiraProjectNameFromResource($jiraResourceType) {
         $jiraResourceData = $this->getResources($jiraResourceType);
         if ($jiraResourceData && count($jiraResourceData) > 0) {
@@ -704,6 +796,7 @@ class InsightHelper
      *
      *   @param string projectionUnit  : Projection Unit in Days, Months or Weeks
      *   @param string projectionCount : Projection Count of last data expected
+     *   @param $curr_Date             : Current date
      *
      *   @return array of dates
      */
@@ -758,6 +851,7 @@ class InsightHelper
      *   @param  string resourceID       : id of resource
      *   @param  array  dataStoreName    : data store name from which data needs to be pulled
      *   @param  array  filterFields     : comma seperated string fields to pass as filter in request
+     *   @param  string projectionUnit   : one of the following day,week,month,sprint
      *   @param  string timeArray        : range of dates which will passed as filter
      *   @return array  data             : data recieved from data base
      *                  dataStoreID      : data store id from which data was pulled
@@ -811,9 +905,8 @@ class InsightHelper
     }
 
     /**
-     *   Create report of type lintrend or kanban
+     *   Create report of type lintrend or kanban.
      *
-     *   @param object cmInsightsHelper : Object with insight helpers
      *   @param string resourceID       : id of resource
      *   @param array  dataFromCMDB     : data to be passed for report creation
      *   @param string reportName       : name of report
@@ -824,6 +917,8 @@ class InsightHelper
      *   @param string graphLegendsList : legends displayed in graph
      *   @param string xAxisLabel       : label displayed on x-axis
      *   @param string yAxisLabel       : label displayed on y-axis
+     *   @param string tolerance        : tolerance info
+     *   @param string url              : source url
      */
     public function createLineGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $graphLegendsList = null, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#"){
         $this->logHelper->log("INFO", "Attempting creation of report - $reportName ...");
@@ -848,9 +943,8 @@ class InsightHelper
     }
 
     /**
-     *   Create report of type lintrend or kanban
+     *   Create report of type lintrend or kanban.
      *
-     *   @param object cmInsightsHelper : Object with insight helpers
      *   @param string resourceID       : id of resource
      *   @param array  dataFromCMDB     : data to be passed for report creation
      *   @param string reportName       : name of report
@@ -858,9 +952,8 @@ class InsightHelper
      *   @param string source           : source of generated data
      *   @param string description      : description of report
      *   @param string group            : group to which this card belongs
-     *   @param string graphLegendsList : legends displayed in graph
-     *   @param string xAxisLabel       : label displayed on x-axis
-     *   @param string yAxisLabel       : label displayed on y-axis
+     *   @param string tolerance        : tolerance info
+     *   @param string url              : source url
      */
     public function createKanbanGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $tolerance = null, $url = "#"){
         $this->logHelper->log("INFO", "Attempting creation of report - $reportName ...");
@@ -884,7 +977,7 @@ class InsightHelper
     }
 
     /**
-     *   Contruct Viewcard visualization meta data
+     *   Contruct Viewcard visualization meta data.
      *
      *   @param array graphLegendsList : List of graphs legend
      *
@@ -895,8 +988,16 @@ class InsightHelper
     }
 
     /**
-     *   Construct view card meta data
+     *   Construct view card meta data.
      *   
+     *   @param string cardTitle        : label to be displayed on card
+     *   @param string source           : source of generated data
+     *   @param string description      : description of report
+     *   @param string group            : group to which this card belongs
+     *   @param string xAxisLabel       : label displayed on x-axis
+     *   @param string yAxisLabel       : label displayed on y-axis
+     *   @param string tolerance        : tolerance info
+     *   @param string url              : source url
      *   @return array with Card meta data
      */
     public function linegraph_constructViewcardMeta($cardTitle, $source, $description, $group, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#") {
@@ -927,6 +1028,12 @@ class InsightHelper
     /**
      *   Construct view card meta data
      *   
+     *   @param string cardTitle        : label to be displayed on card
+     *   @param string source           : source of generated data
+     *   @param string description      : description of report
+     *   @param string group            : group to which this card belongs
+     *   @param string tolerance        : tolerance info
+     *   @param string url              : source url
      *   @return array with Card meta data
      */
     public function kanban_constructViewcardMeta($cardTitle, $source, $description, $group, $tolerance = null, $url = "#") {
@@ -955,8 +1062,6 @@ class InsightHelper
     /**
      *   Contruct Viewcard visualization meta data
      *
-     *   @param array graphLegendsList : List of graphs legend
-     *
      *   @return array with visualization map
      */
     public function kanban_constructViewcardVisualizationMeta() {
@@ -969,6 +1074,8 @@ class InsightHelper
      *   @param string resourceID       : id of resource
      *   @param array  data             : data to be stored in database
      *   @param string dataStoreName    : name of data store
+     *   @param string extractName      : name of extract
+     *   @param string additionInfo     : additional info on source 
      */
     public function updateExtract($resourceID, $data, $dataStoreName, $extractName = null, $additionInfo = null){
         $extractName = (is_null($extractName) || empty($extractName)) ? date(static::DATE_VALUE) : $extractName;
@@ -1008,6 +1115,9 @@ class InsightHelper
      * @param  array    data        : data constructed for trend graph
      * @param  integer  upperLimit  : upper limit for change
      * @param  integer  lowerLimit  : lower limit for change
+     * @param  integer  resourceName
+     * @param  integer  cardLabel
+     * @param  integer  source
      * @return array    tolerance   : toleranceState (success, failure, warning, critical)
      *                              : toleranceDescription
      *                              : toleranceHit

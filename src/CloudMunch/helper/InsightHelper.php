@@ -1036,7 +1036,7 @@ class InsightHelper
 
                     if ($change > $upperLimit) {
                         $toleranceFailed = true;
-                        $toleranceMsg    = "- There seems to be a significant change (".$upperLimit.") in $key when compared to previous value, probably needs some intervention.";
+                        $toleranceMsg    = "- There seems to be a significant change (> ".$upperLimit.") in $key when compared to previous value, probably needs some intervention.";
                         $tolerance[static::TOLERANCE_STATE] = 'critical';
                         $tolerance[static::TOLERANCE_HIT]   = isset($tolerance[static::TOLERANCE_HIT]) ? $tolerance[static::TOLERANCE_HIT]." ".$toleranceMsg : $toleranceMsg; 
                     } elseif (($change <= $upperLimit) && ($change >= $lowerLimit)) {

@@ -16,21 +16,29 @@ use CloudMunch\loghandling\LogHandler;
  *
  */
   class IntegrationDataHelper{
+  	
+  	/**
+  	 *
+  	 * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+  	 */
     private $logHelper=null;
     
-    /**
-     * This method process plugin input to retreive the provider details.
-     * @param  $jsonParams Input parameters to the plugin in json format.
-     * @return array $integrationdetails Array containing credentials to connect to the provider.
-     *         
-     */
-  
     
+  
+    /**
+     * 
+     *  @param CloudMunch\loghandling\LogHandler $logHandler
+     */
     public function __construct($logHandler){
      $this->logHelper=  $logHandler;
     }
   
- 
+  /**
+   * Retrieves integration data from the providername passed to plugin
+   * @param CloudMunch\CloudmunchService $cloudmunchservice
+   * @param Json Object $jsonParams
+   * @return array integration details , null if the integration cannot be retrieved.
+   */
   function getIntegrationData($cloudmunchservice,$jsonParams){
     $arg1 = 'providername';
     $provname = $jsonParams-> $arg1;

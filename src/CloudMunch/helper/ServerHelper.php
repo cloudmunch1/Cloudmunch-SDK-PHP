@@ -21,15 +21,38 @@ use Cloudmunch\CloudmunchConstants;
 
  
  /**
+  * Class ServerHelper
   * This is a helper class to perform actions on server like providing methods to add ,read and update 
   * servers.
+  * @package CloudMunch\helper
+  * @author Rosmi
   */
  class ServerHelper{
  const APPLICATIONS="/applications/";
+ 
+ /**
+  *
+  * @var CloudMunch\AppContext Reference to AppContext object.
+  */
  private $appContext    = null;
+ 
+ /**
+  *
+  * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
+  */
  private $cmDataManager = null;
+ 
+ /**
+  *
+  * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+  */
  private $logHelper     = null;
 
+ /**
+  * 
+  * @param CloudMunch\AppContext $appContext
+  * @param CloudMunch\loghandling\LogHandler $logHandler
+  */
   public function __construct($appContext,$logHandler){
     $this->appContext = $appContext;
     $this->logHelper  = $logHandler;
@@ -217,7 +240,7 @@ use Cloudmunch\CloudmunchConstants;
  
  /**
   * This method is to delete server from cloudmunch.
-  * @param  $serverName Name of server.
+  * @param  $assetID Asset ID.
   */
  function deleteServer($assetID){
     $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/".$assetID;
@@ -252,8 +275,8 @@ use Cloudmunch\CloudmunchConstants;
 /**
 * Checks if server is up and running
 *
-* @param    string dns      :   dns of target server 
-* @param    number sshport  :   ssh port to be used to check for connection
+* @param    string $dns      :   dns of target server 
+* @param    number $sshport  :   ssh port to be used to check for connection
 * @return   string Success  :   displays an appropriate message
 *                  Failure  :   exits with a failure status with an appropriate message
 */

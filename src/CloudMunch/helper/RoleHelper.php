@@ -16,16 +16,35 @@ use CloudMunch\loghandling\LogHandler;
 use Cloudmunch\CloudmunchConstants;
 
 /**
- * 
+ * Class  RoleHelper 
  * This is a helper class for roles. User can manage roles in cloudmunch using this helper.
- *
+ * @package CloudMunch\helper
+ * @author Rosmi
  */
 class RoleHelper{
     const APPLICATIONS="/applications/";
+    /**
+     *
+     * @var CloudMunch\AppContext Reference to AppContext object.
+     */
     private $appContext    = null;
-    private $cmDataManager = null;  
-    private $logHelper     = null;
+    /**
+     *
+     * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
+     */
+    private $cmDataManager = null; 
 
+    /**
+     *
+     * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+     */
+    private $logHelper     = null;
+    
+    /**
+     *
+     * @param CloudMunch\AppContext $appContext
+     * @param CloudMunch\loghandling\LogHandler $logHandler
+     */
     public function __construct($appContext,$logHandler){
         $this->appContext    = $appContext;
         $this->logHelper     = $logHandler;
@@ -34,8 +53,8 @@ class RoleHelper{
     
    /**
     *   Check if given name of the role is unique with existing ones
-    *   @param  string  roleName       :  name of the environment name to be created
-    *   @param  string  existingRoles  :  list of existing environments
+    *   @param  string  $roleName       :  name of the role to be verified
+    *   @param  string  $existingRoles  :  list of existing roles
     *   @return boolean true if name is unique
     */
     public function isRoleNameUnique($existingRoles, $roleName)
@@ -110,6 +129,7 @@ class RoleHelper{
      * @param string $roleName Name of the role
      * @param string $role_status Role status ,valid values are success,failed,in-progress
      * @param array  $roleData Array of role properties
+     * @return array Details of new role added.
      */
     function  addRole($roleName, $roleData = null)
     {
@@ -130,8 +150,8 @@ class RoleHelper{
 
     /**
      * Updates role with given data.
-     * @param String Role ID
-     * @param JsonObject Role Data
+     * @param String $roleID
+     * @param JsonObject $roleData
      */
     function  updateRole($roleID, $roleData = null)
     {

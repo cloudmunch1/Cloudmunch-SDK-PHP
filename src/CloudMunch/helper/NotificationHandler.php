@@ -17,7 +17,7 @@ use Cloudmunch\CloudmunchConstants;
 /**
  * Class NotificationHandler
  * This class provides the service methods for the apps to send notifications  on cloudmunch
- * @package CloudMunch
+ * @package CloudMunch\helper
  * @author Rosmi
  *         
  */
@@ -41,7 +41,12 @@ class NotificationHandler {
     private $logHelper=null;
     
     
-    
+    /**
+     * 
+     * @param CloudMunch\loghandling\LogHandler $logHandler
+     * @param CloudMunch\AppContext $appContext
+     * @param CloudMunch\datamanager\CMDataManager $cmDataManager
+     */
     public function __construct($logHandler, $appContext, $cmDataManager = null) {
         $this->appContext = $appContext;
         $this->logHelper  = $logHandler;

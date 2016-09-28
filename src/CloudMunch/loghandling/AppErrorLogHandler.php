@@ -11,9 +11,26 @@
  * This file handles error/debug logs
  * @author Rosmi
  */
-
+/**
+ * 
+ * Log level : debug
+ */
 const DEBUG = 'DEBUG';
+
+/**
+ * 
+ * Log level : info
+ */
 const INFO = 'INFO';
+
+/**
+ * Error handling method.
+ * @param string $errno
+ * @param string $errstr
+ * @param string $errfile
+ * @param string $errline
+ * @return void|boolean
+ */
 
 function myErrorHandler($errno, $errstr, $errfile, $errline) {
     if (!(error_reporting() & $errno)) {

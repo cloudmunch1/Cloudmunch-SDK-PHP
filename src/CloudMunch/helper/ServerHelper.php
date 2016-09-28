@@ -14,7 +14,6 @@ use CloudMunch\datamanager\CMDataManager;
 use CloudMunch\AppContext;
 use CloudMunch\loghandling\LogHandler;
 use CloudMunch\datamanager\Server;
-use CloudMunch\datamanager\ElasticBeanStalkServer;
 use Cloudmunch\CloudmunchConstants;
 
 
@@ -110,14 +109,7 @@ use Cloudmunch\CloudmunchConstants;
             $server->setPassword($detailArray->password);
             $server->setSSHPort($detailArray->sshport);
             $server->setTier($detailArray->tier);
-            if($server instanceof ElasticBeanStalkServer){
-                $server->setEnvironmentName($detailArray->environmentName);
-                $server->setBucketName($detailArray->bucketName);
-                $server->setApplicationName($detailArray->applicationName);
-                $server->setTemplateName($detailArray->templateName);
-                
-                
-            }
+           
             return $server;
         
 
@@ -176,12 +168,7 @@ use Cloudmunch\CloudmunchConstants;
         "sshport" => $server->getSSHPort(),
             "tier"=>$server->getTier()
     );
-    if($server instanceof ElasticBeanStalkServer){
-        $dataArray[applicationName]=$server->getApplicationName();
-        $dataArray[templateName]=$server->getTemplateName();
-        $dataArray[environmentName]=$server->getEnvironmentName();
-        $dataArray[bucketName]=$server->getBucketName();    
-    }
+   
     $dataArray[status]=$serverstatus;
     if($docker){
         $dataArray[projects] = array ($server->getAppName() => array ("buildNo" => $server->getBuild()));

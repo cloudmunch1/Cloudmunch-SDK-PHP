@@ -9,15 +9,43 @@
  */
 namespace CloudMunch\datamanager;
 
+
 /**
+ * Class Server
  * This class is to create server object ,that holds the data about a server.
+ * @author rosmi
+ * @package CloudMunch\datamanager
+ *
  */
 class Server{
-        
+    /**
+     * 
+     * @var string description
+     */    
     private $description="";
+    
+    /**
+     * 
+     * @var string DNS name
+     */
     private $dns="";
+    
+    /**
+     * 
+     * @var string domain name
+     */
     private $domainName="";
+    
+    /**
+     * 
+     * @var string email id
+     */
     private $emailID="";
+    
+    /**
+     * 
+     * @var string 
+     */
     private $CI="";
     private $deploymentStatus="";
     private $instanceId="";

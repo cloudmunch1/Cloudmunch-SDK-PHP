@@ -16,6 +16,7 @@ use CloudMunch\loghandling\LogHandler;
 
 
  /**
+  * Class CMDataManager
   * This class  connects to cloudmunch to update /retrieve data
   */
 
@@ -23,10 +24,31 @@ class CMDataManager{
     const RESPONSE="response";
     const SUCCESS ="SUCCESS";
     const REQUESTID="Request ID";
+    
+    /**
+     * 
+     * @var CloudMunch\loghandling\LogHandler Reference to LogHandler object.
+     */
     private $logHelper=null;
+    
+   /**
+	 * 
+	 * @var CloudMunch\AppContext Reference to AppContext object.
+	 */
     private $appContext=null;
+    
+    /**
+     * 
+     * @var CloudMunch\helper\NotificationHandler notification handler
+     */
     private $notificationHandler;
 
+    /**
+     * 
+     * @param CloudMunch\loghandling\LogHandler $logHandler
+     * @param CloudMunch\AppContext $appContext
+     * @param CloudMunch\helper\NotificationHandler $notificationHandler
+     */
     public function __construct($logHandler, $appContext, $notificationHandler = null) {
         $this->appContext = $appContext;
         $this->logHelper  = $logHandler;
@@ -37,7 +59,7 @@ class CMDataManager{
     }
     
     /**
-     * 
+     * Retreives data for given context
      * @param string $url 
      * @param string $apikey
      * @param string $querystring
@@ -76,7 +98,13 @@ function getDataForContext($url,$apikey,$querystring) {
     return $resultdecode; 
 }
 
-
+/**
+ * Download key for google service
+ * @param string $url
+ * @param string $apikey
+ * @param string $querystring
+ * @return boolean
+ */
 function downloadGSkey($url,$apikey,$querystring){
     if (empty($querystring)) {
         $url = $url . "?apikey=" . $apikey;
@@ -95,7 +123,12 @@ function downloadGSkey($url,$apikey,$querystring){
 }
 
 /**
- * @return {"data":{"id":"SER2015101311095292382","name":"SER2015101311095292382"},"request":{"status":"SUCCESS"}}
+ * Update data for given context.
+ * @param $url string 
+ * @param $apikey string
+ * $data array
+ * $comment string
+ * @return  json object in the format {"data":{"id":"contextid","name":"contextname"},"request":{"status":"SUCCESS"}}
  */
  function putDataForContext($url,$apikey,$data,$comment = null) {
     // default data to be updated for all updates
@@ -131,7 +164,14 @@ function downloadGSkey($url,$apikey,$querystring){
     return $result;
 }
 
-
+/**
+ * Patch data for given context.
+ * @param string $url
+ * @param string $apikey
+ * @param array $data
+ * @param string $comment
+ * @return boolean
+ */
 function updateDataForContext($url,$apikey,$data,$comment = null){
     // default data to be updated for all updates
     $data[application_id] = $this->appContext->getProject();
@@ -167,6 +207,13 @@ function updateDataForContext($url,$apikey,$data,$comment = null){
     return $result;
 }
 
+
+/**
+ * Delete data for given context.
+ * @param string $url
+ * @param string $apikey
+ * @return boolean|unknown
+ */
 function deleteDataForContext($url,$apikey){
     $url=$url."?apikey=".$apikey;
     $result=$this->do_curl($url, null, "DELETE", null, null);
@@ -224,7 +271,14 @@ function sendNotification($serverurl, $apikey, $contextarray){
     }
 }
 
-
+/**
+ * Download the file source to given destination.
+ * @param string $url
+ * @param string $apikey
+ * @param string $source
+ * @param string $destination
+ * @return boolean
+ */
 function downloadFile($url, $apikey, $source, $destination = null){
     set_time_limit(0);
     $url = $url . "?apikey=" . $apikey . "&file=/" . $source . "&mode=DOWNLOAD";
@@ -270,6 +324,15 @@ function downloadFile($url, $apikey, $source, $destination = null){
     return true;
 }
 
+/**
+ * A helper function for curl.
+ * @param string $url
+ * @param string $headers
+ * @param string $requestType
+ * @param string $data
+ * @param string $curlOpts
+ * @return array
+ */
 function do_curl($url, $headers = null, $requestType = null, $data = null, $curlOpts = null)
 {
    
@@ -334,9 +397,7 @@ function do_curl($url, $headers = null, $requestType = null, $data = null, $curl
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSent = curl_getinfo($ch, CURLINFO_HEADER_OUT);
         $msg =  $results;
-    
-        $responseText = $this->startsWith($results, "<") ? $this->html2txt($results) : $results;
-    
+
     }
     $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $headerSent = curl_getinfo($ch, CURLINFO_HEADER_OUT);
@@ -358,6 +419,12 @@ function do_curl($url, $headers = null, $requestType = null, $data = null, $curl
     
     return $response;
 }
+
+/**
+ * Converts given array or string to json object.
+ * @param string|array $data
+ * @return Json object
+ */
 function json_object($data) {
     if (is_scalar($data)) {
         return json_decode($data);
@@ -371,6 +438,12 @@ function json_object($data) {
         }
     }
 }
+
+/**
+ * Converts given object to json string
+ * @param string|array $data
+ * @return string
+ */
 function json_string($data) {
     if (is_scalar($data)) {
         return $data;
@@ -380,6 +453,12 @@ function json_string($data) {
     }
 }
 
+/**
+ * 
+ * @param string $haystack
+ * @param string $needle
+ * @return boolean true if haystack starts with needle
+ */
 function startsWith($haystack, $needle){
     if (($haystack === null)||($needle === null)) {
         return ($haystack === $needle);
@@ -393,6 +472,11 @@ function startsWith($haystack, $needle){
     return $needle === "" || strpos($haystack, $needle) === 0;
 }
 
+/**
+ * Coverts html document to string.
+ * @param string $document
+ * @return string
+ */
 function html2txt($document){
     /*
      * Strip out javascript

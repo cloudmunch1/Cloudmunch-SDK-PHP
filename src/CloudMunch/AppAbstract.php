@@ -135,7 +135,7 @@ abstract class AppAbstract {
             
             $arg = "{workspace}";
             $workspace = $varParams->$arg;
-            $appContext->setWokSpaceLocation ( $workspace );
+            $appContext->setWorkSpaceLocation ( $workspace );
             
             $arg = "stepdetails";
             $stepDetails = $varParams->$arg;

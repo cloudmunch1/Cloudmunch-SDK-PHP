@@ -235,7 +235,7 @@ class AppContext {
      * Set workspace location.
      * @param string $workspaceloc workspace location
      */
-    function setWokSpaceLocation($workspaceloc) {
+    function setWorkSpaceLocation($workspaceloc) {
         $this->workspaceLocation=$workspaceloc;
     }
     

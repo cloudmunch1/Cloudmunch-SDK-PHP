@@ -22,14 +22,32 @@ use CloudMunch\AppContext;
  */
 
 class LogHandler{
+	
+	/**
+	 *
+	 * @var CloudMunch\AppContext Reference to AppContext object.
+	 */
     private $appContext = null;
+    
+    /**
+     * 
+     * @var string log level
+     */
     private $logLevel   = null;
 
+    /**
+     * 
+     * @param  CloudMunch\AppContext $appContext
+     */
     public function __construct($appContext){
         $this->appContext = $appContext;
         $this->logLevel   = $this->appContext->getLogLevel();
     }
-
+ 
+    /**
+     * Returns true if log level is debug
+     * @return boolean
+     */
     public function isDebugEnabled(){
         if($this->logLevel && (strtolower($this->logLevel) === "debug")) {
             return true;
@@ -38,6 +56,10 @@ class LogHandler{
         }
     }
 
+    /**
+     * Returns true if log level is info
+     * @return boolean
+     */
     public function isInfoEnabled(){
         if($this->logLevel && (strtolower($this->logLevel) === "error") || (strtolower($this->logLevel) === "warning")) {
             return false;
@@ -46,6 +68,10 @@ class LogHandler{
         }
     }
     
+    /**
+     * The method returns true  if loglevel is either info, debug or warning
+     * @return boolean
+     */
     public function isWarningEnabled(){
         if($this->logLevel && (strtolower($this->logLevel) === "info") || (strtolower($this->logLevel) === "warning") || (strtolower($this->logLevel) === "debug")) {
             return true;
@@ -54,6 +80,11 @@ class LogHandler{
         }       
     }
 
+    /**
+     * This method logs messages according to log level.
+     * @param string $msgNo log level DEBUG,INFO,ERROR, WARNING,AUDIT
+     * @param string $msg message in the log
+     */
     function log($msgNo, $msg) {
         try{
             date_default_timezone_set('UTC');

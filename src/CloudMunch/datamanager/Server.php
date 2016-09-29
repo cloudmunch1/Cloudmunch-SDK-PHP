@@ -18,11 +18,7 @@ namespace CloudMunch\datamanager;
  *
  */
 class Server{
-    /**
-     * 
-     * @var string description
-     */    
-    private $description="";
+    
     
     /**
      * 
@@ -30,11 +26,7 @@ class Server{
      */
     private $dns="";
     
-    /**
-     * 
-     * @var string domain name
-     */
-    private $domainName="";
+   
     
     /**
      * 
@@ -42,16 +34,12 @@ class Server{
      */
     private $emailID="";
     
-    /**
-     * 
-     * @var string 
-     */
-    private $CI="";
+   
     private $deploymentStatus="";
     private $instanceId="";
     private $imageID="";
     private $launcheduser="";
-    private $build="";
+    
     private $appName="";
     private $deployTempLoc="";
     private $buildLocation="";
@@ -67,18 +55,12 @@ class Server{
     private $cmserver="";
     private $assetname="";
     private $instancesize="";
-    private $servername="";
+   
     private $password=null;
     private $sshport=22;
-    private $tier="";
+   
     
-    function getTier(){
-        return $this->tier;
-    }
-    
-    function setTier($tier){
-        $this->tier=$tier;
-    }
+   
     
     function getSSHPort(){
         return $this->sshport;
@@ -88,28 +70,7 @@ class Server{
         $this->sshport=$port;
     }
 
-    function getServerName(){
-        return $this->servername;
-    }
     
-    function setServerName($name){
-        
-        $this->servername=$name;
-    }
-    
-    /**
-     * Get description of server
-     */
-    function getDescription(){
-    return  $this->description;
-    }
-    /**
-     * Set description of the server
-     * @param string $desc server descritption
-     */
-    function setDescription($desc){
-        $this->description=$desc;
-    }
     
     /**
      * Get public DNS of the server
@@ -124,25 +85,9 @@ class Server{
         $this->dns=$dns;
         
     }
-    function getDomainName(){
-        return $this->domainName;
-    }
-    function setDomainName($dname){
-        $this->domainName=$dname;
-        
-    }
-    function getCI(){
-        return $this->CI;
-    }
-    function setCI($ci){
-        $this->CI=$ci;
-    }
-    function getDeploymentStatus(){
-        return $this->deploymentStatus;
-    }
-    function setDeploymentStatus($ds){
-        $this->deploymentStatus=$ds;
-    }
+   
+   
+    
     function getInstanceId(){
         return $this->instanceId;
     }
@@ -161,12 +106,7 @@ class Server{
     function setLauncheduser($luser){
         $this->launcheduser=$luser;
     }
-    function getBuild(){
-        return $this->build;
-    }
-    function setBuild($bld){
-        $this->build=$bld;
-    }
+   
     function getAppName(){
         return $this->appName;
     }

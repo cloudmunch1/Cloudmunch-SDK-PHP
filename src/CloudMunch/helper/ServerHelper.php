@@ -76,24 +76,21 @@ use Cloudmunch\CloudmunchConstants;
     
     
     
-            if(isset($detailArray->$servername->assetname) && $detailArray->$servername->assetname == "ElasticBeanStalk"){
-                $server=new ElasticBeanStalkServer();
-            }else{
+            
+            
             $server=new Server();
-            }
-            $server->setServerName($detailArray->id);
-            $server->setDescription($detailArray->description);
+           
+           
+            
             $server->setDNS($detailArray->dnsName);
-            $server->setDomainName($detailArray->domainName);
-            $server->setCI($detailArray->CI);
-            $server->setDeploymentStatus($detailArray->deploymentStatus);
+           
             $server->setInstanceId($detailArray->instanceId);
             $server->setImageID($detailArray->amiID);
             $server->setLauncheduser($detailArray->username);
-            $server->setBuild($detailArray->build);
+           
             $server->setAppName($detailArray->appName);
             $server->setDeployTempLoc($detailArray->deployTempLoc);
-            $server->setBuildLocation($detailArray->buildLoc);
+            
             $server->setPrivateKeyLoc($detailArray->privateKeyLoc);
             $server->setPublicKeyLoc($detailArray->publicKeyLoc);
             $server->setLoginUser($detailArray->loginUser);
@@ -108,7 +105,7 @@ use Cloudmunch\CloudmunchConstants;
             $server->setInstancesize($detailArray->instancesize);
             $server->setPassword($detailArray->password);
             $server->setSSHPort($detailArray->sshport);
-            $server->setTier($detailArray->tier);
+            
            
             return $server;
         
@@ -139,20 +136,15 @@ use Cloudmunch\CloudmunchConstants;
     
     $dataArray = array (
     
-        "description" => $server->getDescription(),
+        
         "dnsName" => $server->getDNS(),
-        "domainName" => $server->getDomainName(),
-        "emailID" => $server->getEmailId(),
-        "CI" => $server->getCI() ? 'y' : 'n',
-        "deploymentStatus" => $server->getDeploymentStatus(),
+         "emailID" => $server->getEmailId(),
         "instanceId" => $server->getInstanceId(),
         "amiID" => $server->getImageID(),
         "username" => $server->getLauncheduser(),
-        "build" => $server->getBuild(),
-        "appName" =>$server->getAppName(),
+         "appName" =>$server->getAppName(),
         "deployTempLoc" => $server->getDeployTempLoc(), 
-        "buildLoc" => $server->getBuildLocation(),
-        "privateKeyLoc" => $server->getPrivateKeyLoc(),
+         "privateKeyLoc" => $server->getPrivateKeyLoc(),
         "publicKeyLoc" => $server->getPublicKeyLoc(),
         "loginUser" => $server->getLoginUser(),
         "serverType" => $server->getServerType(),
@@ -162,11 +154,9 @@ use Cloudmunch\CloudmunchConstants;
         "provider" => $server->getProvider(),
         "region" => $server->getRegion(),
         "cmserver" => $server->getCmserver(),
-        "name" => $server->getServerName(),
         "instancesize" => $server->getInstancesize(),
         "password" => $server->getPassword(),
-        "sshport" => $server->getSSHPort(),
-            "tier"=>$server->getTier()
+        "sshport" => $server->getSSHPort()
     );
    
     $dataArray[status]=$serverstatus;
@@ -187,13 +177,10 @@ use Cloudmunch\CloudmunchConstants;
     
     $dataArray = array (
     
-            "description" => $server->getDescription(),
+            
         "dnsName" => $server->getDNS(),
-        "domainName" => $server->getDomainName(),
         "emailID" => $server->getEmailId(),
-        "CI" => $server->getCI() ? 'y' : 'n',
-        "deploymentStatus" => $server->getDeploymentStatus(),
-        "instanceId" => $server->getInstanceId(),
+         "instanceId" => $server->getInstanceId(),
         "amiID" => $server->getImageID(),
         "username" => $server->getLauncheduser(),
         "build" => $server->getBuild(),
@@ -210,11 +197,9 @@ use Cloudmunch\CloudmunchConstants;
         "provider" => $server->getProvider(),
         "region" => $server->getRegion(),
         "cmserver" => $server->getCmserver(),
-        "name" => $server->getServerName(),
         "instancesize" => $server->getInstancesize(),
         "password"=>$server->getPassword(),
-        "sshport"=>$server->getSSHPort(),
-            "tier"=>$server->getTier()
+        "sshport"=>$server->getSSHPort()
     );
     
     

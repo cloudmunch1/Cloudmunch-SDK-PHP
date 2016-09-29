@@ -15,25 +15,7 @@ use CloudMunch\datamanager\Server;
 
 class ServerTest extends PHPUnit_Framework_TestCase
 {
-	/**
-	 * @covers CloudMunch\datamanager\Server::getTier
-	 */
-	public function test_getTier(){
-		$server=new Server();
-		$server->setTier("tier1");
-		$actual=$server->getTier();
-		$this->assertEquals("tier1",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setTier
-	 */
-	public function test_setTier(){
-		$server=new Server();
-		$server->setTier("tier1");
-		$actual=$server->getTier();
-		$this->assertEquals("tier1",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getSSHPort

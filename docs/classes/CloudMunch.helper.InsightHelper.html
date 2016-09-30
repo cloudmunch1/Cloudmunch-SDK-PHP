@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/CloudMunch.html">\CloudMunch</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">168</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1578191179"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1578191179" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1609386815"></a>
+                                <a href="../namespaces/CloudMunch.html" style="margin-left: 30px; padding-left: 0">CloudMunch</a>
+            </div>
+            <div id="namespace-1609386815" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-705176986"></a>
+                                <a href="../namespaces/CloudMunch.datamanager.html" style="margin-left: 30px; padding-left: 0">datamanager</a>
+            </div>
+            <div id="namespace-705176986" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CloudMunch.datamanager.CMDataManager.html">CMDataManager</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.datamanager.Server.html">Server</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1238010580"></a>
+                                <a href="../namespaces/CloudMunch.helper.html" style="margin-left: 30px; padding-left: 0">helper</a>
+            </div>
+            <div id="namespace-1238010580" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CloudMunch.helper.AssetHelper.html">AssetHelper</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.EnvironmentHelper.html">EnvironmentHelper</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.InsightHelper.html">InsightHelper</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.IntegrationHelper.html">IntegrationHelper</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.NotificationHandler.html">NotificationHandler</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.RoleHelper.html">RoleHelper</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.helper.ServerHelper.html">ServerHelper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-129183195"></a>
+                                <a href="../namespaces/CloudMunch.integrations.html" style="margin-left: 30px; padding-left: 0">integrations</a>
+            </div>
+            <div id="namespace-129183195" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CloudMunch.integrations.IntegrationDataHelper.html">IntegrationDataHelper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-629905535"></a>
+                                <a href="../namespaces/CloudMunch.loghandling.html" style="margin-left: 30px; padding-left: 0">loghandling</a>
+            </div>
+            <div id="namespace-629905535" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CloudMunch.loghandling.LogHandler.html">LogHandler</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CloudMunch.AppAbstract.html">AppAbstract</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.AppContext.html">AppContext</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.CloudmunchService.html">CloudmunchService</a></li>
+                                                    <li class="class"><a href="../classes/CloudMunch.PSConnection.html">PSConnection</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/CloudMunch.helper.html">\CloudMunch\helper</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\CloudMunch\helper</small>InsightHelper</h1>
+                    <p><em>This is a helper class for environments. User can manage environments in cloudmunch using this helper.</em></p>
+                    <p>@package CloudMunch</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getResources" class="">getResources()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightDataStoreExtracts" class="">getInsightDataStoreExtracts()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightDataStores" class="">getInsightDataStores()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightReportCards" class="">getInsightReportCards()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightReports" class="">getInsightReports()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightDataStoreExtractID" class="">getInsightDataStoreExtractID()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightDataStoreID" class="">getInsightDataStoreID()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightReportCardID" class="">getInsightReportCardID()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getInsightReportID" class="">getInsightReportID()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_updateInsightDataStoreExtract" class="">updateInsightDataStoreExtract()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_updateInsightDataStore" class="">updateInsightDataStore()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_updateInsightReportCard" class="">updateInsightReportCard()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_updateInsightReport" class="">updateInsightReport()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createInsightDataStoreExtract" class="">createInsightDataStoreExtract()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createInsightDataStore" class="">createInsightDataStore()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createInsightReportCard" class="">createInsightReportCard()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createInsightReport" class="">createInsightReport()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_getDateRangeForAllSprints" class="">sprint_getDateRangeForAllSprints()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_getSprintsWithDates" class="">sprint_getSprintsWithDates()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_giveAFilterStringForASprint" class="">sprint_giveAFilterStringForASprint()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_giveADateRangeOfASprint" class="">sprint_giveADateRangeOfASprint()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_getSprintDetailsFromJiraCMDB" class="">sprint_getSprintDetailsFromJiraCMDB()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_getJiraSprintsData" class="">sprint_getJiraSprintsData()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_sprint_getJiraProjectNameFromResource" class="">sprint_getJiraProjectNameFromResource()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_identifyDatesForDurationUnit" class="">identifyDatesForDurationUnit()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_getExtractData" class="">getExtractData()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createLineGraph" class="">createLineGraph()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_createKanbanGraph" class="">createKanbanGraph()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_linegraph_constructViewcardVisualizationMeta" class="">linegraph_constructViewcardVisualizationMeta()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_linegraph_constructViewcardMeta" class="">linegraph_constructViewcardMeta()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_kanban_constructViewcardMeta" class="">kanban_constructViewcardMeta()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_kanban_constructViewcardVisualizationMeta" class="">kanban_constructViewcardVisualizationMeta()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_updateExtract" class="">updateExtract()</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#method_checkToleranceForTrend" class="">checkToleranceForTrend()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_RESOURCES" class="">RESOURCES</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_FIELDS" class="">FIELDS</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_FILTER" class="">FILTER</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_DEBUG" class="">DEBUG</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_ERROR" class="">ERROR</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_EXTRACTS" class="">EXTRACTS</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_DATASTORES" class="">DATASTORES</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_INSIGHT_REPORTS" class="">INSIGHT_REPORTS</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_INSIGHT_CARDS" class="">INSIGHT_CARDS</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_DATE_VALUE" class="">DATE_VALUE</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_SPRINT" class="">SPRINT</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_LABEL" class="">LABEL</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_TOLERANCE_STATE" class="">TOLERANCE_STATE</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_TOLERANCE_DESCRIPTION" class="">TOLERANCE_DESCRIPTION</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_TOLERANCE_HIT" class="">TOLERANCE_HIT</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#constant_KANBAN" class="">KANBAN</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#property_appContext" class="">$appContext</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#property_cmDataManager" class="">$cmDataManager</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#property_logHelper" class="">$logHelper</a><br />
+                                                                    <a href="../classes/CloudMunch.helper.InsightHelper.html#property_cmService" class="">$cmService</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/helper.InsightHelper.html"><div class="path-wrapper">helper/InsightHelper.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\CloudMunch\helper\InsightHelper</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Amith <a href="mailto:amith@cloudmunch.com">amith@cloudmunch.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RESOURCES" name="constant_RESOURCES" class="anchor"></a>
+            <article id="constant_RESOURCES" class="constant">
+                <h3 class="">RESOURCES</h3>
+                <pre class="signature">RESOURCES</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_FIELDS" name="constant_FIELDS" class="anchor"></a>
+            <article id="constant_FIELDS" class="constant">
+                <h3 class="">FIELDS</h3>
+                <pre class="signature">FIELDS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_FILTER" name="constant_FILTER" class="anchor"></a>
+            <article id="constant_FILTER" class="constant">
+                <h3 class="">FILTER</h3>
+                <pre class="signature">FILTER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DEBUG" name="constant_DEBUG" class="anchor"></a>
+            <article id="constant_DEBUG" class="constant">
+                <h3 class="">DEBUG</h3>
+                <pre class="signature">DEBUG</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ERROR" name="constant_ERROR" class="anchor"></a>
+            <article id="constant_ERROR" class="constant">
+                <h3 class="">ERROR</h3>
+                <pre class="signature">ERROR</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_EXTRACTS" name="constant_EXTRACTS" class="anchor"></a>
+            <article id="constant_EXTRACTS" class="constant">
+                <h3 class="">EXTRACTS</h3>
+                <pre class="signature">EXTRACTS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DATASTORES" name="constant_DATASTORES" class="anchor"></a>
+            <article id="constant_DATASTORES" class="constant">
+                <h3 class="">DATASTORES</h3>
+                <pre class="signature">DATASTORES</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_INSIGHT_REPORTS" name="constant_INSIGHT_REPORTS" class="anchor"></a>
+            <article id="constant_INSIGHT_REPORTS" class="constant">
+                <h3 class="">INSIGHT_REPORTS</h3>
+                <pre class="signature">INSIGHT_REPORTS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_INSIGHT_CARDS" name="constant_INSIGHT_CARDS" class="anchor"></a>
+            <article id="constant_INSIGHT_CARDS" class="constant">
+                <h3 class="">INSIGHT_CARDS</h3>
+                <pre class="signature">INSIGHT_CARDS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DATE_VALUE" name="constant_DATE_VALUE" class="anchor"></a>
+            <article id="constant_DATE_VALUE" class="constant">
+                <h3 class="">DATE_VALUE</h3>
+                <pre class="signature">DATE_VALUE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SPRINT" name="constant_SPRINT" class="anchor"></a>
+            <article id="constant_SPRINT" class="constant">
+                <h3 class="">SPRINT</h3>
+                <pre class="signature">SPRINT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_LABEL" name="constant_LABEL" class="anchor"></a>
+            <article id="constant_LABEL" class="constant">
+                <h3 class="">LABEL</h3>
+                <pre class="signature">LABEL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TOLERANCE_STATE" name="constant_TOLERANCE_STATE" class="anchor"></a>
+            <article id="constant_TOLERANCE_STATE" class="constant">
+                <h3 class="">TOLERANCE_STATE</h3>
+                <pre class="signature">TOLERANCE_STATE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TOLERANCE_DESCRIPTION" name="constant_TOLERANCE_DESCRIPTION" class="anchor"></a>
+            <article id="constant_TOLERANCE_DESCRIPTION" class="constant">
+                <h3 class="">TOLERANCE_DESCRIPTION</h3>
+                <pre class="signature">TOLERANCE_DESCRIPTION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TOLERANCE_HIT" name="constant_TOLERANCE_HIT" class="anchor"></a>
+            <article id="constant_TOLERANCE_HIT" class="constant">
+                <h3 class="">TOLERANCE_HIT</h3>
+                <pre class="signature">TOLERANCE_HIT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_KANBAN" name="constant_KANBAN" class="anchor"></a>
+            <article id="constant_KANBAN" class="constant">
+                <h3 class="">KANBAN</h3>
+                <pre class="signature">KANBAN</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_appContext" name="property_appContext" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$appContext</h3>
+                <pre class="signature">$appContext : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cmDataManager" name="property_cmDataManager" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cmDataManager</h3>
+                <pre class="signature">$cmDataManager : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_logHelper" name="property_logHelper" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$logHelper</h3>
+                <pre class="signature">$logHelper : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cmService" name="property_cmService" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cmService</h3>
+                <pre class="signature">$cmService : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$appContext</span>,   <span class="argument">$logHandler</span>) </pre>
+                <p><em>Initialize appcontext and loghandler.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$appContext </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$logHandler </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResources" name="method_getResources" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResources()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResources(string  <span class="argument">$type</span>) : array</pre>
+                <p><em>Get all the resource from CMDB with given type.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type </td>
+                                <td><p>type of resource</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>resources available with given type</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightDataStoreExtracts" name="method_getInsightDataStoreExtracts" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightDataStoreExtracts()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightDataStoreExtracts(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreID</span>, array  <span class="argument">$queryOptions</span>, string  <span class="argument">$extractID = &#039;&#039;</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Get all extracts under provided resource and datastore.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryOptions </td>
+                                <td><p>associative array with key as query key and query value as value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$extractID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of extract details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightDataStores" name="method_getInsightDataStores" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightDataStores()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightDataStores(string  <span class="argument">$insightID</span>, array  <span class="argument">$queryOptions</span>, string  <span class="argument">$dataStoreID = &#039;&#039;</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Get all datastores under provided resource.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryOptions </td>
+                                <td><p>associative array with key as query key and query value as value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of datastore details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightReportCards" name="method_getInsightReportCards" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightReportCards()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightReportCards(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportID</span>, array  <span class="argument">$queryOptions</span>, string  <span class="argument">$cardID = &#039;&#039;</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Get all report cards under provided resource and report.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryOptions </td>
+                                <td><p>associative array with key as query key and query value as value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of report card details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightReports" name="method_getInsightReports" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightReports()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightReports(string  <span class="argument">$insightID</span>, array  <span class="argument">$queryOptions</span>, string  <span class="argument">$reportID = &#039;&#039;</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Get all reports under provided resource.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryOptions </td>
+                                <td><p>associative array with key as query key and query value as value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of report details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightDataStoreExtractID" name="method_getInsightDataStoreExtractID" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightDataStoreExtractID()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightDataStoreExtractID(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreID</span>, string  <span class="argument">$extractName</span>) : string</pre>
+                <p><em>Get extractID for provided extract name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$extractName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>extract id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightDataStoreID" name="method_getInsightDataStoreID" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightDataStoreID()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightDataStoreID(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreName</span>) : string</pre>
+                <p><em>Get dataStoreID for provided datastore name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>datastore id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightReportCardID" name="method_getInsightReportCardID" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightReportCardID()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightReportCardID(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportID</span>, string  <span class="argument">$cardName</span>) : string</pre>
+                <p><em>Get reportcardID for provided card name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>card id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInsightReportID" name="method_getInsightReportID" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInsightReportID()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInsightReportID(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportName</span>) : string</pre>
+                <p><em>Get reportID for provided report name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>report id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateInsightDataStoreExtract" name="method_updateInsightDataStoreExtract" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateInsightDataStoreExtract()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateInsightDataStoreExtract(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreID</span>, string  <span class="argument">$extractID</span>, string  <span class="argument">$data</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Update an extract with provided data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$extractID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of extract details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateInsightDataStore" name="method_updateInsightDataStore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateInsightDataStore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateInsightDataStore(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreID</span>, string  <span class="argument">$data</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Update a report with provided data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of datastore details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateInsightReportCard" name="method_updateInsightReportCard" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateInsightReportCard()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateInsightReportCard(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportID</span>, string  <span class="argument">$cardID</span>, string  <span class="argument">$data</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Update a report card with provided data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of extract details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateInsightReport" name="method_updateInsightReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateInsightReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateInsightReport(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportID</span>, string  <span class="argument">$data</span>) : \CloudMunch\helper\json</pre>
+                <p><em>Update a report with provided data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\json
+                                            &mdash; <p>object of report details</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createInsightDataStoreExtract" name="method_createInsightDataStoreExtract" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createInsightDataStoreExtract()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createInsightDataStoreExtract(string  <span class="argument">$insightID</span>, string  <span class="argument">$dataStoreID</span>, string  <span class="argument">$extractName</span>) : string</pre>
+                <p><em>Create an extract if it does not exist.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dataStoreID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$extractName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>extract id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createInsightDataStore" name="method_createInsightDataStore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createInsightDataStore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createInsightDataStore(string  <span class="argument">$insightID</span>,   <span class="argument">$dataStoretName</span>) : string</pre>
+                <p><em>Create a datastore if it does not exist.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataStoretName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>dataStore id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createInsightReportCard" name="method_createInsightReportCard" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createInsightReportCard()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createInsightReportCard(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportID</span>, string  <span class="argument">$cardName</span>) : string</pre>
+                <p><em>Create a report card if it does not exist.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>report card id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createInsightReport" name="method_createInsightReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createInsightReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createInsightReport(string  <span class="argument">$insightID</span>, string  <span class="argument">$reportName</span>) : string</pre>
+                <p><em>Create a report if it does not exist.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$insightID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reportName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>report id</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_getDateRangeForAllSprints" name="method_sprint_getDateRangeForAllSprints" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_getDateRangeForAllSprints()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_getDateRangeForAllSprints() : \CloudMunch\helper\dateRangeForSprints</pre>
+                <p><em>Get range of sprints available from jira resource.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\dateRangeForSprints
+                                            &mdash; <p>range of sprint dates</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_getSprintsWithDates" name="method_sprint_getSprintsWithDates" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_getSprintsWithDates()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_getSprintsWithDates(  <span class="argument">$sprintDetailsArray</span>) : \CloudMunch\helper\dateRangeForSprints</pre>
+                <p><em>Construct an array for sprints with dates.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$sprintDetailsArray </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\dateRangeForSprints
+                                            &mdash; <p>range of sprint dates</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_giveAFilterStringForASprint" name="method_sprint_giveAFilterStringForASprint" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_giveAFilterStringForASprint()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_giveAFilterStringForASprint(  <span class="argument">$sprintHash</span>,   <span class="argument">$sprintID</span>) : String</pre>
+                <p><em>Get filter string with list of dates for a sprint.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$sprintHash </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$sprintID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    String
+                                            &mdash; <p>range of sprint dates</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_giveADateRangeOfASprint" name="method_sprint_giveADateRangeOfASprint" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_giveADateRangeOfASprint()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_giveADateRangeOfASprint(  <span class="argument">$sprintHash</span>,   <span class="argument">$sprintID</span>) : Array</pre>
+                <p><em>Get range of dates for a sprint.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$sprintHash </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$sprintID </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>range of sprint dates</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_getSprintDetailsFromJiraCMDB" name="method_sprint_getSprintDetailsFromJiraCMDB" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_getSprintDetailsFromJiraCMDB()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_getSprintDetailsFromJiraCMDB() : \CloudMunch\helper\raw</pre>
+                <p><em>Get sprint details from jira sotred in CMDB.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \CloudMunch\helper\raw
+                                            &mdash; <p>data from jira extracts</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_getJiraSprintsData" name="method_sprint_getJiraSprintsData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_getJiraSprintsData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_getJiraSprintsData(  <span class="argument">$insightOrResourceID</span>,   <span class="argument">$dataStoreName</span>,   <span class="argument">$extractName</span>) : array</pre>
+                <p><em>Get extracts from provided resource.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$insightOrResourceID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataStoreName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$extractName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>extracts from jira</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sprint_getJiraProjectNameFromResource" name="method_sprint_getJiraProjectNameFromResource" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sprint_getJiraProjectNameFromResource()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sprint_getJiraProjectNameFromResource(  <span class="argument">$jiraResourceType</span>) : array</pre>
+                <p><em>Get extracts from provided resource.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$jiraResourceType </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>extract details from jira</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_identifyDatesForDurationUnit" name="method_identifyDatesForDurationUnit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">identifyDatesForDurationUnit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">identifyDatesForDurationUnit(  <span class="argument">$projectionUnit</span>,   <span class="argument">$projectionCount</span>,   <span class="argument">$curr_date = null</span>) </pre>
+                <p><em>Return the dates range based on the projection unit and count</em></p>
+                <p>@param string projectionUnit  : Projection Unit in Days, Months or Weeks</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$projectionUnit </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$projectionCount </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$curr_date </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getExtractData" name="method_getExtractData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getExtractData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getExtractData(  <span class="argument">$resourceID</span>,   <span class="argument">$dataStoreName</span>,   <span class="argument">$filterFields = &quot;name,result&quot;</span>,   <span class="argument">$projectionUnit = &quot;day&quot;</span>,   <span class="argument">$timeArray = null</span>) </pre>
+                <p><em>Pull data from cloudmunch data base</em></p>
+                <p>@param  string resourceID       : id of resource</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$resourceID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataStoreName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$filterFields </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$projectionUnit </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$timeArray </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createLineGraph" name="method_createLineGraph" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createLineGraph()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createLineGraph(  <span class="argument">$resourceID</span>,   <span class="argument">$dataFromCMDB</span>,   <span class="argument">$reportName</span>,   <span class="argument">$cardTitle</span>,   <span class="argument">$source</span>,   <span class="argument">$description</span>,   <span class="argument">$group</span>,   <span class="argument">$graphLegendsList = null</span>,   <span class="argument">$xAxisLabel = &quot;Date&quot;</span>,   <span class="argument">$yAxisLabel = &quot;%&quot;</span>,   <span class="argument">$tolerance = null</span>,   <span class="argument">$url = &quot;#&quot;</span>) </pre>
+                <p><em>Create report of type lintrend or kanban.</em></p>
+                <p>@param string resourceID       : id of resource</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$resourceID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataFromCMDB </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$reportName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$cardTitle </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$source </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$description </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$group </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$graphLegendsList </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$xAxisLabel </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$yAxisLabel </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$tolerance </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createKanbanGraph" name="method_createKanbanGraph" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createKanbanGraph()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createKanbanGraph(  <span class="argument">$resourceID</span>,   <span class="argument">$dataFromCMDB</span>,   <span class="argument">$reportName</span>,   <span class="argument">$cardTitle</span>,   <span class="argument">$source</span>,   <span class="argument">$description</span>,   <span class="argument">$group</span>,   <span class="argument">$tolerance = null</span>,   <span class="argument">$url = &quot;#&quot;</span>) </pre>
+                <p><em>Create report of type lintrend or kanban.</em></p>
+                <p>@param string resourceID       : id of resource</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$resourceID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataFromCMDB </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$reportName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$cardTitle </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$source </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$description </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$group </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$tolerance </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_linegraph_constructViewcardVisualizationMeta" name="method_linegraph_constructViewcardVisualizationMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">linegraph_constructViewcardVisualizationMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">linegraph_constructViewcardVisualizationMeta(  <span class="argument">$graphLegendsList</span>) : array</pre>
+                <p><em>Contruct Viewcard visualization meta data.</em></p>
+                <p>@param array graphLegendsList : List of graphs legend</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$graphLegendsList </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>with visualization map</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_linegraph_constructViewcardMeta" name="method_linegraph_constructViewcardMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">linegraph_constructViewcardMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">linegraph_constructViewcardMeta(  <span class="argument">$cardTitle</span>,   <span class="argument">$source</span>,   <span class="argument">$description</span>,   <span class="argument">$group</span>,   <span class="argument">$xAxisLabel = &quot;Date&quot;</span>,   <span class="argument">$yAxisLabel = &quot;%&quot;</span>,   <span class="argument">$tolerance = null</span>,   <span class="argument">$url = &quot;#&quot;</span>) </pre>
+                <p><em>Construct view card meta data.</em></p>
+                <p>@param string cardTitle        : label to be displayed on card</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$cardTitle </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$source </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$description </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$group </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$xAxisLabel </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$yAxisLabel </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$tolerance </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_kanban_constructViewcardMeta" name="method_kanban_constructViewcardMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">kanban_constructViewcardMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">kanban_constructViewcardMeta(  <span class="argument">$cardTitle</span>,   <span class="argument">$source</span>,   <span class="argument">$description</span>,   <span class="argument">$group</span>,   <span class="argument">$tolerance = null</span>,   <span class="argument">$url = &quot;#&quot;</span>) </pre>
+                <p><em>Construct view card meta data</em></p>
+                <p>@param string cardTitle        : label to be displayed on card</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$cardTitle </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$source </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$description </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$group </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$tolerance </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_kanban_constructViewcardVisualizationMeta" name="method_kanban_constructViewcardVisualizationMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">kanban_constructViewcardVisualizationMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">kanban_constructViewcardVisualizationMeta() </pre>
+                <p><em>Contruct Viewcard visualization meta data</em></p>
+                <p>@return array with visualization map</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateExtract" name="method_updateExtract" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateExtract()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateExtract(  <span class="argument">$resourceID</span>,   <span class="argument">$data</span>,   <span class="argument">$dataStoreName</span>,   <span class="argument">$extractName = null</span>,   <span class="argument">$additionInfo = null</span>) </pre>
+                <p><em>Store passed data in data store</em></p>
+                <p>@param string resourceID       : id of resource</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$resourceID </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataStoreName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$extractName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$additionInfo </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_checkToleranceForTrend" name="method_checkToleranceForTrend" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">checkToleranceForTrend()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">checkToleranceForTrend(  <span class="argument">$data</span>,   <span class="argument">$upperLimit</span>,   <span class="argument">$lowerLimit</span>,   <span class="argument">$resourceName = null</span>,   <span class="argument">$cardLabel = null</span>,   <span class="argument">$source = null</span>) : array</pre>
+                <p><em>Compare  and set tolerance status based on percentage change in value of latest element with its previous element against provided upper and lower limit.</em></p>
+                <p>Status takes precedence in the following order, Failed &gt; Warning &gt; success</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$upperLimit </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$lowerLimit </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$resourceName </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$cardLabel </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$source </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>tolerance   : toleranceState (success, failure, warning, critical)
+: toleranceDescription
+: toleranceHit</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">InsightHelper.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/helper/InsightHelper.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/CloudMunch.html">\CloudMunch</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 30th, 2016 at 11:08.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

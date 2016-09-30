@@ -160,9 +160,7 @@ use Cloudmunch\CloudmunchConstants;
     );
    
     $dataArray[status]=$serverstatus;
-    if($docker){
-        $dataArray[projects] = array ($server->getAppName() => array ("buildNo" => $server->getBuild()));
-    }
+    
 
 
     $serverurl=$this->appContext->getMasterURL().static::APPLICATIONS.$this->appContext->getProject()."/assets/";
@@ -183,7 +181,6 @@ use Cloudmunch\CloudmunchConstants;
          "instanceId" => $server->getInstanceId(),
         "amiID" => $server->getImageID(),
         "username" => $server->getLauncheduser(),
-        "build" => $server->getBuild(),
         "appName" =>$server->getAppName(),
         "deployTempLoc" => $server->getDeployTempLoc(), 
     "buildLoc" => $server->getBuildLocation(),

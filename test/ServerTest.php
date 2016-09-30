@@ -37,46 +37,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("22",$actual);
 	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getServerName
-	 */
-	public function test_getServerName(){
-		$server=new Server();
-		$server->setServerName("server1");
-		$actual=$server->getServerName();
-		$this->assertEquals("server1",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setServerName
-	 */
-	public function test_setServerName(){
-		$server=new Server();
-		$server->setServerName("server1");
-		$actual=$server->getServerName();
-		$this->assertEquals("server1",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getDescription
-	 */
-	public function test_getDescription(){
-		$server=new Server();
-		$server->setDescription("serverdesc");
-		$actual=$server->getDescription();
-		$this->assertEquals("serverdesc",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setDescription
-	 */
-	public function test_setDescription(){
-		$server=new Server();
-		$server->setDescription("serverdesc");
-		$actual=$server->getDescription();
-		$this->assertEquals("serverdesc",$actual);
-	}
-	
+
 	/**
 	 * @covers CloudMunch\datamanager\Server::getDNS
 	 */
@@ -97,65 +58,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("dns",$actual);
 	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getDomainName
-	 */
-	public function test_getDomainName(){
-		$server=new Server();
-		$server->setDomainName("dns");
-		$actual=$server->getDomainName();
-		$this->assertEquals("dns",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setDomainName
-	 */
-	public function test_setDomainName(){
-		$server=new Server();
-		$server->setDomainName("dns");
-		$actual=$server->getDomainName();
-		$this->assertEquals("dns",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getCI
-	 */
-	public function test_getCI(){
-		$server=new Server();
-		$server->setCI("dns");
-		$actual=$server->getCI();
-		$this->assertEquals("dns",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setCI
-	 */
-	public function test_setCI(){
-		$server=new Server();
-		$server->setCI("dns");
-		$actual=$server->getCI();
-		$this->assertEquals("dns",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getDeploymentStatus
-	 */
-	public function test_getDeploymentStatus(){
-		$server=new Server();
-		$server->setDeploymentStatus("start");
-		$actual=$server->getDeploymentStatus();
-		$this->assertEquals("start",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setDeploymentStatus
-	 */
-	public function test_setDeploymentStatus(){
-		$server=new Server();
-		$server->setDeploymentStatus("start");
-		$actual=$server->getDeploymentStatus();
-		$this->assertEquals("start",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getInstanceId
@@ -217,25 +119,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$actual=$server->getLauncheduser();
 		$this->assertEquals("user",$actual);
 	}
-	/**
-	 * @covers CloudMunch\datamanager\Server::getBuild
-	 */
-	public function test_getBuild(){
-		$server=new Server();
-		$server->setBuild("1");
-		$actual=$server->getBuild();
-		$this->assertEquals("1",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setBuild
-	 */
-	public function test_setBuild(){
-		$server=new Server();
-		$server->setBuild("1");
-		$actual=$server->getBuild();
-		$this->assertEquals("1",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getAppName

@@ -210,25 +210,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getAssetname
-	 */
-	public function test_getAssetname(){
-		$server=new Server();
-		$server->setAssetname("asset1");
-		$actual=$server->getAssetname();
-		$this->assertEquals("asset1",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setAssetname
-	 */
-	public function test_setAssetname(){
-		$server=new Server();
-		$server->setAssetname("asset1");
-		$actual=$server->getAssetname();
-		$this->assertEquals("asset1",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getInstancesize

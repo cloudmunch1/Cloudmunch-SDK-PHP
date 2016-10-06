@@ -29,6 +29,21 @@ class CloudmunchServiceTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
+	 * @covers CloudMunch\CloudmunchService::__construct
+	 */
+	public function test_construct(){
+	 $appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+	 ->getMock();
+	
+	 $loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+	 ->setConstructorArgs(array($appcontext))
+	 ->getMock();
+	
+	 $cmservice=new CloudmunchService($appcontext,$loghandler);
+	
+	}
+	
+	/**
 	 * @covers CloudMunch\CloudmunchService::sendNotification
 	 */
 	public function test_sendNotification(){
@@ -75,6 +90,48 @@ class CloudmunchServiceTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
+	 * @covers CloudMunch\CloudmunchService::updateCustomContextData
+	 */
+	public function test_updateCustomContextData_post(){
+	
+	
+	 $appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+	 ->getMock();
+	
+	 $loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+	 ->setConstructorArgs(array($appcontext))
+	 ->getMock();
+	 $cmservice=new CloudmunchService($appcontext,$loghandler);
+	 
+	 
+	 $dmmanager = $this->getMockBuilder("CloudMunch\datamanager\CMDataManager")
+	 ->setMethods(array("putDataForContext"))
+	 ->disableOriginalConstructor()
+	 ->getMock();
+	 
+	 $dmmanager->expects($this->any())
+	 ->method('putDataForContext')
+	 ->will($this->returnValue(false));
+	
+	 $reflection = new ReflectionClass($cmservice);
+	 $reflection_property = $reflection->getProperty(cmDataManager);
+	 $reflection_property->setAccessible(true);
+	 $reflection_property->setValue($cmservice, $dmmanager);
+	 
+	 
+	 $params =  array(
+	   'resources'   => "insightid",
+	   'datastores' => "dsid",
+	   'extracts'   => "extrid",
+	 );
+	
+	 $actual=$cmservice->updateCustomContextData($params,"data",'POST');
+	 $this->assertFalse($actual);
+	
+	}
+	
+	
+	/**
 	 * @covers CloudMunch\CloudmunchService::getCustomContextData
 	 */
 	public function test_getCustomContextData(){
@@ -87,13 +144,27 @@ class CloudmunchServiceTest extends PHPUnit_Framework_TestCase
 		->setConstructorArgs(array($appcontext))
 		->getMock();
 		$cmservice=new CloudmunchService($appcontext,$loghandler);
+		
+		$dmmanager = $this->getMockBuilder("CloudMunch\datamanager\CMDataManager")
+		->setMethods(array("getDataForContext"))
+		->disableOriginalConstructor()
+		->getMock();
+		
+		$dmmanager->expects($this->any())
+		->method('getDataForContext')
+		->will($this->returnValue(false));
+		
+		$reflection = new ReflectionClass($cmservice);
+		$reflection_property = $reflection->getProperty(cmDataManager);
+		$reflection_property->setAccessible(true);
+		$reflection_property->setValue($cmservice, $dmmanager);
 		$params =  array(
 				'resources'   => "insightid",
 				'datastores' => "dsid",
 				'extracts'   => "extrid",
 		);
 	
-		$actual=$cmservice->getCustomContextData($params,null);
+		$actual=$cmservice->getCustomContextData($params,array("filter"=>"test"));
 		$this->assertFalse($actual);
 	
 	}

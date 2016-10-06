@@ -59,25 +59,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getInstanceId
-	 */
-	public function test_getInstanceId(){
-		$server=new Server();
-		$server->setInstanceId("instid");
-		$actual=$server->getInstanceId();
-		$this->assertEquals("instid",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setInstanceId
-	 */
-	public function test_setInstanceId(){
-		$server=new Server();
-		$server->setInstanceId("instid");
-		$actual=$server->getInstanceId();
-		$this->assertEquals("instid",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getImageID
@@ -99,88 +80,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("imageid",$actual);
 	}
 	
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getLauncheduser
-	 */
-	public function test_getLauncheduser(){
-		$server=new Server();
-		$server->setLauncheduser("user");
-		$actual=$server->getLauncheduser();
-		$this->assertEquals("user",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setLauncheduser
-	 */
-	public function test_setLauncheduser(){
-		$server=new Server();
-		$server->setLauncheduser("user");
-		$actual=$server->getLauncheduser();
-		$this->assertEquals("user",$actual);
-	}
-	
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getAppName
-	 */
-	public function test_getAppName(){
-		$server=new Server();
-		$server->setAppName("App1");
-		$actual=$server->getAppName();
-		$this->assertEquals("App1",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setAppName
-	 */
-	public function test_setAppName(){
-		$server=new Server();
-		$server->setAppName("App1");
-		$actual=$server->getAppName();
-		$this->assertEquals("App1",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getDeployTempLoc
-	 */
-	public function test_getDeployTempLoc(){
-		$server=new Server();
-		$server->setDeployTempLoc("temp");
-		$actual=$server->getDeployTempLoc();
-		$this->assertEquals("temp",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setDeployTempLoc
-	 */
-	public function test_setDeployTempLoc(){
-		$server=new Server();
-		$server->setDeployTempLoc("temp");
-		$actual=$server->getDeployTempLoc();
-		$this->assertEquals("temp",$actual);
-	}
-	
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getBuildLocation
-	 */
-	public function test_getBuildLocation(){
-		$server=new Server();
-		$server->setBuildLocation("loc");
-		$actual=$server->getBuildLocation();
-		$this->assertEquals("loc",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setBuildLocation
-	 */
-	public function test_setBuildLocation(){
-		$server=new Server();
-		$server->setBuildLocation("loc");
-		$actual=$server->getBuildLocation();
-		$this->assertEquals("loc",$actual);
-	}
 	
 	
 	
@@ -265,65 +164,9 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("ec2",$actual);
 	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getAssettype
-	 */
-	public function test_getAssettype(){
-		$server=new Server();
-		$server->setAssettype("ec2");
-		$actual=$server->getAssettype();
-		$this->assertEquals("ec2",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setAssettype
-	 */
-	public function test_setAssettype(){
-		$server=new Server();
-		$server->setAssettype("ec2");
-		$actual=$server->getAssettype();
-		$this->assertEquals("ec2",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getStatus
-	 */
-	public function test_getStatus(){
-		$server=new Server();
-		$server->setStatus("running");
-		$actual=$server->getStatus();
-		$this->assertEquals("running",$actual);
-	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setStatus
-	 */
-	public function test_setStatus(){
-		$server=new Server();
-		$server->setStatus("running");
-		$actual=$server->getStatus();
-		$this->assertEquals("running",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getStarttime
-	 */
-	public function test_getStarttime(){
-		$server=new Server();
-		$server->setStarttime("time");
-		$actual=$server->getStarttime();
-		$this->assertEquals("time",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setStarttime
-	 */
-	public function test_setStarttime(){
-		$server=new Server();
-		$server->setStarttime("time");
-		$actual=$server->getStarttime();
-		$this->assertEquals("time",$actual);
-	}
 	
 	
 	/**
@@ -366,25 +209,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("region",$actual);
 	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getCmserver
-	 */
-	public function test_getCmserver(){
-		$server=new Server();
-		$server->setCmserver("yes");
-		$actual=$server->getCmserver();
-		$this->assertEquals("yes",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setCmserver
-	 */
-	public function test_setCmserver(){
-		$server=new Server();
-		$server->setCmserver("yes");
-		$actual=$server->getCmserver();
-		$this->assertEquals("yes",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getAssetname
@@ -426,25 +250,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("micro",$actual);
 	}
 	
-	/**
-	 * @covers CloudMunch\datamanager\Server::getEmailID
-	 */
-	public function test_getEmailID(){
-		$server=new Server();
-		$server->setEmailID("emailid");
-		$actual=$server->getEmailID();
-		$this->assertEquals("emailid",$actual);
-	}
-	
-	/**
-	 * @covers CloudMunch\datamanager\Server::setEmailID
-	 */
-	public function test_setEmailID(){
-		$server=new Server();
-		$server->setEmailID("emailid");
-		$actual=$server->getEmailID();
-		$this->assertEquals("emailid",$actual);
-	}
 	
 	/**
 	 * @covers CloudMunch\datamanager\Server::getPassword

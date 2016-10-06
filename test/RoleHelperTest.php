@@ -120,4 +120,60 @@ class RoleHelperTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($actual);
 	}
 	
+	/**
+	 * @covers CloudMunch\helper\RoleHelper::checkIfRoleExists
+	 */
+	public function test_checkIfRoleExistsTrue(){
+	 $appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+	 ->getMock();
+	
+	 $loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+	 ->setConstructorArgs(array($appcontext))
+	 ->getMock();
+	 
+	 $dmmanager = $this->getMockBuilder("CloudMunch\datamanager\CMDataManager")
+	 ->setMethods(array("getDataForContext"))
+	 ->disableOriginalConstructor()
+	 ->getMock();
+	 
+	 $dmmanager->expects($this->any())
+	 ->method('getDataForContext')
+	 ->will($this->returnValue(array("data"=>"test")));
+	 
+	 $rolehelper=new RoleHelper($appcontext,$loghandler);
+	 $reflection = new ReflectionClass($rolehelper);
+	 $reflection_property = $reflection->getProperty(cmDataManager);
+	 $reflection_property->setAccessible(true);
+	 $reflection_property->setValue($rolehelper, $dmmanager);
+	 $actual=$rolehelper->checkIfRoleExists("roleid");
+	 $this->assertTrue($actual);
+	}
+	
+	/**
+	 * @covers CloudMunch\helper\RoleHelper::updateRole
+	 */
+	public function test_updateRole(){
+	 $appcontext = $this->getMockBuilder("CloudMunch\AppContext")
+	 ->getMock();
+	
+	 $loghandler = $this->getMockBuilder("CloudMunch\loghandling\LogHandler")
+	 ->setConstructorArgs(array($appcontext))
+	 ->getMock();
+	
+	 $dmmanager = $this->getMockBuilder("CloudMunch\datamanager\CMDataManager")
+	 ->setMethods(array("putDataForContext"))
+	 ->disableOriginalConstructor()
+	 ->getMock();
+	
+	
+	
+	 $rolehelper=new RoleHelper($appcontext,$loghandler);
+	 $reflection = new ReflectionClass($rolehelper);
+	 $reflection_property = $reflection->getProperty(cmDataManager);
+	 $reflection_property->setAccessible(true);
+	 $reflection_property->setValue($rolehelper, $dmmanager);
+	 $rolehelper->updateRole("roleid", "roledata");
+	
+	}
+	
 }

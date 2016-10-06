@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  (c) CloudMunch Inc.
  *  All Rights Reserved
@@ -9,61 +10,60 @@
  */
 namespace CloudMunch\helper;
 
-
-
 use CloudMunch\datamanager\CMDataManager;
 use CloudMunch\AppContext;
 use CloudMunch\loghandling\LogHandler;
 
-
 /**
  * Class IntegrationHelper
- * This is a helper class for integration. User can manage integration in cloudmunch using this helper.
+ * This is a helper class for integration.
+ * User can manage integration in cloudmunch using this helper.
  *
  * @package CloudMunch\helper
  * @author Rosmi
  */
-
-class IntegrationHelper{
-    /**
-	 * 
-	 * @var CloudMunch\AppContext Reference to AppContext object.
-	 */
-    private $appContext = null;
-    
-    /**
-     *
-     * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
-     */
-    private $cmDataManager = null;
-    
-    
-    /**
-     * 
-     * @var CloudMunch\loghandling\LogHandler Reference to loghandler object.
-     */
-    private $logHelper = null;
-
-    /**
-     * 
-     * @param AppContext $appContext
-     * @param LogHandler $logHandler
-     */
-    public function __construct($appContext,$logHandler){
-        $this->appContext = $appContext;
-        $this->logHelper=$logHandler;
-        $this->cmDataManager = new CMDataManager($this->logHelper, $this->appContext);
-    }
-    
-    /**
-     * Updates the integration with the given data.
-     * @param String $integrationID Integration ID
-     * @param JsonObject $integrationData Integration Data
-     */
-    function  updateIntegration($integrationID,$integrationData){
-        $serverurl=$this->appContext->getMasterURL()."/applications/".$this->appContext->getProject()."/integrations/".$integrationID;
-    
-        $this->cmDataManager->updateDataForContext($serverurl,$this->appContext->getAPIKey(),$integrationData);
+class IntegrationHelper {
+ /**
+  *
+  * @var CloudMunch\AppContext Reference to AppContext object.
+  */
+ private $appContext = null;
+ 
+ /**
+  *
+  * @var CloudMunch\datamanager\CMDataManager Reference to CMDataManager object.
+  */
+ private $cmDataManager = null;
+ 
+ /**
+  *
+  * @var CloudMunch\loghandling\LogHandler Reference to loghandler object.
+  */
+ private $logHelper = null;
+ 
+ /**
+  *
+  * @param AppContext $appContext         
+  * @param LogHandler $logHandler         
+  */
+ public function __construct($appContext, $logHandler) {
+  $this->appContext = $appContext;
+  $this->logHelper = $logHandler;
+  $this->cmDataManager = new CMDataManager ( $this->logHelper, $this->appContext );
+ }
+ 
+ /**
+  * Updates the integration with the given data.
+  * 
+  * @param String $integrationID
+  *         Integration ID
+  * @param JsonObject $integrationData
+  *         Integration Data
+  */
+ function updateIntegration($integrationID, $integrationData) {
+  $serverurl = $this->appContext->getMasterURL () . "/applications/" . $this->appContext->getProject () . "/integrations/" . $integrationID;
+  
+  $this->cmDataManager->updateDataForContext ( $serverurl, $this->appContext->getAPIKey(),$integrationData);
     
     }
 

@@ -169,7 +169,8 @@ abstract class AppAbstract {
   $this->setAppContext ( $appContext );
   
   $this->createLogHandler ();
-  $this->setParameterObject ( $jsonParams );
+  $this->parameterObject = $jsonParams;
+  
   return true;
  }
  
@@ -289,24 +290,6 @@ abstract class AppAbstract {
   return new NotificationHandler ( $this->appContext, $this->logHandler );
  }
  
- /**
-  * Set parameter object.
-  *
-  * @param
-  *         string params : String in json format ,containing plugin input.
-  */
- function setParameterObject($params) {
-  $this->parameterObject = $params;
- }
- 
- /**
-  * Get parameter object.
-  *
-  * @return string parameterObject : String in json format ,containing plugin input.
-  */
- function getParameterObject() {
-  return $this->parameterObject;
- }
  
  /**
   * This is a lifecycle method that is invoked on the plugin to initialize itself with the incoming
@@ -327,17 +310,17 @@ abstract class AppAbstract {
  public function getProcessInput() {
   $integrationHelper = new IntegrationDataHelper ( $this->logHandler );
   
-  if ($this->getParameterObject ()->providername) {
+  if ($this->parameterObject->providername) {
    
    $this->logHandler->log ( INFO, "Getting integration" );
-   $integrationService = $integrationHelper->getIntegrationData ( $this->getCloudmunchService (), $this->getParameterObject () );
+   $integrationService = $integrationHelper->getIntegrationData ( $this->getCloudmunchService (), $this->parameterObject );
    if (is_null ( $integrationService )) {
     $this->logHandler->log ( INFO, "Retrieving integration failed" );
    }
   }
   
   return array (
-    "appInput" => $this->getParameterObject (),
+    "appInput" => $this->parameterObject,
     "integrationdetails" => $integrationService 
   );
  }

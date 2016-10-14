@@ -23,7 +23,7 @@ use CloudMunch\loghandling\LogHandler;
  */
 class CloudmunchService {
  const APPLICATIONS = "/applications/";
- private $appContext = null;
+ private $appContext = null;  
  private $cmDataManager;
  private $keyArray = array ();
  private $logHelper = null;
@@ -311,7 +311,7 @@ class CloudmunchService {
   if (! is_string ( $keyString )) {
    $keyString = json_encode ( $keyString );
   }
-  if ($keyString === false) {
+  if ($keyString === false || $keyString === "false") {
    return false;
   }
   

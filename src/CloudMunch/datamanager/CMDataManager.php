@@ -75,9 +75,14 @@ class CMDataManager {
   $result = $this->do_curl ( $url, null, "GET", null, null );
   
   $result = $result [static::RESPONSE];
-  $resultdecode = json_decode ( $result );
-  if (($result == null) || (is_null ( $resultdecode ))) {
-   return false;
+  if (($result == null)) {
+      return false;
+  }
+
+  $resultdecode = json_decode($result);
+
+  if (is_null($resultdecode)) {       
+      return $result;
   }
   
   if ((! empty ( $resultdecode->request->status )) && ($resultdecode->request->status !== static::SUCCESS)) {

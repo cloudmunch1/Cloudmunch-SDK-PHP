@@ -59,6 +59,12 @@ abstract class AppAbstract {
  private $logHandler = null;
  
  /**
+  *
+  * @var Context variables
+  */
+ private $contextVariables=null;
+ 
+ /**
   * This is an abstract method to be implemented by every plugin.
   *
   * @param array $processparameters
@@ -100,6 +106,7 @@ abstract class AppAbstract {
   
   $jsonParams = json_decode ( $jsonParameters );
   $varParams = json_decode ( $variableParams );
+  $this->contextVariables=$varParams;
   $integrations = json_decode ( $integrations );
   $appContext = new AppContext ();
   
@@ -321,7 +328,8 @@ abstract class AppAbstract {
   
   return array (
     "appInput" => $this->parameterObject,
-    "integrationdetails" => $integrationService 
+    "integrationdetails" => $integrationService ,
+    "contextdata"=>$this->contextVariables 
   );
  }
  

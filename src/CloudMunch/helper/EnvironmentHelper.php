@@ -203,12 +203,14 @@ class EnvironmentHelper {
   * @return array stage details
   */
  function setStage($data) {
+  $this->logHelper->log ( INFO, "stage:".$data [static::STAGE] );
   if (is_array ( $data ) && isset ( $data [static::STAGE] ) && ! empty ( $data [static::STAGE] ) && ! is_null ( $data [static::STAGE] )) {
    // return the same if stage is already set with required format
    if (is_array ( $data [static::STAGE] ) || is_object ( $data [static::STAGE] )) {
     return $data [static::STAGE];
    } else {
     $stage = $this->getStage ( "id", $data [static::STAGE] );
+    
     // if name is set as value
     if (is_null ( $stage )) {
      $stage = $this->getStage ( "name", $data [static::STAGE] );
@@ -487,7 +489,7 @@ class EnvironmentHelper {
    
    $assets = ( array ) $tier->assets;
    
-   array_merge ( $assetNames, $assets );
+  $assetNames= array_merge ( $assetNames, $assets );
   }
   
   $assetsDetail = array ();

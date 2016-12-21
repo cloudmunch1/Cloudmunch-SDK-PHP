@@ -1109,6 +1109,51 @@ class InsightHelper
     }
 
     /**
+     *   Create report of type doughnut.
+     *
+     *   @param string resourceID       : id of resource
+     *   @param array  data             : data to be passed for report creation
+     *   @param string reportName       : name of report
+     *   @param string cardLabel        : label to be displayed on card
+     *   @param string sourceName       : source of generated data
+     *   @param string description      : description of report
+     *   @param string group            : group to which this card belongs
+     *   @param string sourceURL        : source url
+     *   @param string legendsList      : legends displayed in graph
+     */
+    public function createDoughnutGraph($resourceID, $data, $reportName, $cardLabel, $sourceName, $description, $group, $sourceURL, $legendsList){
+        $reportID = null;
+        if ($data && is_array($data) && count($data)) {
+            $this->logHelper->log("INFO", "Attempting creation of report - $reportName ...");
+            $cardMetaInfo = array (
+                                    "default" => "doughnut", 
+                                    "url"     => $sourceURL, 
+                                    "date"    => date("Y-m-d H:i:s"), 
+                                    "label"   => $cardLabel, 
+                                    "source"  => $sourceName, 
+                                    "group"   => $group,
+                                    "description"   => $description,
+                                    "visualization_options" => array("doughnut"),
+                                    "xaxis"   => (object) array ("label" => ""),
+                                    "yaxis"   => (object) array ("label" => "")
+                                );
+
+            $final['data'] = array($data);
+            $final['visualization_map'] = (object) array ( "plots" => (object) array ( "sections" => $legendsList ), "x" => "140", "y" => "120");
+            $final['card_meta'] = $cardMetaInfo;
+            $data = array();
+            $data["data"] = $final;
+            $reportID = $this->createInsightReport($resourceID, date("Y-m-d"));
+            $cardID   = $this->createInsightReportCard($resourceID, $reportID, $reportName);
+            $response = $this->updateInsightReportCard($resourceID, $reportID, $cardID, $data);
+            if ($response){
+                $this->logHelper->log("INFO", "Report successfully created");
+            }
+        }
+        return $reportID;
+    }
+
+    /**
      * Compare  and set tolerance status based on percentage change in value of latest element with its previous element against provided upper and lower limit.
      * Status takes precedence in the following order, Failed > Warning > success
      *

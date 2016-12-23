@@ -1154,6 +1154,49 @@ class InsightHelper
     }
 
     /**
+     *   Adds key metrics data to report
+     *
+     *   @param string resourceID       : id of resource
+     *   @param string reportID         : id of report
+     *   @param array  metricID         : id of metric
+     *   @param string name             : name to be displayed on card
+     *   @param string value            : value to be displayed on card
+     *   @param string valueType        : percentage is supported now
+     *   @param string source           : source from data
+     *   @param string sourceURL        : source url
+     *   @param string subText          : subtext to be displayed below value
+     *   @param string color            : color of card
+     *
+     */
+    public function addKeyMetric($resourceID, $reportID, $metricId, $name, $value, $valueType = null, $source = null, $sourceURL = null, $subtext = '', $color = "#009900")
+    {
+        if($value && $metricId && $name && $reportID && $resourceID){
+            $id = $resourceID . "_" . $id;
+            $temp[$id] = array();
+
+            $temp[$id]["metric"]      = ucfirst($name);
+            $temp[$id]["id"]          = $id;
+            $temp[$id]['sub_text']    = $subtext ? $subtext : '';       
+            $temp[$id]["source_url"]  = $sourceURL;
+            $temp[$id]["source_name"] = $source;
+            $temp[$id]["card_color"]  = $color;
+            $temp[$id]["description"] = $description;
+            $temp[$id]["insight_id"]  = $resourceID;
+            $temp[$id]["value"]       = $value;
+            $temp[$id]["value_type"]  = $valueType;
+            $temp[$id]["insight_report_id"] = $reportID;
+            $temp[$id]["application_id"]    = $this->appContext->getProject();
+            $temp[$id]["date"] = gmdate("Y-m-d\TH:i:s\Z");
+            $metrics["key_metrics"] = $temp;
+            
+            return $this->updateInsightReport($resourceID, $reportID, $metrics);
+        } else {
+            $this->logHelper->log(static::ERROR, "Resource id, value, metric id, name, and report id has to be passed to create a key metric");
+            return false;            
+        }
+    }
+
+    /**
      * Compare  and set tolerance status based on percentage change in value of latest element with its previous element against provided upper and lower limit.
      * Status takes precedence in the following order, Failed > Warning > success
      *

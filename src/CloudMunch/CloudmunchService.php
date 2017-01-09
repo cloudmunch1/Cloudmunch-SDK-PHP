@@ -109,6 +109,24 @@ class CloudmunchService {
   
   return $retArray->data;
  }
+
+/**
+  * Executor an interface action and return the response.
+  *
+  * @param string integrationID : id of integration
+  * @param string action        : action to be executed
+  * @param string data          : any data to be passed to interface
+  *         
+  * @return json response from api interface action
+  */
+  public function callInterfaceAction($integrationID, $action, $data = array()){
+    if ($integrationID && $action){
+      return $this->updateCustomContextData(array('integrations' => $integrationID), $data, "POST", array('action' => $action) );
+    } else {
+     $this->logHelper->log ( ERROR, "Integration id and an action is mandatory to execute an action" );
+      return false;
+    }
+  }
  
  /**
   *

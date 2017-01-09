@@ -69,11 +69,18 @@ class InsightHelper
      *
      * @return array resources available with given type
      */
-    public function getResources($type)
+    public function getResources($type, $filter = null)
     {
         if($type) {
             $contextArray = array(static::RESOURCES => '');
-            $queryOptions = array(static::FILTER => array('type' => $type), static::FIELDS => '*');
+            $queryOptions = array();
+            $queryOptions[static::FIELDS] = '*';
+            $queryOptions[static::FILTER] = array();
+
+            if ($filter && is_array($filter) && count($filter) > 0) {
+                $queryOptions[static::FILTER] = $filter;
+            }
+            $queryOptions[static::FILTER]['type'] = $type;
             return $this->cmService->getCustomContextData($contextArray, $queryOptions);
         } else {
             $this->logHelper->log(static::DEBUG, 'Resource type is not provided!');
@@ -447,6 +454,31 @@ class InsightHelper
         return $this->cmService->updateCustomContextData($params, $data);
     }
 
+    /**
+     * Update a resource with provided data.
+     *
+     * @param string $insightID
+     * @param string $data
+     *
+     * @return json object of resource details
+     */
+    public function updateResource($insightID, $data)
+    {
+        $isInsightIDEmpty = is_null($insightID) || empty($insightID);
+
+        if ($isInsightIDEmpty || is_null($data)) {
+            $this->logHelper->log(static::DEBUG, 'Resource id, and data is needed to update a resource');
+
+            return false;
+        }
+
+        $params =  array(
+                            static::RESOURCES        => $insightID
+                        );
+
+        return $this->cmService->updateCustomContextData($params, $data);
+    }
+
     /*******************************************************************************/
     /*******************************************************************************/
     /************************* INSIGHT POST API UTILITIES **************************/
@@ -462,7 +494,7 @@ class InsightHelper
      *
      * @return string extract id
      */
-    public function createInsightDataStoreExtract($insightID, $dataStoreID, $extractName)
+    public function createInsightDataStoreExtract($insightID, $dataStoreID, $extractName, $data = array())
     {
         $isInsightIDEmpty   = is_null($insightID)   || empty($insightID);
         $isDataStoreIDEmpty = is_null($dataStoreID) || empty($dataStoreID);
@@ -476,7 +508,6 @@ class InsightHelper
         $extractID = null;
         $extractID = $this->getInsightDataStoreExtractID($insightID, $dataStoreID, $extractName);
 
-        if (!$extractID) {
             $this->logHelper->log('INFO', 'Attempting creation of extract with name '.$extractName.'...');
 
             $params =  array(
@@ -485,15 +516,17 @@ class InsightHelper
                                 static::EXTRACTS   => '',
                             );
 
-            $data =  array('name' => $extractName);
-
+        if (!$extractID) {
+            $data['name'] = $extractName;
             $response = $this->cmService->updateCustomContextData($params, $data, "POST");
+        } elseif ($extractID && is_array($data) && count($data) > 0) {
+            $response = $this->updateInsightDataStoreExtract($insightID, $dataStoreID, $extractID, $data);
+        }
 
-            if ($response) {
-                $extractID = $response->id;
-            } else {
-                $extractID = false;
-            }
+        if ($response) {
+            $extractID = $response->id;
+        } else {
+            $extractID = false;
         }
         return $extractID;
     }
@@ -618,6 +651,42 @@ class InsightHelper
             }
         }
         return $reportID;
+    }
+
+    /**
+     * Create a report if it does not exist.
+     *
+     * @param string $insightID
+     * @param string $reportName
+     *
+     * @return string report id
+     */
+    public function createResource($resourceName, $type, $data = null)
+    {
+        if (is_null($resourceName) || empty($resourceName) || is_null($type) || empty($type)) {
+            $this->logHelper->log(static::DEBUG, 'Resource name and type is needed to create a resource');
+            return false;
+        }
+        $resourceID = false;
+        $resources = $this->getResources($type, array('name' => $resourceName));
+
+        if ($resources && is_array($resources) && $resources[0]){
+            $resourceID = $resources[0]->id ? $resources[0]->id : false;
+        } else {
+            $this->logHelper->log('INFO', 'Attempting creation of resource with name ' . $resourceName . ' and type ' . $type . ' ...');
+
+            $params =  array(
+                                static::RESOURCES => ''
+                            );
+
+            $data = $data && is_array($data) && count($data) > 0 ? $data : array();
+            $data['name'] = $resourceName;
+            $data['type'] = $type;
+
+            $response   = $this->cmService->updateCustomContextData($params, $data, "POST");
+            $resourceID = $response && $response->id ? $response->id : false;
+        }
+        return $resourceID;
     }
 
     /*******************************************************************************/
@@ -1091,16 +1160,10 @@ class InsightHelper
             $arrData = [];
             $arrData[result] = $data;
             $arrData[additional_info] = $additionInfo;
-            $extractID = $this->createInsightDataStoreExtract($resourceID, $dataStoreID, $extractName);
-            if ($extractID) {
-                $response = $this->updateInsightDataStoreExtract($resourceID, $dataStoreID, $extractID, $arrData);
-                if (!$response) {
-                    $this->logHelper->log(static::ERROR, "'Unable to update extract!");
-                    return false;
-                }
-            }
+            $response = $this->createInsightDataStoreExtract($resourceID, $dataStoreID, $extractName, $arrData);
             if($response){
-                $this->logHelper->log("INFO", "DataStore extract created!");
+                $this->logHelper->log("INFO", "DataStore extract updated!");
+                return $dataStoreID;
             }
         } else {
             $this->logHelper->log(static::ERROR, "Resource id, data and datastore name has to be passed to update an extract");

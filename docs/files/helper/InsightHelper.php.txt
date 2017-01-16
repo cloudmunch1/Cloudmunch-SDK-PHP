@@ -19,7 +19,8 @@ use Cloudmunch\CloudmunchConstants;
 
 
 /**
- *  This is a helper class for environments. User can manage environments in cloudmunch using this helper.
+ *  This is a helper class for Insight plugins.Several helper methods to interact with CloudMunch Data Stores and 
+ *  Resources are provided here. Helper methods to extract sprint details, create key metrics are available.
  *
  *  @package CloudMunch
  *  @author Amith <amith@cloudmunch.com>
@@ -69,11 +70,18 @@ class InsightHelper
      *
      * @return array resources available with given type
      */
-    public function getResources($type)
+    public function getResources($type, $filter = null)
     {
         if($type) {
             $contextArray = array(static::RESOURCES => '');
-            $queryOptions = array(static::FILTER => array('type' => $type), static::FIELDS => '*');
+            $queryOptions = array();
+            $queryOptions[static::FIELDS] = '*';
+            $queryOptions[static::FILTER] = array();
+
+            if ($filter && is_array($filter) && count($filter) > 0) {
+                $queryOptions[static::FILTER] = $filter;
+            }
+            $queryOptions[static::FILTER]['type'] = $type;
             return $this->cmService->getCustomContextData($contextArray, $queryOptions);
         } else {
             $this->logHelper->log(static::DEBUG, 'Resource type is not provided!');
@@ -447,6 +455,31 @@ class InsightHelper
         return $this->cmService->updateCustomContextData($params, $data);
     }
 
+    /**
+     * Update a resource with provided data.
+     *
+     * @param string $insightID
+     * @param string $data
+     *
+     * @return json object of resource details
+     */
+    public function updateResource($insightID, $data)
+    {
+        $isInsightIDEmpty = is_null($insightID) || empty($insightID);
+
+        if ($isInsightIDEmpty || is_null($data)) {
+            $this->logHelper->log(static::DEBUG, 'Resource id, and data is needed to update a resource');
+
+            return false;
+        }
+
+        $params =  array(
+                            static::RESOURCES        => $insightID
+                        );
+
+        return $this->cmService->updateCustomContextData($params, $data);
+    }
+
     /*******************************************************************************/
     /*******************************************************************************/
     /************************* INSIGHT POST API UTILITIES **************************/
@@ -462,7 +495,7 @@ class InsightHelper
      *
      * @return string extract id
      */
-    public function createInsightDataStoreExtract($insightID, $dataStoreID, $extractName)
+    public function createInsightDataStoreExtract($insightID, $dataStoreID, $extractName, $data = array())
     {
         $isInsightIDEmpty   = is_null($insightID)   || empty($insightID);
         $isDataStoreIDEmpty = is_null($dataStoreID) || empty($dataStoreID);
@@ -476,7 +509,6 @@ class InsightHelper
         $extractID = null;
         $extractID = $this->getInsightDataStoreExtractID($insightID, $dataStoreID, $extractName);
 
-        if (!$extractID) {
             $this->logHelper->log('INFO', 'Attempting creation of extract with name '.$extractName.'...');
 
             $params =  array(
@@ -485,15 +517,17 @@ class InsightHelper
                                 static::EXTRACTS   => '',
                             );
 
-            $data =  array('name' => $extractName);
-
+        if (!$extractID) {
+            $data['name'] = $extractName;
             $response = $this->cmService->updateCustomContextData($params, $data, "POST");
+        } elseif ($extractID && is_array($data) && count($data) > 0) {
+            $response = $this->updateInsightDataStoreExtract($insightID, $dataStoreID, $extractID, $data);
+        }
 
-            if ($response) {
-                $extractID = $response->id;
-            } else {
-                $extractID = false;
-            }
+        if ($response) {
+            $extractID = $response->id;
+        } else {
+            $extractID = false;
         }
         return $extractID;
     }
@@ -618,6 +652,42 @@ class InsightHelper
             }
         }
         return $reportID;
+    }
+
+    /**
+     * Create a report if it does not exist.
+     *
+     * @param string $insightID
+     * @param string $reportName
+     *
+     * @return string report id
+     */
+    public function createResource($resourceName, $type, $data = null)
+    {
+        if (is_null($resourceName) || empty($resourceName) || is_null($type) || empty($type)) {
+            $this->logHelper->log(static::DEBUG, 'Resource name and type is needed to create a resource');
+            return false;
+        }
+        $resourceID = false;
+        $resources = $this->getResources($type, array('name' => $resourceName));
+
+        if ($resources && is_array($resources) && $resources[0]){
+            $resourceID = $resources[0]->id ? $resources[0]->id : false;
+        } else {
+            $this->logHelper->log('INFO', 'Attempting creation of resource with name ' . $resourceName . ' and type ' . $type . ' ...');
+
+            $params =  array(
+                                static::RESOURCES => ''
+                            );
+
+            $data = $data && is_array($data) && count($data) > 0 ? $data : array();
+            $data['name'] = $resourceName;
+            $data['type'] = $type;
+
+            $response   = $this->cmService->updateCustomContextData($params, $data, "POST");
+            $resourceID = $response && $response->id ? $response->id : false;
+        }
+        return $resourceID;
     }
 
     /*******************************************************************************/
@@ -800,7 +870,7 @@ class InsightHelper
      *
      *   @return array of dates
      */
-    public function identifyDatesForDurationUnit($projectionUnit, $projectionCount, $curr_date = null)
+    public function identifyDatesForDurationUnit($projectionUnit, $projectionCount, $curr_date = null, $newStructure = true)
     {
         $iCount       = 0;
         $duration_arr = [];
@@ -824,10 +894,10 @@ class InsightHelper
                 }
                 break;
             case "month":
-                $projectionCount = $projectionCount * 30;
+                $projectionCount = $newStructure ? $projectionCount : $projectionCount * 30;
                 while ($iCount < $projectionCount) {
                     $duration_arr[$iCount] = $curr_date;
-                    $curr_date = date(static::DATE_VALUE, strtotime($oneDay, strtotime($curr_date)));
+                    $curr_date = $newStructure ? date('Y-m', strtotime(' -1 month', strtotime($curr_date))) : date(static::DATE_VALUE, strtotime($oneDay, strtotime($curr_date)));
                     ++$iCount;
                 }
                 break;
@@ -1091,20 +1161,102 @@ class InsightHelper
             $arrData = [];
             $arrData[result] = $data;
             $arrData[additional_info] = $additionInfo;
-            $extractID = $this->createInsightDataStoreExtract($resourceID, $dataStoreID, $extractName);
-            if ($extractID) {
-                $response = $this->updateInsightDataStoreExtract($resourceID, $dataStoreID, $extractID, $arrData);
-                if (!$response) {
-                    $this->logHelper->log(static::ERROR, "'Unable to update extract!");
-                    return false;
-                }
-            }
+            $response = $this->createInsightDataStoreExtract($resourceID, $dataStoreID, $extractName, $arrData);
             if($response){
-                $this->logHelper->log("INFO", "DataStore extract created!");
+                $this->logHelper->log("INFO", "DataStore extract updated!");
+                return $dataStoreID;
             }
         } else {
             $this->logHelper->log(static::ERROR, "Resource id, data and datastore name has to be passed to update an extract");
             return false;
+        }
+    }
+
+    /**
+     *   Create report of type doughnut.
+     *
+     *   @param string resourceID       : id of resource
+     *   @param array  data             : data to be passed for report creation
+     *   @param string reportName       : name of report
+     *   @param string cardLabel        : label to be displayed on card
+     *   @param string sourceName       : source of generated data
+     *   @param string description      : description of report
+     *   @param string group            : group to which this card belongs
+     *   @param string sourceURL        : source url
+     *   @param string legendsList      : legends displayed in graph
+     */
+    public function createDoughnutGraph($resourceID, $data, $reportName, $cardLabel, $sourceName, $description, $group, $sourceURL, $legendsList){
+        $reportID = null;
+        if ($data && is_array($data) && count($data)) {
+            $this->logHelper->log("INFO", "Attempting creation of report - $reportName ...");
+            $cardMetaInfo = array (
+                                    "default" => "doughnut", 
+                                    "url"     => $sourceURL, 
+                                    "date"    => date("Y-m-d H:i:s"), 
+                                    "label"   => $cardLabel, 
+                                    "source"  => $sourceName, 
+                                    "group"   => $group,
+                                    "description"   => $description,
+                                    "visualization_options" => array("doughnut"),
+                                    "xaxis"   => (object) array ("label" => ""),
+                                    "yaxis"   => (object) array ("label" => "")
+                                );
+
+            $final['data'] = array($data);
+            $final['visualization_map'] = (object) array ( "plots" => (object) array ( "sections" => $legendsList ), "x" => "140", "y" => "120");
+            $final['card_meta'] = $cardMetaInfo;
+            $data = array();
+            $data["data"] = $final;
+            $reportID = $this->createInsightReport($resourceID, date("Y-m-d"));
+            $cardID   = $this->createInsightReportCard($resourceID, $reportID, $reportName);
+            $response = $this->updateInsightReportCard($resourceID, $reportID, $cardID, $data);
+            if ($response){
+                $this->logHelper->log("INFO", "Report successfully created");
+            }
+        }
+        return $reportID;
+    }
+
+    /**
+     *   Adds key metrics data to report
+     *
+     *   @param string resourceID       : id of resource
+     *   @param string reportID         : id of report
+     *   @param array  metricID         : id of metric
+     *   @param string name             : name to be displayed on card
+     *   @param string value            : value to be displayed on card
+     *   @param string valueType        : percentage is supported now
+     *   @param string source           : source from data
+     *   @param string sourceURL        : source url
+     *   @param string subText          : subtext to be displayed below value
+     *   @param string color            : color of card
+     *
+     */
+    public function addKeyMetric($resourceID, $reportID, $metricId, $name, $value, $valueType = null, $source = null, $sourceURL = null, $subtext = '', $color = "#009900")
+    {
+        if($value && $metricId && $name && $reportID && $resourceID){
+            $id = $resourceID . "_" . $id;
+            $temp[$id] = array();
+
+            $temp[$id]["metric"]      = ucfirst($name);
+            $temp[$id]["id"]          = $id;
+            $temp[$id]['sub_text']    = $subtext ? $subtext : '';       
+            $temp[$id]["source_url"]  = $sourceURL;
+            $temp[$id]["source_name"] = $source;
+            $temp[$id]["card_color"]  = $color;
+            $temp[$id]["description"] = $description;
+            $temp[$id]["insight_id"]  = $resourceID;
+            $temp[$id]["value"]       = $value;
+            $temp[$id]["value_type"]  = $valueType;
+            $temp[$id]["insight_report_id"] = $reportID;
+            $temp[$id]["application_id"]    = $this->appContext->getProject();
+            $temp[$id]["date"] = gmdate("Y-m-d\TH:i:s\Z");
+            $metrics["key_metrics"] = $temp;
+            
+            return $this->updateInsightReport($resourceID, $reportID, $metrics);
+        } else {
+            $this->logHelper->log(static::ERROR, "Resource id, value, metric id, name, and report id has to be passed to create a key metric");
+            return false;            
         }
     }
 

@@ -869,7 +869,7 @@ class InsightHelper
      *
      *   @return array of dates
      */
-    public function identifyDatesForDurationUnit($projectionUnit, $projectionCount, $curr_date = null)
+    public function identifyDatesForDurationUnit($projectionUnit, $projectionCount, $curr_date = null, $newStructure = true)
     {
         $iCount       = 0;
         $duration_arr = [];
@@ -893,10 +893,10 @@ class InsightHelper
                 }
                 break;
             case "month":
-                $projectionCount = $projectionCount * 30;
+                $projectionCount = $newStructure ? $projectionCount : $projectionCount * 30;
                 while ($iCount < $projectionCount) {
                     $duration_arr[$iCount] = $curr_date;
-                    $curr_date = date(static::DATE_VALUE, strtotime($oneDay, strtotime($curr_date)));
+                    $curr_date = $newStructure ? date('Y-m', strtotime(' -1 month', strtotime($curr_date))) : date(static::DATE_VALUE, strtotime($oneDay, strtotime($curr_date)));
                     ++$iCount;
                 }
                 break;

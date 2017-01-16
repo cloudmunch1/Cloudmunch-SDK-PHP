@@ -12,7 +12,7 @@ namespace CloudMunch;
 
 /**
  * Class AppContext
- * This class is the Applictaion Context object that has all the environment variables needed
+ * This class is the Applictaion Context , that has all the context data needed
  * for plugin runtime.
  *
  * @package CloudMunch

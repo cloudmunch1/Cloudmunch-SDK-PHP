@@ -19,7 +19,8 @@ use Cloudmunch\CloudmunchConstants;
 
 
 /**
- *  This is a helper class for environments. User can manage environments in cloudmunch using this helper.
+ *  This is a helper class for Insight plugins.Several helper methods to interact with CloudMunch Data Stores and 
+ *  Resources are provided here. Helper methods to extract sprint details, create key metrics are available.
  *
  *  @package CloudMunch
  *  @author Amith <amith@cloudmunch.com>

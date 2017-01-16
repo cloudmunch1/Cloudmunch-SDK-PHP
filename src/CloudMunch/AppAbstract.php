@@ -25,11 +25,11 @@ use DateTime;
 
 /**
  * Class AppAbstract
- *
+ * An abstract base class for Cloudmunch plugin, providing methods to read plugin inputs 
+ * and handle plugin life cycle.
+ * 
  * @package CloudMunch
  * @author Rosmi <rosmi@cloudmunch.com>
- *         An abstract base class for Cloudmunch App Object, providing methods to read parameters,
- *         create app context object and retreive service objects
  */
 abstract class AppAbstract {
  /**

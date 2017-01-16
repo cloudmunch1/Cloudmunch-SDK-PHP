@@ -19,7 +19,7 @@ use CloudMunch\loghandling\LogHandler;
  *
  * @package CloudMunch
  * @author Rosmi
- *         This class provides the service methods for the apps to invoke action on cloudmunch
+ * This class provides the service methods for the plugins to make various API calls  to  cloudmunch.
  */
 class CloudmunchService {
  const APPLICATIONS = "/applications/";

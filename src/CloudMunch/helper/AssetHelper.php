@@ -17,7 +17,7 @@ use Cloudmunch\CloudmunchConstants;
 
 /**
  * This is a helper class for assets.
- * User can manage assets in cloudmunch using this helper.
+ * Plugins can use this helper class to  manage assets in cloudmunch .
  */
 
 /**

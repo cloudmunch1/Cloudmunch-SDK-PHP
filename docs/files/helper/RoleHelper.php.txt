@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * (c) CloudMunch Inc.
  * All Rights Reserved
  * Un-authorized copying of this file, via any medium is strictly prohibited
@@ -44,7 +44,7 @@ class RoleHelper {
  private $logHelper = null;
  
  /**
-  *
+  * Constructor to initialise Application Context and LogHandler.
   * @param CloudMunch\AppContext $appContext         
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
@@ -57,10 +57,10 @@ class RoleHelper {
  /**
   * Check if given name of the role is unique with existing ones
   * 
-  * @param string $roleName
-  *         : name of the role to be verified
   * @param string $existingRoles
   *         : list of existing roles
+  * @param string $roleName
+  *         : name of the role to be verified
   * @return boolean true if name is unique
   */
  public function isRoleNameUnique($existingRoles, $roleName) {
@@ -135,8 +135,6 @@ class RoleHelper {
   * 
   * @param string $roleName
   *         Name of the role
-  * @param string $role_status
-  *         Role status ,valid values are success,failed,in-progress
   * @param array $roleData
   *         Array of role properties
   * @return array Details of new role added.

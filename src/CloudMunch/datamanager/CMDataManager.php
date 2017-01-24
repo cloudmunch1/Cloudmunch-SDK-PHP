@@ -43,7 +43,7 @@ class CMDataManager {
  private $notificationHandler;
  
  /**
-  *
+  * Constructor to initialise loghandling, application context and notification handler.
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   * @param CloudMunch\AppContext $appContext         
   * @param CloudMunch\helper\NotificationHandler $notificationHandler         
@@ -125,10 +125,11 @@ class CMDataManager {
  /**
   * Update data for given context.
   *
-  * @param $url string         
-  * @param $apikey string
-  *         $data array
-  *         $comment string
+  * @param string   $url      
+  * @param string  $apikey 
+  * @param array $data 
+  * @param string $comment
+  * @param array $extraParams
   * @return json object in the format {"data":{"id":"contextid","name":"contextname"},"request":{"status":"SUCCESS"}}
   */
  function putDataForContext($url, $apikey, $data, $comment = null, $extraParams = null) {
@@ -451,7 +452,7 @@ class CMDataManager {
  }
  
  /**
-  *
+  * This method returns true if haystack starts with needle.
   * @param string $haystack         
   * @param string $needle         
   * @return boolean true if haystack starts with needle

@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * (c) CloudMunch Inc.
  * All Rights Reserved
  * Un-authorized copying of this file, via any medium is strictly prohibited
@@ -72,9 +71,9 @@ class EnvironmentHelper {
  private $assetHelper = null;
  
  /**
-  *
-  * @param AppContext $appContext         
-  * @param LogHandler $logHandler         
+  * Constructor to initialise Application Context and LogHandler.
+  * @param CloudMunch\AppContext $appContext         
+  * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
  public function __construct($appContext, $logHandler) {
   $this->appContext = $appContext;

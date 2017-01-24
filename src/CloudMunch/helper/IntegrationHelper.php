@@ -42,9 +42,9 @@ class IntegrationHelper {
  private $logHelper = null;
  
  /**
-  *
-  * @param AppContext $appContext         
-  * @param LogHandler $logHandler         
+  * Constructor to initialise application context and log handling.
+  * @param CloudMunch\AppContext $appContext         
+  * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
  public function __construct($appContext, $logHandler) {
   $this->appContext = $appContext;

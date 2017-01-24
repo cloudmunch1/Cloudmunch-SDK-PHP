@@ -27,7 +27,7 @@ class IntegrationDataHelper {
  private $logHelper = null;
  
  /**
-  *
+  * Constructor to initialise loghandling.
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
  public function __construct($logHandler) {

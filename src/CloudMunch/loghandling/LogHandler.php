@@ -37,7 +37,7 @@ class LogHandler {
  private $logLevel = null;
  
  /**
-  *
+  * Constructor to initialise application context.
   * @param CloudMunch\AppContext $appContext         
   */
  public function __construct($appContext) {

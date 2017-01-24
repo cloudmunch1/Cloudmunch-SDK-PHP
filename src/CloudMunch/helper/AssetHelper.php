@@ -52,7 +52,7 @@ class AssetHelper {
  private $logHelper = null;
  
  /**
-  *
+  * Constructor to initialise Application Context and LogHandler.
   * @param CloudMunch\AppContext $appContext         
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
@@ -92,7 +92,7 @@ class AssetHelper {
  }
  
  /**
-  *
+  * Helper method to add an asset to CloudMunch service.
   * @param string $assetname
   *         Name of the asset
   * @param string $assettype

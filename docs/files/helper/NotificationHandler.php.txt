@@ -43,7 +43,7 @@ class NotificationHandler {
  private $logHelper = null;
  
  /**
-  *
+  * Constructor to initialise application context , log handling and CloudMunch data manager.
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   * @param CloudMunch\AppContext $appContext         
   * @param CloudMunch\datamanager\CMDataManager $cmDataManager         
@@ -66,10 +66,10 @@ class NotificationHandler {
   *         : Status level of message : ERROR/WARNING/INFO
   * @param string $channel
   *         : Channel to send notification
-  * @param string $to
-  *         : To address to be notified
   * @param string $from
   *         : From user
+  * @param string $to
+  *         : To address to be notified
   */
  public function sendSlackNotification($message, $status = "ERROR", $channel = "support", $from = null, $to = null) {
   if (is_null ( $message ) || empty ( $message )) {

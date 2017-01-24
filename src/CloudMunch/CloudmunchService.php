@@ -16,17 +16,42 @@ use CloudMunch\loghandling\LogHandler;
 
 /**
  * Class CloudmunchService
- *
+ * This class provides the service methods for the plugins to make various API calls  to  cloudmunch.
  * @package CloudMunch
  * @author Rosmi
- * This class provides the service methods for the plugins to make various API calls  to  cloudmunch.
+ * 
  */
 class CloudmunchService {
  const APPLICATIONS = "/applications/";
- private $appContext = null;  
+ /**
+  * 
+  * @var Reference to AppContext
+  */
+ private $appContext = null; 
+
+ /**
+  * 
+  * @var Reference to CMDataManager 
+  */
  private $cmDataManager;
+ 
+ /**
+  * 
+  * @var List of downloaded keys
+  */
  private $keyArray = array ();
+ 
+ /**
+  * 
+  * @var Reference to LogHelper
+  */
  private $logHelper = null;
+ 
+ /**
+  * Constructor to initialise Application Context and LogHandler.
+  * @param CloudMunch\AppContext $appContext
+  * @param CloudMunch\loghandling\LogHandler $logHandler
+  */
  public function __construct($appContext, $logHandler) {
   $this->appContext = $appContext;
   $this->logHelper = $logHandler;
@@ -70,9 +95,12 @@ class CloudmunchService {
   *         associative array with key as context and value as its id.
   * @param array $data
   *         Data to be updated.
-  * @param
+  * @param string $method
   *         method for updation, example POST,PATCH.
-  * @return
+  * @param array $extraParams
+  *        Extra parameters 
+  *                
+  * @return 
   *
   */
  public function updateCustomContextData($contextArray, $data = null, $method = "PATCH", $extraParams = null) {
@@ -129,7 +157,7 @@ class CloudmunchService {
   }
  
  /**
-  *
+  * Retreive custom context data.
   * @param array $contextArray
   *         associative array with key as context and its id as value
   * @param array $queryParams
@@ -181,7 +209,7 @@ class CloudmunchService {
  }
  
  /**
-  *
+  * Method for API calls to CloudMunch service to retreive context data.
   * @param string $context
   *         Context for which data has to be retrieved.
   * @param string $contextid
@@ -212,7 +240,7 @@ class CloudmunchService {
  }
  
  /**
-  *
+  * Method for API calls to CloudMunch service to update context data.
   * @param string $context
   *         Context for which data has to be updated.
   * @param string $contextid
@@ -238,7 +266,7 @@ class CloudmunchService {
  }
  
  /**
-  *
+  * Method for API calls to CloudMunch service to add context data.
   * @param string $context
   *         Context for which data has to be added.
   * @param array $data

@@ -47,7 +47,7 @@ class ServerHelper {
  private $logHelper = null;
  
  /**
-  *
+  * Constructor to initialise Application Context and LogHandler.
   * @param CloudMunch\AppContext $appContext         
   * @param CloudMunch\loghandling\LogHandler $logHandler         
   */
@@ -98,7 +98,8 @@ class ServerHelper {
  /**
   * This method can be used to add or register a server to cloudmunch data .
   *
-  * @param \CloudMunch\Server $server         
+  * @param \CloudMunch\Server $server       
+  * @param  string $serverstatus server status 
   *
   */
  function addServer($server, $serverstatus) {
@@ -142,7 +143,8 @@ class ServerHelper {
  /**
   * This method is used to update server data.
   * 
-  * @param \CloudMunch\Server $server         
+  * @param \CloudMunch\Server $server   
+  * @param string CloudMunch id for the server.      
   */
  function updateServer($server, $serverid) {
   $dataArray = array (

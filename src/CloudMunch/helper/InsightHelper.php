@@ -1103,7 +1103,7 @@ class InsightHelper {
   $data = array ();
   
   $visualizationMap = $this->linegraph_constructViewcardVisualizationMeta ( $graphLegendsList );
-  $cardMeta = $this->linegraph_constructViewcardMeta ( $cardTitle, $source, $description, $group, $xAxisLabel, $yAxisLabel, $tolerance, $url );
+  $cardMeta = $this->linegraph_constructViewcardMeta ( $cardTitle, $source, $description, $group, $xAxisLabel, $yAxisLabel, $tolerance, $url, "line_default" );
   $dataOutput ["data"] = array ();
   $dataOutput ["data"] = $dataFromCMDB;
   
@@ -1118,6 +1118,56 @@ class InsightHelper {
   return $reportID;
  }
  
+ /**
+  * Create report of type lintrend or kanban.
+  *
+  * @param
+  *         string resourceID : id of resource
+  * @param
+  *         array dataFromCMDB : data to be passed for report creation
+  * @param
+  *         string reportName : name of report
+  * @param
+  *         string cardTitle : label to be displayed on card
+  * @param
+  *         string source : source of generated data
+  * @param
+  *         string description : description of report
+  * @param
+  *         string group : group to which this card belongs
+  * @param
+  *         string graphLegendsList : legends displayed in graph
+  * @param
+  *         string xAxisLabel : label displayed on x-axis
+  * @param
+  *         string yAxisLabel : label displayed on y-axis
+  * @param
+  *         string tolerance : tolerance info
+  * @param
+  *         string url : source url
+  */
+ public function createBarGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $graphLegendsList = null, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#", $color = array()) {
+  $this->logHelper->log ( "INFO", "Attempting creation of report - $reportName ..." );
+  
+  $dataOutput = array ();
+  $data = array ();
+  
+  $visualizationMap = $this->linegraph_constructViewcardVisualizationMeta ( $graphLegendsList, $color );
+  $cardMeta = $this->linegraph_constructViewcardMeta ( $cardTitle, $source, $description, $group, $xAxisLabel, $yAxisLabel, $tolerance, $url, "bar_default" );
+  $dataOutput ["data"] = array ();
+  $dataOutput ["data"] = $dataFromCMDB;
+  
+  $dataOutput ["card_meta"] = $cardMeta;
+  $dataOutput ["visualization_map"] = $visualizationMap;
+  $data ["data"] = $dataOutput;
+  
+  $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
+  $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
+  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
+  $this->logHelper->log ( "INFO", 'Report creation complete!' );
+  return $reportID;
+ }
+
  /**
   * Create report of type lintrend or kanban.
   *
@@ -1171,15 +1221,19 @@ class InsightHelper {
   *         
   * @return array with visualization map
   */
- public function linegraph_constructViewcardVisualizationMeta($graphLegendsList) {
-  return array (
-    "plots" => array (
-      "x" => array (
-        static::LABEL 
-      ),
-      "y" => $graphLegendsList 
-    ) 
-  );
+ public function linegraph_constructViewcardVisualizationMeta($graphLegendsList, $color = array()) {
+  $data = array (
+            "plots" => array (
+              "x" => array (
+                static::LABEL 
+              ),
+              "y" => $graphLegendsList
+            )
+          );
+  if ($color && is_array($color)) {
+      $data['color'] = $color;
+  }
+  return $data;
  }
  
  /**
@@ -1203,9 +1257,9 @@ class InsightHelper {
   *         string url : source url
   * @return array with Card meta data
   */
- public function linegraph_constructViewcardMeta($cardTitle, $source, $description, $group, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#") {
+ public function linegraph_constructViewcardMeta($cardTitle, $source, $description, $group, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#", $type = "line_default") {
   $cardMeta = array (
-    "default" => "line_default",
+    "default" => $type,
     "url" => $url,
     "date" => date ( "Y-m-d H:i:s" ),
     static::LABEL => ucfirst ( $cardTitle ),
@@ -1213,7 +1267,7 @@ class InsightHelper {
     "group" => $group,
     "description" => $description,
     "visualization_options" => array (
-      "line_default" 
+      $type 
     ),
     "xaxis" => array (
       static::LABEL => $xAxisLabel 

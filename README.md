@@ -89,6 +89,30 @@ This is a helper class to manage environments in cloudmunch.
 ### RoleHelper
 This is a helper class to manage roles in cloudmunch.
 
+### InsightHelper
+This is a helper to retrieve insight data from cloudmunch data base or generate different type of reports.
+#### Terminologies
+- resource : This will have information on integration and any other details needed to gather information from external source
+- datastore : This is a child of resource which will hold smaller units of data retrieved from source
+- extract : This is the smallest unit of data stored in cloudmunch data base.
+- The hierarchy is resource->datastores->extracts
+- insight_report : This is a child of resource which will hold smaller units of reports
+- insight_card : This is a child of insight_report which will contain report related data. Can be used by user interface to render different type of graphs
+- The hierarchy is resource->insight_reports->insight_cards
+#### Methods
+- getExtractData() - 
+This method will return extracts from cloudmunch database
+- createLineGraph() - 
+Can be used to generate line trend graph
+- createBarGraph() - 
+Can be used to generate Bar graph
+- createDoughnutGraph() - 
+Can be used to generate doughnut/pi graph
+- createkanbanGraph() - 
+Can be used to generate kanban graph
+
+
+
 ## Sample Plugin
 Let us look at a sample plugin that prints "Hello "+ "string passed at runtime" on execution.
 Plugin name : Hello

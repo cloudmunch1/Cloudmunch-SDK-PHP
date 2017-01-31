@@ -99,7 +99,9 @@ This is a helper to retrieve insight data from cloudmunch data base or generate 
 - insight_report : This is a child of resource which will hold smaller units of reports
 - insight_card : This is a child of insight_report which will contain report related data. Can be used by user interface to render different type of graphs
 - The hierarchy is resource->insight_reports->insight_cards
+
 #### Methods
+
 - getExtractData() - 
 This method will return extracts from cloudmunch database
 - createLineGraph() - 

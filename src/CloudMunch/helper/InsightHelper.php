@@ -877,7 +877,7 @@ class InsightHelper {
  public function sprint_getSprintDetailsFromJiraCMDB() {
   list ( $jiraResourceID, $jiraProjectName, $rapidBoardID, $mvpVersion ) = $this->sprint_getJiraProjectNameFromResource ( "jira" );
   
-  if ($jiraResourceID && $jiraProjectName && $rapidBoardID && $mvpVersion) {
+  if ($jiraResourceID && $jiraProjectName && $rapidBoardID) {
    $dataStoreForJiraSprints = "jira_sprints";
    $jiraSprintsDataStore = $rapidBoardID . "_" . $mvpVersion . "_" . $dataStoreForJiraSprints;
    $jiraSprintsDataExtract = "*";
@@ -925,10 +925,10 @@ class InsightHelper {
  public function sprint_getJiraProjectNameFromResource($jiraResourceType) {
   $jiraResourceData = $this->getResources ( $jiraResourceType );
   if ($jiraResourceData && count ( $jiraResourceData ) > 0) {
-   $jiraProjectName = $jiraResourceData [0]->key_fields->jiraProject;
-   $jiraResourceID = $jiraResourceData [0]->id;
-   $rapidBoardID = $jiraResourceData [0]->key_fields->rapidBoardId;
-   $mvpVersion = $jiraResourceData [0]->key_fields->mvpVersion;
+   $jiraProjectName = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->jiraProject)  ? $jiraResourceData[0]->key_fields->jiraProject  : '';
+   $jiraResourceID  = $jiraResourceData[0]->id;
+   $rapidBoardID    = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->rapidBoardId) ? $jiraResourceData[0]->key_fields->rapidBoardId : '';
+   $mvpVersion      = '';
    return array (
      $jiraResourceID,
      $jiraProjectName,

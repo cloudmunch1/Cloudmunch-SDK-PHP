@@ -928,7 +928,7 @@ class InsightHelper {
    $jiraProjectName = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->jiraProject)  ? $jiraResourceData[0]->key_fields->jiraProject  : '';
    $jiraResourceID  = $jiraResourceData[0]->id;
    $rapidBoardID    = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->rapidBoardId) ? $jiraResourceData[0]->key_fields->rapidBoardId : '';
-   $mvpVersion      = '';
+   $mvpVersion      = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->mvpVersion)   ? $jiraResourceData[0]->key_fields->mvpVersion   : '';
    return array (
      $jiraResourceID,
      $jiraProjectName,

@@ -248,7 +248,7 @@ abstract class AppAbstract {
  }
  
  /**
-  * This method gives reference to CIM (Common interface model),this helper class has all the methods to get/set data on
+  * This method gives reference to CIM (Common information model),this helper class has all the methods to get/set data on
   * common extracts which can be used by common reporters.
   *
   * @return CIMHelper CIM helper

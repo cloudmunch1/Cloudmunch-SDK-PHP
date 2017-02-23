@@ -82,7 +82,7 @@ class CIMHelper {
   */
   public function createStory($resourceID, $storyInfo, $storyID,  $additionalInfo = null, $dataStoreID = null){
     $mandatoryFields = ["type", "story_status", "story_points"];
-    list($fieldsAvailble, $missingFields) = $this->validateFields($commitInfo, $mandatoryFields);
+    list($fieldsAvailble, $missingFields) = $this->validateFields($storyInfo, $mandatoryFields);
     if (!$fieldsAvailble) {
       $this->logHelper->log(static::ERROR, $missingFields);
       return false;
@@ -108,7 +108,7 @@ class CIMHelper {
   */
   public function createDefect($resourceID, $defectInfo, $defectID,  $additionalInfo = null, $dataStoreID = null){
     $mandatoryFields = ["type", "defect_criticality", "defect_status", "story_points"];
-    list($fieldsAvailble, $missingFields) = $this->validateFields($commitInfo, $mandatoryFields);
+    list($fieldsAvailble, $missingFields) = $this->validateFields($defectInfo, $mandatoryFields);
     if (!$fieldsAvailble) {
       $this->logHelper->log(static::ERROR, $missingFields);
       return false;
@@ -134,7 +134,7 @@ class CIMHelper {
   */
   public function createRisk($resourceID, $riskInfo, $riskID,  $additionalInfo = null, $dataStoreID = null){
     $mandatoryFields = ["type", "severity", "risk_status"];
-    list($fieldsAvailble, $missingFields) = $this->validateFields($commitInfo, $mandatoryFields);
+    list($fieldsAvailble, $missingFields) = $this->validateFields($riskInfo, $mandatoryFields);
     if (!$fieldsAvailble) {
       $this->logHelper->log(static::ERROR, $missingFields);
       return false;
@@ -160,12 +160,38 @@ class CIMHelper {
   */
   public function createSprint($resourceID, $sprintInfo, $sprintID,  $additionalInfo = null, $dataStoreID = null){
     $mandatoryFields = ["type", "sprint_iD", "sprint_name", "sequence", "sprint_status", "startDate", "endDate"];
-    list($fieldsAvailble, $missingFields) = $this->validateFields($commitInfo, $mandatoryFields);
+    list($fieldsAvailble, $missingFields) = $this->validateFields($sprintInfo, $mandatoryFields);
     if (!$fieldsAvailble) {
       $this->logHelper->log(static::ERROR, $missingFields);
       return false;
     }
     return $this->insightHelper->optimizedUpdateExtract($resourceID, $sprintInfo, "Sprints", $sprintID, $additionalInfo, "sprint", $dataStoreID);
+  }
+
+ /**
+  * Create an extract with build details.
+  *
+  * @param string $resourceID
+  *         id of resource.
+  * @param string $buildID
+  *         id of buildID.
+  * @param array $buildInfo
+  *         info on a build.
+  * @param string $additionalInfo
+  *         additional info of source. An object with two nodes, source_name : <repo name> and source_url : <web url which can be used to view source from browser>
+  * @param string $dataStoreID
+  *         id of datastore. This can be passed to reduce number of calls to cloudmunch database
+  *         
+  * @return boolean true or false based on success or failure
+  */
+  public function createBuild($resourceID, $buildInfo, $buildID,  $additionalInfo = null, $dataStoreID = null){
+    $mandatoryFields = ["id", "displayName", "duration", "estimatedDuration", "result"];
+    list($fieldsAvailble, $missingFields) = $this->validateFields($buildInfo, $mandatoryFields);
+    if (!$fieldsAvailble) {
+      $this->logHelper->log(static::ERROR, $missingFields);
+      return false;
+    }
+    return $this->insightHelper->optimizedUpdateExtract($resourceID, $buildInfo, "Builds", $buildID, $additionalInfo, "build", $dataStoreID);
   }
 
  /**

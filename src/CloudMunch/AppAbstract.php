@@ -16,6 +16,7 @@ use CloudMunch\integrations\IntegrationDataHelper;
 use CloudMunch\helper\AssetHelper;
 use CloudMunch\helper\EnvironmentHelper;
 use CloudMunch\helper\InsightHelper;
+use CloudMunch\helper\CIMHelper;
 use CloudMunch\helper\IntegrationHelper;
 use CloudMunch\helper\NotificationHandler;
 use CloudMunch\helper\RoleHelper;
@@ -237,8 +238,8 @@ abstract class AppAbstract {
  }
  
  /**
-  * This method gives reference to EnvironmentHelper,this helper class has all the methods to get/set data on
-  * assets registered with cloudmunch.
+  * This method gives reference to InsightHelper,this helper class has all the methods to get/set data on 
+  * resources, datastores, extracts, insight reports and report cards
   *
   * @return InsightHelper insight helper
   */
@@ -246,6 +247,16 @@ abstract class AppAbstract {
   return new InsightHelper ( $this->appContext, $this->logHandler );
  }
  
+ /**
+  * This method gives reference to CIM (Common interface model),this helper class has all the methods to get/set data on
+  * common extracts which can be used by common reporters.
+  *
+  * @return CIMHelper CIM helper
+  */
+ function getCloudmunchCIMHelper() {
+  return new CIMHelper ( $this->appContext, $this->logHandler );
+ }
+
  /**
   * This method gives reference to RoleHelper,this helper class has all the methods to get/set data on
   * assets registered with cloudmunch.

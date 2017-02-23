@@ -1357,7 +1357,7 @@ class InsightHelper {
   * @param
   *         string additionInfo : additional info on source
   */
- public function updateExtract($resourceID, $data, $dataStoreName, $extractName = null, $additionInfo = null) {
+ public function updateExtract($resourceID, $data, $dataStoreName, $extractName = null, $additionInfo = null, $dataNode = "result") {
   $extractName = (is_null ( $extractName ) || empty ( $extractName )) ? date ( static::DATE_VALUE ) : $extractName;
   if ($resourceID && $data && $dataStoreName) {
    $this->logHelper->log ( "INFO", "Attempting Creation of Data Store $dataStoreName ..." );
@@ -1369,7 +1369,7 @@ class InsightHelper {
    $this->logHelper->log ( "INFO", "DataStore created!" );
    
    $arrData = [ ];
-   $arrData [result] = $data;
+   $arrData [$dataNode] = $data;
    $arrData [additional_info] = $additionInfo;
    $response = $this->createInsightDataStoreExtract ( $resourceID, $dataStoreID, $extractName, $arrData );
    if ($response) {
@@ -1382,6 +1382,37 @@ class InsightHelper {
   }
  }
  
+ /**
+  * Store passed data in data store
+  *
+  * @param
+  *         string resourceID : id of resource
+  * @param
+  *         array data : data to be stored in database
+  * @param
+  *         string dataStoreName : name of data store
+  * @param
+  *         string extractName : name of extract
+  * @param
+  *         string additionalInfo : additional info of source. An object with two nodes, source_name : <repo name> and source_url : <web url which can be used to view source from browser>
+  * @param
+  *         string dataNode : parent node name of data to be stored in extract
+  * @return boolean true or false based or success
+  */
+  public function optimizedUpdateExtract($resourceID, $data, $dataStoreName, $extractName , $additionalInfo = null, $dataNode = "result", $dataStoreID = null) {
+    if ($dataStoreID){
+        $arrData = [];
+        $arrData[$dataNode] = $data;
+        $arrData[additional_info] = $additionalInfo;
+        $response  = $this->createInsightDataStoreExtract($resourceID, $dataStoreID, $extractName, $arrData);
+        $response  = $response  ? $response : $this->logHelper->log(static::DEBUG, "Unable to update extract");
+        return $response ? true : false;
+    } else {
+        $dataStoreID = $this->updateExtract($resourceID, $data, $dataStoreName, $extractName, $additionalInfo, $dataNode);
+        return $dataStoreID ? true : false;
+    }  
+  }
+
  /**
   * Create report of type doughnut.
   *

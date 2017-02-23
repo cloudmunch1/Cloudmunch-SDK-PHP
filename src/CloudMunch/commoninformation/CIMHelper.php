@@ -7,7 +7,7 @@
  *  Proprietary and confidential
  *
  */
-namespace CloudMunch\helper;
+namespace CloudMunch\commoninformation;
 
 use \DateTime;
 use CloudMunch\helper\InsightHelper;

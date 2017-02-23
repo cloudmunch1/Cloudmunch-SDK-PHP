@@ -16,7 +16,7 @@ use CloudMunch\integrations\IntegrationDataHelper;
 use CloudMunch\helper\AssetHelper;
 use CloudMunch\helper\EnvironmentHelper;
 use CloudMunch\helper\InsightHelper;
-use CloudMunch\helper\CIMHelper;
+use CloudMunch\commoninformation\CIMHelper;
 use CloudMunch\helper\IntegrationHelper;
 use CloudMunch\helper\NotificationHandler;
 use CloudMunch\helper\RoleHelper;

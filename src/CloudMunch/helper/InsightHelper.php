@@ -551,7 +551,7 @@ class InsightHelper {
   $extractID = null;
   $extractID = $this->getInsightDataStoreExtractID ( $insightID, $dataStoreID, $extractName );
   
-  $this->logHelper->log ( 'INFO', 'Attempting creation of extract with name ' . $extractName . '...' );
+  $this->logHelper->log ( static::DEBUG, 'Attempting creation of extract with name ' . $extractName . '...' );
   
   $params = array (
     static::RESOURCES => $insightID,
@@ -595,7 +595,7 @@ class InsightHelper {
   $dataStoreID = $this->getInsightDataStoreID ( $insightID, $dataStoretName );
   
   if (! $dataStoreID) {
-   $this->logHelper->log ( 'INFO', 'Attempting creation of datastore with name ' . $dataStoretName . '...' );
+   $this->logHelper->log ( static::DEBUG, 'Attempting creation of datastore with name ' . $dataStoretName . '...' );
    
    $params = array (
      static::RESOURCES => $insightID,
@@ -1114,7 +1114,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report creation complete!' );
+  $this->logHelper->log ( "INFO", 'Report created!' );
   return $reportID;
  }
  
@@ -1164,7 +1164,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report creation complete!' );
+  $this->logHelper->log ( "INFO", 'Report created!' );
   return $reportID;
  }
 
@@ -1209,7 +1209,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report creation complete!' );
+  $this->logHelper->log ( "INFO", 'Report created!' );
   return $reportID;
  }
  
@@ -1360,20 +1360,20 @@ class InsightHelper {
  public function updateExtract($resourceID, $data, $dataStoreName, $extractName = null, $additionInfo = null, $dataNode = "result") {
   $extractName = (is_null ( $extractName ) || empty ( $extractName )) ? date ( static::DATE_VALUE ) : $extractName;
   if ($resourceID && $data && $dataStoreName) {
-   $this->logHelper->log ( "INFO", "Attempting Creation of Data Store $dataStoreName ..." );
+   $this->logHelper->log ( static::DEBUG, "Attempting Creation of Data Store $dataStoreName ..." );
    $dataStoreID = $this->createInsightDataStore ( $resourceID, $dataStoreName );
    if (! $dataStoreID) {
     $this->logHelper->log ( static::ERROR, "Unable to create datastore!" );
     return false;
    }
-   $this->logHelper->log ( "INFO", "DataStore created!" );
+   $this->logHelper->log ( static::DEBUG, "DataStore created!" );
    
    $arrData = [ ];
    $arrData [$dataNode] = $data;
    $arrData [additional_info] = $additionInfo;
    $response = $this->createInsightDataStoreExtract ( $resourceID, $dataStoreID, $extractName, $arrData );
    if ($response) {
-    $this->logHelper->log ( "INFO", "DataStore extract updated!" );
+    $this->logHelper->log ( static::DEBUG, "DataStore extract updated!" );
     return $dataStoreID;
    }
   } else {
@@ -1475,7 +1475,7 @@ class InsightHelper {
    $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
    $response = $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
    if ($response) {
-    $this->logHelper->log ( "INFO", "Report successfully created" );
+    $this->logHelper->log ( "INFO", "Report created!" );
    }
   }
   return $reportID;

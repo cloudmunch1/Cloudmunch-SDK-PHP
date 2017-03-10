@@ -1097,7 +1097,7 @@ class InsightHelper {
   *         string url : source url
   */
  public function createLineGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $graphLegendsList = null, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#") {
-  $this->logHelper->log ( "INFO", "Attempting creation of report - $reportName ..." );
+  $this->logHelper->log ( static::DEBUG, "Attempting creation of report - $reportName ..." );
   
   $dataOutput = array ();
   $data = array ();
@@ -1114,7 +1114,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report created!' );
+  $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
  
@@ -1147,7 +1147,7 @@ class InsightHelper {
   *         string url : source url
   */
  public function createBarGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $graphLegendsList = null, $xAxisLabel = "Date", $yAxisLabel = "%", $tolerance = null, $url = "#", $color = array()) {
-  $this->logHelper->log ( "INFO", "Attempting creation of report - $reportName ..." );
+  $this->logHelper->log ( static::DEBUG, "Attempting creation of report - $reportName ..." );
   
   $dataOutput = array ();
   $data = array ();
@@ -1164,7 +1164,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report created!' );
+  $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
 
@@ -1191,7 +1191,7 @@ class InsightHelper {
   *         string url : source url
   */
  public function createKanbanGraph($resourceID, $dataFromCMDB, $reportName, $cardTitle, $source, $description, $group, $tolerance = null, $url = "#") {
-  $this->logHelper->log ( "INFO", "Attempting creation of report - $reportName ..." );
+  $this->logHelper->log ( static::DEBUG, "Attempting creation of report - $reportName ..." );
   $dataOutput = array ();
   $data = array ();
   
@@ -1209,7 +1209,7 @@ class InsightHelper {
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
   $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
-  $this->logHelper->log ( "INFO", 'Report created!' );
+  $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
  
@@ -1438,7 +1438,6 @@ class InsightHelper {
  public function createDoughnutGraph($resourceID, $data, $reportName, $cardLabel, $sourceName, $description, $group, $sourceURL, $legendsList) {
   $reportID = null;
   if ($data && is_array ( $data ) && count ( $data )) {
-   $this->logHelper->log ( "INFO", "Attempting creation of report - $reportName ..." );
    $cardMetaInfo = array (
      "default" => "doughnut",
      "url" => $sourceURL,
@@ -1475,7 +1474,7 @@ class InsightHelper {
    $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
    $response = $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
    if ($response) {
-    $this->logHelper->log ( "INFO", "Report created!" );
+    $this->logHelper->log ( static::DEBUG, "Report created!" );
    }
   }
   return $reportID;

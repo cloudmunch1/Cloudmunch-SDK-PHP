@@ -877,7 +877,7 @@ class InsightHelper {
  public function sprint_getSprintDetailsFromJiraCMDB() {
   list ( $jiraResourceID, $jiraProjectName, $rapidBoardID, $mvpVersion ) = $this->sprint_getJiraProjectNameFromResource ( "jira" );
   
-  if ($jiraResourceID && $jiraProjectName && $rapidBoardID) {
+  if ($jiraResourceID && $rapidBoardID) {
    $dataStoreForJiraSprints = "jira_sprints";
    $jiraSprintsDataStore = $rapidBoardID . "_" . $mvpVersion . "_" . $dataStoreForJiraSprints;
    $jiraSprintsDataExtract = "*";
@@ -925,10 +925,12 @@ class InsightHelper {
  public function sprint_getJiraProjectNameFromResource($jiraResourceType) {
   $jiraResourceData = $this->getResources ( $jiraResourceType );
   if ($jiraResourceData && count ( $jiraResourceData ) > 0) {
-   $jiraProjectName = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->jiraProject)  ? $jiraResourceData[0]->key_fields->jiraProject  : '';
+   $jiraProjectName = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->jiraProject)  ? trim($jiraResourceData[0]->key_fields->jiraProject)  : '';
+   $jiraProjectName = ($jiraProjectName === '') && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->jiraProjectText)  ? trim($jiraResourceData[0]->key_fields->jiraProjectText)  : $jiraProjectName;
    $jiraResourceID  = $jiraResourceData[0]->id;
-   $rapidBoardID    = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->rapidBoardId) ? $jiraResourceData[0]->key_fields->rapidBoardId : '';
-   $mvpVersion      = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->mvpVersion)   ? $jiraResourceData[0]->key_fields->mvpVersion   : '';
+   $rapidBoardID    = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->rapidBoardId) ? trim($jiraResourceData[0]->key_fields->rapidBoardId) : '';
+   $mvpVersion      = isset($jiraResourceData[0]) && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->mvpVersion)   ? trim($jiraResourceData[0]->key_fields->mvpVersion)   : '';
+   $mvpVersion      = ($mvpVersion === '') && isset($jiraResourceData[0]->key_fields) && isset($jiraResourceData[0]->key_fields->mvpVersionText)  ? trim($jiraResourceData[0]->key_fields->mvpVersionText)  : $mvpVersion;
    return array (
      $jiraResourceID,
      $jiraProjectName,

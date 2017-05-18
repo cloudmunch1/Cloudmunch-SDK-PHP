@@ -1533,7 +1533,80 @@ class InsightHelper {
    return false;
   }
  }
- 
+
+ /**
+  * Cut given string by given units.
+  *
+  * @param
+  *         string target : target string
+  * @param
+  *         integer units
+  *
+  * @return string trimmmed value
+  */
+  public function cutString($target, $units) {
+    $newValue = $target;
+    if ($target && is_string ( $target ) && is_int ( $units )) {
+        $data = explode ( " ", $target );
+        $newValue = "";
+        if ($units < count ( $data )) {
+            $i = 0;
+            while ( $i < $units ) {
+                $newValue = $i === 0 ? $data [$i] : $newValue . " " . $data [$i];
+                $i ++;
+            }
+        } else {
+            $newValue = $target;
+        }
+    }
+    return $newValue;
+  }
+
+ /**
+  * Format seconds to user friendly format
+  *
+  * @param
+  *         integer value : seconds
+  * @param
+  *         boolean milliSeconds : set this to true if value provided is milliseconds
+  * @param
+  *         integer units : Number of units to display
+  * @param
+  *         boolean elaborateUnit  : set this to true if you want the units to be elaborate
+  *
+  * @return array result : seconds formatted in a user friendly format
+  *               format : format of output
+  */
+  public function formatSeconds($value, $milliSeconds = false, $units = 2, $elaborateUnit = false) {
+    if ($milliSeconds) {
+        if ($value > 1000) {
+            list ( $result, $format ) = $this->formatSeconds ( $value / 1000 );
+        } else {
+            $result = $value;
+            $format = 'ms';
+        }
+    } else {
+        $format = $elaborateUnit ? "hrs mins secs" : "hh mm ss";
+        if ($value < 1) {
+            $result = round(($value * 1000), 2);
+            $format = 'ms';
+        } else if ($value > 86400) {
+            $days = intval ( $value / 86400 );
+            $valueMinusDays = $value - ($days * 86400);
+            $result = $days . " " . gmdate ( "H i s", $valueMinusDays );
+            $format = $elaborateUnit ? "days hrs mins secs" : "dd hh mm ss";
+        } else {
+            $result = gmdate ( "H i s", $value );
+        }
+    }
+    $result = $this->cutString ( $result, $units );
+    $format = $this->cutString ( $format, $units );
+    return array (
+            $result,
+            $format 
+    );
+  }
+
  /**
   * Compare and set tolerance status based on percentage change in value of latest element with its previous element against provided upper and lower limit.
   * Status takes precedence in the following order, Failed > Warning > success

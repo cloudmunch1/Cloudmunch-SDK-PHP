@@ -459,7 +459,7 @@ class InsightHelper {
     static::INSIGHT_CARDS => $cardID 
   );
   
-  return $this->cmService->updateCustomContextData ( $params, $data );
+  return $this->cmService->updateCustomContextData ( $params, $data, "PUT" );
  }
  
  /**

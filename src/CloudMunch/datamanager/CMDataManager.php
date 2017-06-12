@@ -180,11 +180,12 @@ class CMDataManager {
   *
   * @param string $url         
   * @param string $apikey         
-  * @param array $data         
-  * @param string $comment         
+  * @param array $data
+  * @param string $comment 
+  * @param string $requestType
   * @return boolean
   */
- function updateDataForContext($url, $apikey, $data, $comment = null) {
+ function updateDataForContext($url, $apikey, $data, $comment = null, $requestType = "PATCH") {
   // default data to be updated for all updates
   $data [application_id] = $this->appContext->getProject ();
   $data [pipeline_id] = $this->appContext->getJob ();
@@ -202,14 +203,14 @@ class CMDataManager {
   
   $url = $url . static::APIKEY . $apikey;
   
-  $result = $this->do_curl ( $url, null, "PATCH", $dat, null );
+  $result = $this->do_curl ( $url, null, $requestType, $dat, null );
   
   $result = $result [static::RESPONSE];
   $result = json_decode ( $result );
   
   if (($result == null) || ($result->request->status !== static::SUCCESS)) {
    $this->logHelper->log ( ERROR, $result->request->message );
-   $this->logHelper->log ( ERROR, "Not able to patch data to cloudmunch" );
+   $this->logHelper->log ( ERROR, "Not able to $requestType data to cloudmunch" );
    if ($result->request->request_id) {
     $this->logHelper->log ( ERROR, static::REQUESTID . " : " . $result->request->request_id );
     $this->notificationHandler->sendSlackNotification ( $result->request->message . ". " . static::REQUESTID . " : " . $result->request->request_id );

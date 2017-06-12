@@ -128,7 +128,7 @@ class CloudmunchService {
   if ($method === "POST") {
    $retArray = $this->cmDataManager->putDataForContext ( $serverurl, $this->appContext->getAPIKey (), $data, null, $extraParams );
   } else {
-   $retArray = $this->cmDataManager->updateDataForContext ( $serverurl, $this->appContext->getAPIKey (), $data );
+   $retArray = $this->cmDataManager->updateDataForContext ( $serverurl, $this->appContext->getAPIKey (), $data, null, $method );
   }
   
   if ($retArray === false) {

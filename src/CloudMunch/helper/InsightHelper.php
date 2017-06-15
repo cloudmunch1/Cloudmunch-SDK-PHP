@@ -442,7 +442,7 @@ class InsightHelper {
   *
   * @return json object of extract details
   */
- public function updateInsightReportCard($insightID, $reportID, $cardID, $data) {
+ public function updateInsightReportCard($insightID, $reportID, $cardID, $data, $cardName = null, $requestType = "PUT") {
   $isInsightIDEmpty = is_null ( $insightID ) || empty ( $insightID );
   $isReportIDEmpty = is_null ( $reportID ) || empty ( $reportID );
   $isCardIDEmpty = is_null ( $cardID ) || empty ( $cardID );
@@ -453,13 +453,17 @@ class InsightHelper {
    return false;
   }
   
+  if ($cardName && is_string($cardName) && is_array($data)) {
+    $data["name"] = $cardName;
+  }
+
   $params = array (
     static::RESOURCES => $insightID,
     static::INSIGHT_REPORTS => $reportID,
     static::INSIGHT_CARDS => $cardID 
   );
   
-  return $this->cmService->updateCustomContextData ( $params, $data, "PUT" );
+  return $this->cmService->updateCustomContextData ( $params, $data, $requestType );
  }
  
  /**
@@ -1115,7 +1119,7 @@ class InsightHelper {
   
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
-  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
+  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data, $reportName );
   $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
@@ -1165,7 +1169,7 @@ class InsightHelper {
   
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
-  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
+  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data, $reportName );
   $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
@@ -1210,7 +1214,7 @@ class InsightHelper {
   
   $reportID = $this->createInsightReport ( $resourceID, date ( static::DATE_VALUE ) );
   $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
-  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
+  $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data, $reportName );
   $this->logHelper->log ( static::DEBUG, 'Report created!' );
   return $reportID;
  }
@@ -1474,7 +1478,7 @@ class InsightHelper {
    $data ["data"] = $final;
    $reportID = $this->createInsightReport ( $resourceID, date ( "Y-m-d" ) );
    $cardID = $this->createInsightReportCard ( $resourceID, $reportID, $reportName );
-   $response = $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data );
+   $response = $this->updateInsightReportCard ( $resourceID, $reportID, $cardID, $data, $reportName );
    if ($response) {
     $this->logHelper->log ( static::DEBUG, "Report created!" );
    }
